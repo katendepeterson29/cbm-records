@@ -204,7 +204,7 @@ function ProfileCard({ profile }: { profile: EcosystemProfile }) {
         className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            "linear-gradient(140deg, hsl(var(--primary) / 0.35), transparent 40%, hsl(var(--accent) / 0.35))",
+            "linear-gradient(140deg, var(--primary), transparent 45%, var(--accent))",
           WebkitMask:
             "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
           WebkitMaskComposite: "xor",
