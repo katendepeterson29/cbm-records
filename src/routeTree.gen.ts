@@ -12,6 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppSupportRouteImport } from './routes/app.support'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRoyaltiesRouteImport } from './routes/app.royalties'
+import { Route as AppResourcesRouteImport } from './routes/app.resources'
+import { Route as AppReleasesRouteImport } from './routes/app.releases'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
+import { Route as AppMessagesRouteImport } from './routes/app.messages'
+import { Route as AppMarketingRouteImport } from './routes/app.marketing'
+import { Route as AppDistributionRouteImport } from './routes/app.distribution'
+import { Route as AppCopyrightRouteImport } from './routes/app.copyright'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -28,34 +40,174 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSupportRoute = AppSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRoyaltiesRoute = AppRoyaltiesRouteImport.update({
+  id: '/royalties',
+  path: '/royalties',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResourcesRoute = AppResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReleasesRoute = AppReleasesRouteImport.update({
+  id: '/releases',
+  path: '/releases',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMessagesRoute = AppMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMarketingRoute = AppMarketingRouteImport.update({
+  id: '/marketing',
+  path: '/marketing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDistributionRoute = AppDistributionRouteImport.update({
+  id: '/distribution',
+  path: '/distribution',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCopyrightRoute = AppCopyrightRouteImport.update({
+  id: '/copyright',
+  path: '/copyright',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/copyright': typeof AppCopyrightRoute
+  '/app/distribution': typeof AppDistributionRoute
+  '/app/marketing': typeof AppMarketingRoute
+  '/app/messages': typeof AppMessagesRoute
+  '/app/notifications': typeof AppNotificationsRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/releases': typeof AppReleasesRoute
+  '/app/resources': typeof AppResourcesRoute
+  '/app/royalties': typeof AppRoyaltiesRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/support': typeof AppSupportRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
   '/auth': typeof AuthRoute
+  '/app/copyright': typeof AppCopyrightRoute
+  '/app/distribution': typeof AppDistributionRoute
+  '/app/marketing': typeof AppMarketingRoute
+  '/app/messages': typeof AppMessagesRoute
+  '/app/notifications': typeof AppNotificationsRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/releases': typeof AppReleasesRoute
+  '/app/resources': typeof AppResourcesRoute
+  '/app/royalties': typeof AppRoyaltiesRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/support': typeof AppSupportRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/copyright': typeof AppCopyrightRoute
+  '/app/distribution': typeof AppDistributionRoute
+  '/app/marketing': typeof AppMarketingRoute
+  '/app/messages': typeof AppMessagesRoute
+  '/app/notifications': typeof AppNotificationsRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/releases': typeof AppReleasesRoute
+  '/app/resources': typeof AppResourcesRoute
+  '/app/royalties': typeof AppRoyaltiesRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/support': typeof AppSupportRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/auth'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/copyright'
+    | '/app/distribution'
+    | '/app/marketing'
+    | '/app/messages'
+    | '/app/notifications'
+    | '/app/profile'
+    | '/app/releases'
+    | '/app/resources'
+    | '/app/royalties'
+    | '/app/settings'
+    | '/app/support'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/auth'
-  id: '__root__' | '/' | '/app' | '/auth'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/copyright'
+    | '/app/distribution'
+    | '/app/marketing'
+    | '/app/messages'
+    | '/app/notifications'
+    | '/app/profile'
+    | '/app/releases'
+    | '/app/resources'
+    | '/app/royalties'
+    | '/app/settings'
+    | '/app/support'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/copyright'
+    | '/app/distribution'
+    | '/app/marketing'
+    | '/app/messages'
+    | '/app/notifications'
+    | '/app/profile'
+    | '/app/releases'
+    | '/app/resources'
+    | '/app/royalties'
+    | '/app/settings'
+    | '/app/support'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRoute
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
 }
 
@@ -82,12 +234,128 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/support': {
+      id: '/app/support'
+      path: '/support'
+      fullPath: '/app/support'
+      preLoaderRoute: typeof AppSupportRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/royalties': {
+      id: '/app/royalties'
+      path: '/royalties'
+      fullPath: '/app/royalties'
+      preLoaderRoute: typeof AppRoyaltiesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/resources': {
+      id: '/app/resources'
+      path: '/resources'
+      fullPath: '/app/resources'
+      preLoaderRoute: typeof AppResourcesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/releases': {
+      id: '/app/releases'
+      path: '/releases'
+      fullPath: '/app/releases'
+      preLoaderRoute: typeof AppReleasesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notifications': {
+      id: '/app/notifications'
+      path: '/notifications'
+      fullPath: '/app/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/messages': {
+      id: '/app/messages'
+      path: '/messages'
+      fullPath: '/app/messages'
+      preLoaderRoute: typeof AppMessagesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/marketing': {
+      id: '/app/marketing'
+      path: '/marketing'
+      fullPath: '/app/marketing'
+      preLoaderRoute: typeof AppMarketingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/distribution': {
+      id: '/app/distribution'
+      path: '/distribution'
+      fullPath: '/app/distribution'
+      preLoaderRoute: typeof AppDistributionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/copyright': {
+      id: '/app/copyright'
+      path: '/copyright'
+      fullPath: '/app/copyright'
+      preLoaderRoute: typeof AppCopyrightRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppCopyrightRoute: typeof AppCopyrightRoute
+  AppDistributionRoute: typeof AppDistributionRoute
+  AppMarketingRoute: typeof AppMarketingRoute
+  AppMessagesRoute: typeof AppMessagesRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppReleasesRoute: typeof AppReleasesRoute
+  AppResourcesRoute: typeof AppResourcesRoute
+  AppRoyaltiesRoute: typeof AppRoyaltiesRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSupportRoute: typeof AppSupportRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCopyrightRoute: AppCopyrightRoute,
+  AppDistributionRoute: AppDistributionRoute,
+  AppMarketingRoute: AppMarketingRoute,
+  AppMessagesRoute: AppMessagesRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppReleasesRoute: AppReleasesRoute,
+  AppResourcesRoute: AppResourcesRoute,
+  AppRoyaltiesRoute: AppRoyaltiesRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSupportRoute: AppSupportRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRoute,
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
