@@ -50,7 +50,8 @@ function Landing() {
       <SiteHeader />
       <Hero />
       <TrustStrip />
-      <EcosystemShowcase />
+        <IndustryCategories />
+        <EcosystemShowcase />
       <FeatureGrid />
       <ShowcaseBand />
       <CTA />
