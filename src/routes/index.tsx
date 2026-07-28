@@ -13,6 +13,7 @@ import {
   PlayCircle,
 } from "lucide-react";
 import { EcosystemShowcase } from "@/components/landing/EcosystemShowcase";
+import { IndustryCategories } from "@/components/landing/IndustryCategories";
 
 export const Route = createFileRoute("/")({
   head: () => ({
