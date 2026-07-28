@@ -13,6 +13,7 @@ import {
   PlayCircle,
 } from "lucide-react";
 import { EcosystemShowcase } from "@/components/landing/EcosystemShowcase";
+import { IndustryCategories } from "@/components/landing/IndustryCategories";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,7 +50,8 @@ function Landing() {
       <SiteHeader />
       <Hero />
       <TrustStrip />
-      <EcosystemShowcase />
+        <IndustryCategories />
+        <EcosystemShowcase />
       <FeatureGrid />
       <ShowcaseBand />
       <CTA />
