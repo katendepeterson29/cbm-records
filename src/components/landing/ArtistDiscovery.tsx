@@ -1,0 +1,1204 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  ArrowRight,
+  Award,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Clock3,
+  MapPin,
+  Music2,
+  Play,
+  Search,
+  Sparkles,
+  Star,
+  TrendingUp,
+  User,
+} from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const GENRES = [
+  "Afrobeats",
+  "Amapiano",
+  "Afro-Fusion",
+  "Highlife",
+  "Hip-Hop",
+  "R&B",
+  "Alté",
+  "Afro House",
+  "Neo-Soul",
+  "Bongo Flava",
+  "Ethio-Jazz",
+  "Gqom",
+  "Desert Blues",
+  "Afro Drill",
+  "Congolese Rumba",
+];
+const COUNTRIES = [
+  "Nigeria",
+  "Ghana",
+  "South Africa",
+  "Kenya",
+  "Senegal",
+  "Uganda",
+  "Tanzania",
+  "Mali",
+  "Ethiopia",
+  "DR Congo",
+  "Egypt",
+  "United Kingdom",
+];
+const LABELS = [
+  "CBM Records",
+  "Savanna Music Group",
+  "Alté Society",
+  "Nile Sound Records",
+  "Highlife House",
+  "Serengeti Records",
+  "Kilimanjaro Sounds",
+  "Griot Records",
+  "Baobab Music",
+  "Motherland Music Co.",
+];
+const TRACKS = [
+  "Midnight in Lagos",
+  "Golden Hour",
+  "Sunset Rituals",
+  "Palm Wine Dreams",
+  "Neon Sabbath",
+  "Harmattan",
+  "Owo & Ope",
+  "Kiss of Rain",
+  "River Songs",
+  "Nightbird",
+  "Jollof Nights",
+  "Lucid",
+  "Afterglow",
+  "Vibes After Dark",
+  "Moonlight Call",
+  "Electric Safari",
+  "Soul of the City",
+  "Dance on the Nile",
+  "Soft Rain",
+  "Gba Gbe",
+  "Echoes of Lagos",
+];
+
+function pick<T>(items: T[], index: number) {
+  return items[index % items.length];
+}
+
+function formatListeners(value: number) {
+  return value >= 1000 ? `${Math.round(value / 1000)}K` : String(value);
+}
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function daysUntil(date: string) {
+  const diff = Math.ceil((new Date(date).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+  return diff > 0 ? diff : 0;
+}
+
+interface ArtistProfile {
+  id: string;
+  name: string;
+  country: string;
+  genre: string;
+  label: string;
+  bio: string;
+  verified: boolean;
+  monthlyListeners: number;
+  releases: number;
+  latestRelease: string;
+  heroImage: string;
+  portrait: string;
+  joinedAt: string;
+  trending: number;
+  weeklyGrowth: number;
+  mostStreamed: string;
+  awards: string[];
+  social: string[];
+  isNew: boolean;
+}
+
+interface ReleaseItem {
+  id: string;
+  title: string;
+  artist: string;
+  genre: string;
+  coverUrl: string;
+  releaseDate: string;
+  type: "Single" | "EP" | "Album";
+  tracks: number;
+  duration: string;
+  platforms: string[];
+  status: "Live" | "Pre-save" | "Coming Soon";
+  listeners: number;
+}
+
+const ARTIST_SEEDS = [
+  "Amina K.",
+  "Bisi Nova",
+  "Chidera Obi",
+  "Dapo Blaze",
+  "Efua Rose",
+  "Femi Luxe",
+  "Grace Nala",
+  "Hassan Muse",
+  "Imani Vale",
+  "Jade Afri",
+  "Kwame Boateng",
+  "Lola D",
+  "Miriam Njoku",
+  "Nia Sekoni",
+  "Olu Waves",
+  "Presh Gate",
+  "Qamar Soul",
+  "Rashid Juma",
+  "Sade Coker",
+  "Tunde Cole",
+  "Uche Harmony",
+  "Vera Kofi",
+  "Wumi Sky",
+  "Xena Raye",
+  "Yemi Sol",
+  "Zara Yara",
+  "Abena Jazz",
+  "Bongani Zulu",
+  "Celeste Ama",
+  "Dumebi Tone",
+  "Eden Keita",
+  "Fola Wave",
+  "Gbemi Neo",
+  "Habib Cloud",
+  "Ife Star",
+  "Jazzy Nkosi",
+  "Kola Sunshine",
+  "Lerato Mabaso",
+  "Musa Ayo",
+  "Nkechi Flame",
+  "Omar Breeze",
+  "Precious Moon",
+  "Queen Sade",
+  "Rita Pulse",
+  "Simi Lush",
+  "Tariq Fleet",
+  "Uduak Glow",
+  "Vince Koko",
+  "Wale Gold",
+  "Xolani Beat",
+  "Yara Muse",
+  "Zainab Bello",
+];
+
+const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
+  const genre = pick(GENRES, index * 3);
+  const country = pick(COUNTRIES, index * 2);
+  const label = pick(LABELS, index + 4);
+  const status = index % 4 === 0;
+  const listeners = 42_000 + index * 7_300 + (index % 5) * 4_100;
+  const releaseCount = 3 + (index % 7);
+  const latestRelease = pick(TRACKS, index * 5);
+  const joinedAt = new Date(Date.now() - 1000 * 60 * 60 * 24 * (30 + index * 12))
+    .toISOString()
+    .slice(0, 10);
+  const heroSeed = name.toLowerCase().replace(/[^a-z0-9]/g, "-");
+
+  return {
+    id: `artist-${index + 1}`,
+    name,
+    genre,
+    country,
+    label,
+    bio: `${name} is a ${genre} artist from ${country}, known for cinematic storytelling and playlist-ready production.`,
+    verified: status,
+    monthlyListeners: listeners,
+    releases: releaseCount,
+    latestRelease,
+    heroImage: `https://images.unsplash.com/seed/${encodeURIComponent(heroSeed)}?w=1200&h=900&fit=crop`,
+    portrait: `https://i.pravatar.cc/400?img=${23 + index}`,
+    joinedAt,
+    trending: 60 + (index % 25),
+    weeklyGrowth: 4 + (index % 12),
+    mostStreamed: pick(TRACKS, index * 2),
+    awards: [
+      index % 3 === 0 ? "Best New Artist" : "Editorial pick",
+      index % 5 === 0 ? "Listener's Choice" : "Top playlist feature",
+    ],
+    social: ["Instagram", "TikTok", "Spotify"],
+    isNew: index >= 40,
+  };
+});
+
+const RELEASE_TITLES = [
+  "Midnight in Lagos",
+  "Golden Hour",
+  "Sunset Rituals",
+  "Palm Wine Dreams",
+  "Neon Sabbath",
+  "Harmattan",
+  "Owo & Ope",
+  "Kiss of Rain",
+  "River Songs",
+  "Nightbird",
+  "Jollof Nights",
+  "Lucid",
+  "Afterglow",
+  "Electric Safari",
+  "Soul of the City",
+  "Dance on the Nile",
+  "Soft Rain",
+  "Rhythm & Roots",
+  "City Lights",
+  "Future Groove",
+  "Heartbeat Echo",
+  "Sunrise Drive",
+  "Ocean Motion",
+  "Wildflower",
+  "Moonstone",
+  "Velvet Summer",
+  "Dream Chaser",
+  "Silver Hour",
+  "Piano Skies",
+  "African Gold",
+  "Voyage",
+  "Skyline",
+  "Sound of Tomorrow",
+  "Midday Mirage",
+  "Echo Park",
+  "Urban Spirits",
+  "Starlight",
+  "Dawn Chorus",
+  "Rainforest Blues",
+  "Night Cruise",
+  "Mango Tree",
+  "Golden Dusk",
+  "City Serenade",
+  "Sunset Boulevard",
+  "Seaside Groove",
+  "Fever Dream",
+  "Rhythm Ritual",
+  "Crescent Moon",
+  "Aurora",
+  "Sahara Bloom",
+  "Kingdom Come",
+  "Legacy",
+  "Pulse",
+  "Velvet Whisper",
+  "Tidal Wave",
+  "Lullaby",
+  "Street Anthem",
+  "Cosmic Love",
+  "Wildfire",
+  "Tribal Heart",
+  "Stereo Soul",
+  "Mirage",
+];
+
+const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
+  const artist = pick(ARTISTS, index * 2);
+  const releaseDate = new Date(Date.now() - 1000 * 60 * 60 * 24 * (index * 2 - 14));
+  const isFuture = index % 10 === 0 || index % 9 === 0;
+  if (isFuture) {
+    releaseDate.setDate(releaseDate.getDate() + 28 + index);
+  }
+
+  return {
+    id: `release-${index + 1}`,
+    title: pick(RELEASE_TITLES, index * 3),
+    artist: artist.name,
+    genre: artist.genre,
+    coverUrl: `https://images.unsplash.com/seed/release-${index + 1}?w=600&h=600&fit=crop`,
+    releaseDate: releaseDate.toISOString().slice(0, 10),
+    type: index % 7 === 0 ? "Album" : index % 4 === 0 ? "EP" : "Single",
+    tracks: 1 + (index % 6),
+    duration: `${2 + (index % 4)}:${index % 2 === 0 ? "48" : "12"}`,
+    platforms: ["Spotify", "Apple Music", "Audiomack", "YouTube Music"].slice(0, 2 + (index % 3)),
+    status: isFuture ? (index % 2 === 0 ? "Pre-save" : "Coming Soon") : "Live",
+    listeners: 25_000 + index * 18_000,
+  };
+});
+
+const RELEASE_CATEGORIES = ["All", "Latest", "Trending", "Upcoming"] as const;
+
+type ReleaseCategory = (typeof RELEASE_CATEGORIES)[number];
+
+export function ArtistDiscovery() {
+  const [activeHero, setActiveHero] = useState(0);
+  const [search, setSearch] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("All");
+  const [selectedCountry, setSelectedCountry] = useState("All");
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
+  const [selectedLetter, setSelectedLetter] = useState("All");
+  const [releaseCategory, setReleaseCategory] = useState<ReleaseCategory>("All");
+  const [artistCarouselApi, setArtistCarouselApi] = useState<CarouselApi | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const heroTimer = useRef<number | null>(null);
+
+  const featuredArtists = ARTISTS.slice(0, 5);
+
+  const filteredArtists = useMemo(() => {
+    return ARTISTS.filter((artist) => {
+      if (selectedLetter !== "All" && artist.name.charAt(0).toUpperCase() !== selectedLetter) {
+        return false;
+      }
+      if (selectedGenre !== "All" && artist.genre !== selectedGenre) {
+        return false;
+      }
+      if (selectedCountry !== "All" && artist.country !== selectedCountry) {
+        return false;
+      }
+      if (verifiedOnly && !artist.verified) {
+        return false;
+      }
+      if (search.trim()) {
+        const q = search.trim().toLowerCase();
+        return [artist.name, artist.genre, artist.label, artist.bio].some((value) =>
+          value.toLowerCase().includes(q),
+        );
+      }
+      return true;
+    });
+  }, [search, selectedGenre, selectedCountry, verifiedOnly, selectedLetter]);
+
+  const lettersWithArtists = useMemo(() => {
+    return new Set(filteredArtists.map((artist) => artist.name.charAt(0).toUpperCase()));
+  }, [filteredArtists]);
+
+  const activeReleases = useMemo(() => {
+    const list = RELEASES.filter(
+      (r) =>
+        releaseCategory === "All" ||
+        (releaseCategory === "Upcoming"
+          ? r.status !== "Live"
+          : releaseCategory === "Trending"
+            ? r.listeners > 200_000
+            : r.status === "Live"),
+    );
+    return list.slice(0, 10);
+  }, [releaseCategory]);
+
+  const trendingArtists = useMemo(() => {
+    return [...ARTISTS].sort((a, b) => b.trending - a.trending).slice(0, 8);
+  }, []);
+
+  const upcomingReleases = useMemo(() => {
+    return RELEASES.filter((release) => release.status !== "Live").slice(0, 8);
+  }, []);
+
+  const recentAdds = useMemo(() => {
+    return [...ARTISTS].sort((a, b) => (a.joinedAt < b.joinedAt ? 1 : -1)).slice(0, 6);
+  }, []);
+
+  useEffect(() => {
+    if (heroTimer.current) {
+      window.clearInterval(heroTimer.current);
+    }
+    heroTimer.current = window.setInterval(() => {
+      setActiveHero((current) => (current + 1) % featuredArtists.length);
+    }, 7000);
+    return () => {
+      if (heroTimer.current) {
+        window.clearInterval(heroTimer.current);
+      }
+    };
+  }, [featuredArtists.length]);
+
+  useEffect(() => {
+    if (!artistCarouselApi) return;
+
+    const updateActive = () => setActiveSlide(artistCarouselApi.selectedScrollSnap());
+    updateActive();
+    artistCarouselApi.on("select", updateActive);
+    return () => {
+      artistCarouselApi.off("select", updateActive);
+    };
+  }, [artistCarouselApi]);
+
+  const letterButtons = ["All", ...ALPHABET];
+
+  return (
+    <main className="bg-background text-foreground">
+      <section className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(255,120,90,0.12),_transparent_30%),var(--background)] py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+          <div className="max-w-2xl">
+            <Badge className="mb-6 border border-primary/30 bg-primary/10 text-primary">
+              Artist discovery experience
+            </Badge>
+            <h1 className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+              Discover the artists shaping{" "}
+              <span className="text-gradient-brand">Africa’s next sound</span>.
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              Explore new releases, trending talent, and rising stars from CBM Records with
+              motion-led storytelling, immersive discovery, and fan-facing editorial presentation.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <Button
+                className="gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
+                size="lg"
+              >
+                Join the roster
+              </Button>
+              <Button variant="outline" size="lg" className="border-border/80 bg-background/40">
+                View artist profiles
+              </Button>
+            </div>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-elegant">
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                  Roster depth
+                </p>
+                <p className="mt-3 font-display text-3xl font-semibold">50+ artists</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Artists across 12 countries and 15 genres.
+                </p>
+              </div>
+              <div className="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-elegant">
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                  Monthly listeners
+                </p>
+                <p className="mt-3 font-display text-3xl font-semibold">9.8M</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Collective streaming reach for the current roster.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-16 lg:mt-0">
+            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
+              <img
+                src={featuredArtists[activeHero].heroImage}
+                alt={featuredArtists[activeHero].name}
+                loading="lazy"
+                className="h-[560px] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 px-8 pb-8 pt-6 backdrop-blur-sm">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      Featured artist
+                    </p>
+                    <h2 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                      {featuredArtists[activeHero].name}
+                    </h2>
+                    <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
+                      {featuredArtists[activeHero].bio}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+                      <Star className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                        Monthly listeners
+                      </p>
+                      <p className="text-xl font-semibold">
+                        {formatListeners(featuredArtists[activeHero].monthlyListeners)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 grid gap-4 rounded-3xl border border-border/70 bg-background/90 p-5 shadow-sm sm:grid-cols-2">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      Latest release
+                    </p>
+                    <p className="mt-2 font-semibold">
+                      {featuredArtists[activeHero].latestRelease}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      Verified
+                    </p>
+                    <p className="mt-2 font-semibold">
+                      {featuredArtists[activeHero].verified ? "Yes" : "No"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  {featuredArtists[activeHero].awards.map((award) => (
+                    <Badge
+                      key={award}
+                      variant="secondary"
+                      className="border-border/60 text-sm text-foreground"
+                    >
+                      {award}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <div className="absolute left-6 top-1/2 flex -translate-y-1/2 gap-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveHero(
+                      (value) => (value - 1 + featuredArtists.length) % featuredArtists.length,
+                    )
+                  }
+                  className="grid h-12 w-12 place-items-center rounded-full border border-border/70 bg-background/80 text-muted-foreground transition hover:bg-background"
+                  aria-label="Previous artist"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveHero((value) => (value + 1) % featuredArtists.length)}
+                  className="grid h-12 w-12 place-items-center rounded-full border border-border/70 bg-background/80 text-muted-foreground transition hover:bg-background"
+                  aria-label="Next artist"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
+                {featuredArtists.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setActiveHero(index)}
+                    className={cn(
+                      "h-2 w-8 rounded-full transition-all",
+                      index === activeHero ? "bg-primary" : "bg-muted-foreground/30",
+                    )}
+                    aria-label={`Go to artist ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-background/80 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_0.7fr] lg:items-center">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary">A–Z directory</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                Browse artists by letter, genre, country, and verification.
+              </h2>
+              <p className="mt-4 max-w-2xl text-muted-foreground">
+                Find the voice, vibe, or country you want with instant filters designed for
+                discovery.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-[1fr_auto] gap-3">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    value={search}
+                    onChange={(event) => setSearch(event.target.value)}
+                    placeholder="Search artists"
+                    className="h-11 pl-10"
+                  />
+                </div>
+                <Button variant="secondary" size="lg" className="h-11 px-5">
+                  {filteredArtists.length} results
+                </Button>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-3">
+                <Select value={selectedGenre} onValueChange={setSelectedGenre}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder="Genre" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All genres</SelectItem>
+                    {GENRES.map((genre) => (
+                      <SelectItem key={genre} value={genre}>
+                        {genre}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder="Country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All countries</SelectItem>
+                    {COUNTRIES.map((country) => (
+                      <SelectItem key={country} value={country}>
+                        {country}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <button
+                  type="button"
+                  onClick={() => setVerifiedOnly((value) => !value)}
+                  className={cn(
+                    "flex items-center justify-between rounded-2xl border px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-ring",
+                    verifiedOnly
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border/80 bg-card/60 text-muted-foreground",
+                  )}
+                >
+                  <span className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" /> Verified only
+                  </span>
+                  <span>{verifiedOnly ? "On" : "Off"}</span>
+                </button>
+              </div>
+
+              <div className="rounded-3xl border border-border/60 bg-card/60 p-4 shadow-sm">
+                <div className="grid gap-2 sm:grid-cols-4">
+                  {letterButtons.map((letter) => {
+                    const active = letter === selectedLetter;
+                    const available = letter === "All" || lettersWithArtists.has(letter);
+                    return (
+                      <button
+                        key={letter}
+                        type="button"
+                        onClick={() => setSelectedLetter(letter)}
+                        disabled={!available}
+                        className={cn(
+                          "rounded-full px-3 py-2 text-xs font-semibold transition",
+                          active
+                            ? "bg-primary text-primary-foreground"
+                            : available
+                              ? "bg-background text-foreground hover:bg-primary/10"
+                              : "cursor-not-allowed bg-muted/10 text-muted-foreground",
+                        )}
+                      >
+                        {letter}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredArtists.slice(0, 9).map((artist) => (
+              <motion.article
+                key={artist.id}
+                layout
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="group overflow-hidden rounded-[1.75rem] border border-border/60 bg-card/70 p-6 shadow-elegant transition hover:-translate-y-1"
+              >
+                <div className="flex items-center gap-4">
+                  <img
+                    src={artist.portrait}
+                    alt={artist.name}
+                    className="h-16 w-16 rounded-3xl object-cover"
+                  />
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-semibold">{artist.name}</h3>
+                      {artist.verified && (
+                        <Badge className="border-border/60 bg-primary/10 text-primary">
+                          Verified
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {artist.genre} · {artist.country}
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground line-clamp-3">
+                  {artist.bio}
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                  <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
+                    {formatListeners(artist.monthlyListeners)} listeners
+                  </span>
+                  <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
+                    {artist.releases} releases
+                  </span>
+                </div>
+                <div className="mt-5 flex items-center justify-between gap-3">
+                  <Button variant="outline" size="sm" className="w-full">
+                    View profile
+                  </Button>
+                  <Button size="sm" className="w-full">
+                    Hear release
+                  </Button>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+
+          {filteredArtists.length === 0 && (
+            <div className="mt-10 rounded-[1.5rem] border border-border/60 bg-card/60 p-10 text-center text-sm text-muted-foreground">
+              No artists match your filters yet. Try a broader search or clear the active letter.
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-background/70 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary">Artist carousel</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                Discover artists in a cover-flow experience.
+              </h2>
+            </div>
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-border/80"
+                onClick={() => artistCarouselApi?.scrollPrev()}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-border/80"
+                onClick={() => artistCarouselApi?.scrollNext()}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="mt-10 relative">
+            <Carousel
+              setApi={setArtistCarouselApi}
+              opts={{ align: "center", containScroll: "trimSnaps", loop: false, dragFree: false }}
+              className="relative"
+            >
+              <CarouselContent className="flex items-center gap-6 py-6">
+                {filteredArtists.slice(0, 12).map((artist, index) => {
+                  const offset = index - activeSlide;
+                  const active = offset === 0;
+                  const adjacent = Math.abs(offset) === 1;
+                  return (
+                    <CarouselItem
+                      key={artist.id}
+                      className={cn(
+                        "relative min-w-[260px] flex-shrink-0 rounded-[2rem] border border-border/60 bg-card/70 p-5 transition-transform duration-300",
+                        active
+                          ? "scale-[1.14] shadow-elegant"
+                          : adjacent
+                            ? "scale-105 opacity-90"
+                            : "scale-95 opacity-70",
+                      )}
+                    >
+                      <div className="relative overflow-hidden rounded-[1.75rem] bg-surface p-4">
+                        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-primary/15 to-transparent" />
+                        <img
+                          src={artist.portrait}
+                          alt={artist.name}
+                          className="h-48 w-full rounded-[1.5rem] object-cover"
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <div>
+                            <h3 className="font-display text-xl font-semibold">{artist.name}</h3>
+                            <p className="text-sm text-muted-foreground">{artist.genre}</p>
+                          </div>
+                          <Badge className="border-border/60 bg-background/80 text-xs">
+                            {artist.label}
+                          </Badge>
+                        </div>
+                        <p className="mt-3 text-sm leading-6 text-muted-foreground line-clamp-3">
+                          {artist.bio}
+                        </p>
+                        <div className="mt-5 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
+                          <div className="rounded-2xl bg-background/70 p-3">
+                            <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                              Listeners
+                            </p>
+                            <p className="mt-1 font-semibold">
+                              {formatListeners(artist.monthlyListeners)}
+                            </p>
+                          </div>
+                          <div className="rounded-2xl bg-background/70 p-3">
+                            <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                              Releases
+                            </p>
+                            <p className="mt-1 font-semibold">{artist.releases}</p>
+                          </div>
+                        </div>
+                        <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                          <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
+                            Latest: {artist.latestRelease}
+                          </span>
+                          <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
+                            {artist.country}
+                          </span>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+            </Carousel>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-background/80 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary">Latest releases</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                Fresh drops from the CBM roster.
+              </h2>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              {RELEASE_CATEGORIES.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setReleaseCategory(category)}
+                  className={cn(
+                    "rounded-full border px-4 py-2 text-sm transition",
+                    releaseCategory === category
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border/70 bg-background/80 text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                  )}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10 relative">
+            <Carousel
+              opts={{ align: "start", containScroll: "trimSnaps", loop: false, dragFree: true }}
+              className="relative"
+            >
+              <CarouselContent className="flex gap-5 pb-6">
+                {activeReleases.map((release) => (
+                  <CarouselItem
+                    key={release.id}
+                    className="min-w-[290px] flex-shrink-0 rounded-[2rem] border border-border/60 bg-card/70 shadow-sm transition hover:-translate-y-1"
+                  >
+                    <div className="relative overflow-hidden rounded-[1.75rem]">
+                      <img
+                        src={release.coverUrl}
+                        alt={release.title}
+                        className="h-64 w-full object-cover"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/80 to-transparent p-4">
+                        <Badge className="bg-background/80 border-border/70 text-xs">
+                          {release.status}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="font-display text-lg font-semibold">{release.title}</h3>
+                        <Badge className="border-border/60 bg-background/80 text-xs">
+                          {release.type}
+                        </Badge>
+                      </div>
+                      <p className="mt-2 text-sm text-muted-foreground">{release.artist}</p>
+                      <div className="mt-4 grid gap-3 text-sm">
+                        <div className="rounded-2xl bg-background/80 p-3">
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                            Release
+                          </p>
+                          <p className="mt-1 font-semibold">{formatDate(release.releaseDate)}</p>
+                        </div>
+                        <div className="rounded-2xl bg-background/80 p-3">
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                            Duration
+                          </p>
+                          <p className="mt-1 font-semibold">{release.duration}</p>
+                        </div>
+                        <div className="rounded-2xl bg-background/80 p-3">
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                            Tracks
+                          </p>
+                          <p className="mt-1 font-semibold">{release.tracks}</p>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {release.platforms.map((platform) => (
+                          <span
+                            key={platform}
+                            className="rounded-full border border-border/70 bg-background/80 px-3 py-1 text-xs text-muted-foreground"
+                          >
+                            {platform}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-5 flex gap-2">
+                        <Button
+                          size="sm"
+                          className="flex-1 gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
+                        >
+                          Listen now
+                        </Button>
+                        <Button variant="outline" size="sm" className="flex-1">
+                          View artist
+                        </Button>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-background/80 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary">Trending artists</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                Artists climbing fastest this week.
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Popularity metrics, weekly growth and top songs highlight the current roster stars.
+              </p>
+
+              <div className="mt-10 grid gap-5 sm:grid-cols-2">
+                {trendingArtists.map((artist) => (
+                  <div
+                    key={artist.id}
+                    className="rounded-[2rem] border border-border/60 bg-card/70 p-6 shadow-sm"
+                  >
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={artist.portrait}
+                        alt={artist.name}
+                        className="h-16 w-16 rounded-3xl object-cover"
+                      />
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold">{artist.name}</h3>
+                          <Badge className="border-border/60 bg-background/80 text-xs">
+                            Trending
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{artist.genre}</p>
+                      </div>
+                    </div>
+                    <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="h-4 w-4 text-primary" />
+                        <span>{artist.weeklyGrowth}% growth</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock3 className="h-4 w-4 text-primary" />
+                        <span>{formatListeners(artist.monthlyListeners)} monthly listeners</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Music2 className="h-4 w-4 text-primary" />
+                        <span>Top track: {artist.mostStreamed}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-border/60 bg-card/70 p-8 shadow-elegant">
+              <div className="flex items-center gap-3">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary">
+                  <Award className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                    CBM spotlight
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold">Weekly editorial pick</p>
+                </div>
+              </div>
+              <p className="mt-5 text-sm leading-7 text-muted-foreground">
+                Every week we highlight one roster artist with standout growth, strong fan
+                engagement, and a release ready for discovery.
+              </p>
+              <div className="mt-8 grid gap-4">
+                <div className="rounded-3xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    Featured artist
+                  </p>
+                  <p className="mt-3 text-lg font-semibold">{trendingArtists[0].name}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {trendingArtists[0].genre} · {trendingArtists[0].country}
+                  </p>
+                </div>
+                <div className="rounded-3xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    Most streamed song
+                  </p>
+                  <p className="mt-3 text-lg font-semibold">{trendingArtists[0].mostStreamed}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-background/80 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary">Upcoming releases</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                What’s next on the roster.
+              </h2>
+            </div>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <CalendarDays className="h-4 w-4" /> Countdown, pre-save and arrival dates.
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-5 xl:grid-cols-4">
+            {upcomingReleases.map((release) => (
+              <div
+                key={release.id}
+                className="rounded-[2rem] border border-border/60 bg-card/70 p-6 shadow-sm"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      {release.type}
+                    </p>
+                    <h3 className="mt-2 font-semibold">{release.title}</h3>
+                  </div>
+                  <Badge className="border-border/60 bg-primary/10 text-primary">
+                    {daysUntil(release.releaseDate)}d
+                  </Badge>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground">{release.artist}</p>
+                <div className="mt-4 grid gap-3 text-sm text-muted-foreground">
+                  <div className="rounded-3xl bg-background/80 p-3">
+                    {formatDate(release.releaseDate)}
+                  </div>
+                  <div className="rounded-3xl bg-background/80 p-3">{release.genre}</div>
+                </div>
+                <Button
+                  size="sm"
+                  className="mt-5 w-full gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
+                >
+                  Pre-save
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background/80 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] xl:grid-cols-[1.4fr_0.6fr]">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary">
+                Recently added artists
+              </p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                Fresh roster additions.
+              </h2>
+              <p className="mt-4 max-w-2xl text-muted-foreground">
+                Meet the newest artists joining CBM Records and their breakthrough songs.
+              </p>
+
+              <div className="mt-10 grid gap-5 sm:grid-cols-2">
+                {recentAdds.map((artist) => (
+                  <div
+                    key={artist.id}
+                    className="rounded-[2rem] border border-border/60 bg-card/70 p-6 shadow-sm"
+                  >
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={artist.portrait}
+                        alt={artist.name}
+                        className="h-16 w-16 rounded-3xl object-cover"
+                      />
+                      <div>
+                        <h3 className="font-semibold">{artist.name}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Joined {formatDate(artist.joinedAt)}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-muted-foreground line-clamp-3">
+                      {artist.bio}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                      <Badge className="border-border/60 bg-background/80">New</Badge>
+                      <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
+                        {artist.latestRelease}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-border/60 bg-card/70 p-8 shadow-elegant">
+              <p className="text-xs uppercase tracking-[0.3em] text-primary">Artist preview</p>
+              <h3 className="mt-3 text-2xl font-semibold">Artist profile preview</h3>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                Clicking an artist reveals their profile with hero image, discography, latest
+                releases, popular songs, gallery and achievements.
+              </p>
+              <div className="mt-8 grid gap-4 rounded-[1.75rem] border border-border/70 bg-background/80 p-5">
+                <div className="flex items-center gap-3">
+                  <User className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-semibold">Hero banner</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Music2 className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-semibold">Latest releases carousel</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Award className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-semibold">Achievements & milestones</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-semibold">Related artist recommendations</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
