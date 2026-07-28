@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { EcosystemShowcase } from "@/components/landing/EcosystemShowcase";
 import { IndustryCategories } from "@/components/landing/IndustryCategories";
+import { FeaturedReleases } from "@/components/landing/FeaturedReleases";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,6 +52,7 @@ function Landing() {
       <Hero />
       <TrustStrip />
         <IndustryCategories />
+        <FeaturedReleases />
         <EcosystemShowcase />
       <FeatureGrid />
       <ShowcaseBand />
