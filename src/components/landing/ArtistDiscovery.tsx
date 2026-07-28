@@ -255,7 +255,7 @@ const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
     isNew: index >= 40,
   };
 });
-
+// additional releases for the artists
 const RELEASE_TITLES = [
   "Midnight in Lagos",
   "Golden Hour",

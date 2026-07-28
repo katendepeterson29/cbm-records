@@ -24,3 +24,4 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return <ArtistDiscovery />;
 }
+// new landing page for cbm records, with a focus on artist discovery and music distribution
