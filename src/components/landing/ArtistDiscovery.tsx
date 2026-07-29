@@ -530,78 +530,14 @@ export function ArtistDiscovery() {
                   </div>
                 </div>
 
-                <div className="mt-8 grid gap-4 rounded-3xl border border-border/70 bg-background/90 p-5 shadow-sm sm:grid-cols-2">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                      Latest release
-                    </p>
-                    <p className="mt-2 font-semibold">
-                      {featuredArtists[activeHero].latestRelease}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                      Verified
-                    </p>
-                    <p className="mt-2 font-semibold">
-                      {featuredArtists[activeHero].verified ? "Yes" : "No"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  {featuredArtists[activeHero].awards.map((award) => (
-                    <Badge
-                      key={award}
-                      variant="secondary"
-                      className="border-border/60 text-sm text-foreground"
-                    >
-                      {award}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              <div className="absolute left-6 top-1/2 flex -translate-y-1/2 gap-3">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setActiveHero(
-                      (value) => (value - 1 + featuredArtists.length) % featuredArtists.length,
-                    )
-                  }
-                  className="grid h-12 w-12 place-items-center rounded-full border border-border/70 bg-background/80 text-muted-foreground transition hover:bg-background"
-                  aria-label="Previous artist"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveHero((value) => (value + 1) % featuredArtists.length)}
-                  className="grid h-12 w-12 place-items-center rounded-full border border-border/70 bg-background/80 text-muted-foreground transition hover:bg-background"
-                  aria-label="Next artist"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-              <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
-                {featuredArtists.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setActiveHero(index)}
-                    className={cn(
-                      "h-2 w-8 rounded-full transition-all",
-                      index === activeHero ? "bg-primary" : "bg-muted-foreground/30",
-                    )}
-                    aria-label={`Go to artist ${index + 1}`}
-                  />
-                ))}
-              </div>
+                
             </div>
           </div>
         </div>
       </section>
+      
 
+      
       <section className="border-b border-border/60 bg-background py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6">
           {/* Top bar: search + nav */}
