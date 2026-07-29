@@ -446,13 +446,19 @@ export function ArtistDiscovery() {
 
   return (
     <main className="bg-background text-foreground">
-      <section className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(255,120,90,0.12),_transparent_30%),var(--background)] py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+      <div className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(255,120,90,0.12),_transparent_30%),var(--background)] py-24">
+        <section
+          aria-labelledby="artist-discovery-heading"
+          className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16"
+        >
           <div className="max-w-2xl">
             <Badge className="mb-6 border border-primary/30 bg-primary/10 text-primary">
               Artist discovery experience
             </Badge>
-            <h1 className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+            <h1
+              id="artist-discovery-heading"
+              className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+            >
               Discover the artists shaping{" "}
               <span className="text-gradient-brand">Africa’s next sound</span>.
             </h1>
@@ -533,8 +539,8 @@ export function ArtistDiscovery() {
                 
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
       
 
       
