@@ -810,36 +810,36 @@ export function ArtistDiscovery() {
                     <CarouselItem
                       key={artist.id}
                       className={cn(
-                        "relative min-w-[260px] flex-shrink-0 rounded-[2rem] border border-border/60 bg-card/70 p-5 transition-transform duration-300",
+                        "relative basis-[85%] sm:basis-[55%] md:basis-[42%] lg:basis-[32%] xl:basis-[26%] min-w-0 flex-shrink-0 rounded-[2rem] border border-border/60 bg-card/70 p-4 sm:p-5 transition-transform duration-300",
                         active
-                          ? "scale-[1.14] shadow-elegant"
+                          ? "sm:scale-[1.08] lg:scale-[1.14] shadow-elegant"
                           : adjacent
-                            ? "scale-105 opacity-90"
-                            : "scale-95 opacity-70",
+                            ? "sm:scale-105 opacity-90"
+                            : "sm:scale-95 opacity-70",
                       )}
                     >
-                      <div className="relative overflow-hidden rounded-[1.75rem] bg-surface p-4">
+                      <div className="relative overflow-hidden rounded-[1.75rem] bg-surface p-3 sm:p-4">
                         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-primary/15 to-transparent" />
                         <img
                           src={artist.portrait}
                           alt={artist.name}
-                          className="h-48 w-full rounded-[1.5rem] object-cover"
+                          className="h-40 sm:h-48 w-full rounded-[1.5rem] object-cover"
                         />
                       </div>
                       <div className="mt-4">
                         <div className="flex items-center justify-between gap-3">
-                          <div>
-                            <h3 className="font-display text-xl font-semibold">{artist.name}</h3>
-                            <p className="text-sm text-muted-foreground">{artist.genre}</p>
+                          <div className="min-w-0">
+                            <h3 className="truncate font-display text-lg sm:text-xl font-semibold">{artist.name}</h3>
+                            <p className="truncate text-sm text-muted-foreground">{artist.genre}</p>
                           </div>
-                          <Badge className="border-border/60 bg-background/80 text-xs">
+                          <Badge className="shrink-0 border-border/60 bg-background/80 text-xs">
                             {artist.label}
                           </Badge>
                         </div>
                         <p className="mt-3 text-sm leading-6 text-muted-foreground line-clamp-3">
                           {artist.bio}
                         </p>
-                        <div className="mt-5 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
+                        <div className="mt-5 grid grid-cols-2 gap-2 text-sm text-muted-foreground">
                           <div className="rounded-2xl bg-background/70 p-3">
                             <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                               Listeners
@@ -856,7 +856,7 @@ export function ArtistDiscovery() {
                           </div>
                         </div>
                         <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                          <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
+                          <span className="max-w-full truncate rounded-full border border-border/70 bg-background/80 px-3 py-1">
                             Latest: {artist.latestRelease}
                           </span>
                           <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
