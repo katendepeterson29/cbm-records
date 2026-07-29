@@ -1,4 +1,5 @@
 // Mocked ecosystem data for the homepage showcase.
+import { artistImages } from "@/data/artist-images";
 export type EcosystemCategory = "Artist" | "Distributor" | "Manager" | "Record Label";
 
 export interface EcosystemProfile {
@@ -19,7 +20,7 @@ export interface EcosystemProfile {
   meta: string[]; // extra details revealed on hover (platforms, artists managed, etc.)
 }
 
-const avatar = (i: number) => `https://i.pravatar.cc/400?img=${i}`;
+const avatar = (i: number) => artistImages[Math.abs(i) % artistImages.length];
 const logo = (seed: string) => `https://picsum.photos/seed/${seed}/400/400`;
 
 // ---------- Artists (20) ----------

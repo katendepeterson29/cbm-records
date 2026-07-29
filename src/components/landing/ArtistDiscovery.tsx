@@ -35,6 +35,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import { artistImages } from "@/data/artist-images";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const GENRES = [
@@ -228,7 +229,7 @@ const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
   const joinedAt = new Date(Date.now() - 1000 * 60 * 60 * 24 * (30 + index * 12))
     .toISOString()
     .slice(0, 10);
-  const heroSeed = name.toLowerCase().replace(/[^a-z0-9]/g, "-");
+  const artistImage = pick(artistImages, index);
 
   return {
     id: `artist-${index + 1}`,
@@ -241,8 +242,8 @@ const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
     monthlyListeners: listeners,
     releases: releaseCount,
     latestRelease,
-    heroImage: `https://images.unsplash.com/seed/${encodeURIComponent(heroSeed)}?w=1200&h=900&fit=crop`,
-    portrait: `https://i.pravatar.cc/400?img=${23 + index}`,
+    heroImage: artistImage,
+    portrait: artistImage,
     joinedAt,
     trending: 60 + (index % 25),
     weeklyGrowth: 4 + (index % 12),

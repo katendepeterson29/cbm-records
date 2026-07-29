@@ -1,5 +1,6 @@
 // Mocked demo data for the CBM Records artist portal.
 // UI-only phase: no real APIs. All workflows read from these datasets.
+import { artistImages } from "@/data/artist-images";
 
 export type Genre = "Afrobeats" | "Amapiano" | "Highlife" | "Afro-Fusion" | "Hip-Hop" | "R&B";
 
@@ -123,8 +124,7 @@ export const currentArtist: Artist = {
   city: "Lagos",
   genres: ["Afrobeats", "Afro-Fusion"],
   bio: "Lagos-born singer-songwriter blending Afrobeats with global pop sensibilities. Signed to CBM Records in 2023.",
-  avatarUrl:
-    "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=faces",
+  avatarUrl: artistImages[0],
   verified: true,
   monthlyListeners: 482_310,
   followers: 128_940,
