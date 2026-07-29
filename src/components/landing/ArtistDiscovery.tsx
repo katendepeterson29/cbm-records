@@ -498,8 +498,11 @@ export function ArtistDiscovery() {
               </div>
             </div>
           </div>
-
-          <div className="mt-16 lg:mt-0">
+        </section>
+      </div>
+      
+    <section className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient"> 
+      <div className="mt-16 lg:mt-0">
             <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
               <img
                 src={featuredArtists[activeHero].heroImage}
@@ -535,14 +538,10 @@ export function ArtistDiscovery() {
                     </div>
                   </div>
                 </div>
-
-                
+              </div> 
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
-      
-
+    </section>
       
       <section className="border-b border-border/60 bg-background py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6">
