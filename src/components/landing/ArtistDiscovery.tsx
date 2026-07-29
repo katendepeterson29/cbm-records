@@ -501,8 +501,8 @@ export function ArtistDiscovery() {
         </section>
       </div>
       
-    <section className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-      <div className="mt-16 lg:mt-0">
+    <section className="mx-auto max-w-7xl px-6 lg:grid lg:items-center lg:gap-16">
+      <div className="mt-32 lg:mt-0">
             <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
               <img
                 src={featuredArtists[activeHero].heroImage}
