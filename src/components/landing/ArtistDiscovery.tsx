@@ -810,15 +810,20 @@ export function ArtistDiscovery() {
                     <CarouselItem
                       key={artist.id}
                       className={cn(
-                        "relative basis-[85%] sm:basis-[55%] md:basis-[42%] lg:basis-[32%] xl:basis-[26%] min-w-0 flex-shrink-0 rounded-[2rem] border border-border/60 bg-card/70 p-4 sm:p-5 transition-transform duration-300",
+                        "relative basis-full min-w-0 flex-shrink-0 rounded-[2rem] border border-border/60 p-4 sm:p-5 transition-transform duration-300 overflow-hidden",
                         active
-                          ? "sm:scale-[1.08] lg:scale-[1.14] shadow-elegant"
+                          ? "sm:scale-[1.02] shadow-elegant"
                           : adjacent
-                            ? "sm:scale-105 opacity-90"
-                            : "sm:scale-95 opacity-70",
+                            ? "opacity-90"
+                            : "opacity-70",
                       )}
+                      style={{
+                        backgroundImage: `linear-gradient(135deg, hsl(var(--background) / 0.92), hsl(var(--background) / 0.78)), url(${artist.portrait})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
                     >
-                      <div className="relative overflow-hidden rounded-[1.75rem] bg-surface p-3 sm:p-4">
+                      <div className="relative overflow-hidden rounded-[1.75rem] bg-surface/70 backdrop-blur-sm p-3 sm:p-4">
                         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-primary/15 to-transparent" />
                         <img
                           src={artist.portrait}
@@ -826,6 +831,7 @@ export function ArtistDiscovery() {
                           className="h-40 sm:h-48 w-full rounded-[1.5rem] object-cover"
                         />
                       </div>
+
                       <div className="mt-4">
                         <div className="flex items-center justify-between gap-3">
                           <div className="min-w-0">
