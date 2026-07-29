@@ -601,166 +601,142 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <section className="border-b border-border/60 bg-background/80 py-20">
+      <section className="border-b border-border/60 bg-background py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_0.7fr] lg:items-center">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-primary">A–Z directory</p>
-              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-                Browse artists by letter, genre, country, and verification.
-              </h2>
-              <p className="mt-4 max-w-2xl text-muted-foreground">
-                Find the voice, vibe, or country you want with instant filters designed for
-                discovery.
+          {/* Top bar: search + nav */}
+          <div className="flex flex-col gap-6 border-b border-border/60 pb-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="w-full max-w-sm">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                Type to search
               </p>
+              <div className="mt-2 flex items-center gap-3 border-b border-foreground/70 pb-2">
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder=""
+                  className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                />
+                <ArrowRight className="h-4 w-4 text-foreground" />
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="grid grid-cols-[1fr_auto] gap-3">
-                <div className="relative">
-                  <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    placeholder="Search artists"
-                    className="h-11 pl-10"
-                  />
-                </div>
-                <Button variant="secondary" size="lg" className="h-11 px-5">
-                  {filteredArtists.length} results
-                </Button>
-              </div>
+            <nav className="flex flex-wrap items-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.25em]">
+              {["All", "Distribution", "Management", "Personalities", "Publishing"].map((item) => {
+                const active =
+                  (item === "All" && selectedGenre === "All" && !verifiedOnly) ||
+                  selectedGenre === item;
+                return (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => {
+                      setSelectedGenre("All");
+                      setVerifiedOnly(false);
+                    }}
+                    className={cn(
+                      "relative pb-1 transition-colors",
+                      active
+                        ? "text-foreground after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-foreground"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
-                <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-                  <SelectTrigger className="h-11">
-                    <SelectValue placeholder="Genre" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All">All genres</SelectItem>
-                    {GENRES.map((genre) => (
-                      <SelectItem key={genre} value={genre}>
-                        {genre}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                  <SelectTrigger className="h-11">
-                    <SelectValue placeholder="Country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All">All countries</SelectItem>
-                    {COUNTRIES.map((country) => (
-                      <SelectItem key={country} value={country}>
-                        {country}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <button
-                  type="button"
-                  onClick={() => setVerifiedOnly((value) => !value)}
-                  className={cn(
-                    "flex items-center justify-between rounded-2xl border px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-ring",
-                    verifiedOnly
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border/80 bg-card/60 text-muted-foreground",
-                  )}
-                >
-                  <span className="flex items-center gap-2">
-                    <Sparkles className="h-4 w-4" /> Verified only
-                  </span>
-                  <span>{verifiedOnly ? "On" : "Off"}</span>
-                </button>
-              </div>
-
-              <div className="rounded-3xl border border-border/60 bg-card/60 p-4 shadow-sm">
-                <div className="grid gap-2 sm:grid-cols-4">
-                  {letterButtons.map((letter) => {
-                    const active = letter === selectedLetter;
-                    const available = letter === "All" || lettersWithArtists.has(letter);
-                    return (
-                      <button
-                        key={letter}
-                        type="button"
-                        onClick={() => setSelectedLetter(letter)}
-                        disabled={!available}
-                        className={cn(
-                          "rounded-full px-3 py-2 text-xs font-semibold transition",
-                          active
-                            ? "bg-primary text-primary-foreground"
-                            : available
-                              ? "bg-background text-foreground hover:bg-primary/10"
-                              : "cursor-not-allowed bg-muted/10 text-muted-foreground",
-                        )}
-                      >
-                        {letter}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+          {/* A-Z single-line row */}
+          <div className="mt-8 overflow-x-auto">
+            <div className="flex min-w-max items-center gap-x-4 sm:gap-x-6 md:justify-between md:min-w-0">
+              {letterButtons.map((letter) => {
+                const active = letter === selectedLetter;
+                const available = letter === "All" || lettersWithArtists.has(letter);
+                return (
+                  <button
+                    key={letter}
+                    type="button"
+                    onClick={() => setSelectedLetter(letter)}
+                    disabled={!available}
+                    className={cn(
+                      "text-xs font-semibold uppercase tracking-[0.2em] transition-colors",
+                      active
+                        ? "text-foreground"
+                        : available
+                          ? "text-muted-foreground hover:text-foreground"
+                          : "cursor-not-allowed text-muted-foreground/40",
+                    )}
+                  >
+                    {letter}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredArtists.slice(0, 9).map((artist) => (
+          {/* CTA + clear */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+            <button
+              type="button"
+              className="bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-background transition hover:bg-foreground/90"
+            >
+              Sign up &amp; join CBM distribution
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setSearch("");
+                setSelectedGenre("All");
+                setSelectedCountry("All");
+                setSelectedLetter("All");
+                setVerifiedOnly(false);
+              }}
+              className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground"
+            >
+              Clear
+            </button>
+          </div>
+
+          {/* Artist grid */}
+          <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+            {filteredArtists.map((artist) => (
               <motion.article
                 key={artist.id}
                 layout
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="group overflow-hidden rounded-[1.75rem] border border-border/60 bg-card/70 p-6 shadow-elegant transition hover:-translate-y-1"
+                className="group flex flex-col"
               >
-                <div className="flex items-center gap-4">
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
                   <img
-                    src={artist.portrait}
+                    src={artist.heroImage}
                     alt={artist.name}
-                    className="h-16 w-16 rounded-3xl object-cover"
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-base font-semibold">{artist.name}</h3>
-                      {artist.verified && (
-                        <Badge className="border-border/60 bg-primary/10 text-primary">
-                          Verified
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {artist.genre} · {artist.country}
-                    </p>
-                  </div>
                 </div>
-                <p className="mt-4 text-sm leading-6 text-muted-foreground line-clamp-3">
-                  {artist.bio}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                  <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
-                    {formatListeners(artist.monthlyListeners)} listeners
-                  </span>
-                  <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
-                    {artist.releases} releases
-                  </span>
-                </div>
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <Button variant="outline" size="sm" className="w-full">
-                    View profile
-                  </Button>
-                  <Button size="sm" className="w-full">
-                    Hear release
-                  </Button>
+                <div className="mt-4">
+                  <div className="h-px w-8 bg-foreground/80" />
+                  <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.15em] text-foreground">
+                    {artist.name}
+                  </h3>
+                  <p className="mt-1 text-xs text-muted-foreground">{artist.country}</p>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:text-foreground"
+                  >
+                    Learn more
+                    <ArrowRight className="h-3 w-3" />
+                  </button>
                 </div>
               </motion.article>
             ))}
           </div>
 
           {filteredArtists.length === 0 && (
-            <div className="mt-10 rounded-[1.5rem] border border-border/60 bg-card/60 p-10 text-center text-sm text-muted-foreground">
-              No artists match your filters yet. Try a broader search or clear the active letter.
+            <div className="mt-10 border border-border/60 p-10 text-center text-sm text-muted-foreground">
+              No artists match your filters. Try clearing the active letter or search.
             </div>
           )}
         </div>
