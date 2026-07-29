@@ -501,7 +501,7 @@ export function ArtistDiscovery() {
         </section>
       </div>
       
-    <section className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient"> 
+    <section className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
       <div className="mt-16 lg:mt-0">
             <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
               <img
