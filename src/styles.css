@@ -165,6 +165,7 @@
   }
   html {
     color-scheme: dark;
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--color-background);
@@ -183,6 +184,10 @@
   ::selection {
     background: oklch(0.82 0.15 68 / 0.35);
     color: var(--foreground);
+  }
+
+  section[id] {
+    scroll-margin-top: 7.5rem;
   }
 }
 

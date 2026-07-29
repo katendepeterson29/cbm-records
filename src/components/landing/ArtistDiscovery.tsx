@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { artistImages } from "@/data/artist-images";
+import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const GENRES = [
@@ -445,7 +446,8 @@ export function ArtistDiscovery() {
   const letterButtons = ["All", ...ALPHABET];
 
   return (
-    <main className="bg-background text-foreground">
+    <main id="top" className="bg-background text-foreground">
+      <BrandNavigation />
       <div className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(255,120,90,0.12),_transparent_30%),var(--background)] py-24">
         <section
           aria-labelledby="artist-discovery-heading"
@@ -453,28 +455,27 @@ export function ArtistDiscovery() {
         >
           <div className="max-w-2xl">
             <Badge className="mb-6 border border-primary/30 bg-primary/10 text-primary">
-              Artist discovery experience
+              CBM Records
             </Badge>
             <h1
               id="artist-discovery-heading"
               className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
             >
-              Discover the artists shaping{" "}
-              <span className="text-gradient-brand">Africa’s next sound</span>.
+              We build careers that move <span className="text-gradient-brand">African music</span> forward.
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Explore new releases, trending talent, and rising stars from CBM Records with
-              motion-led storytelling, immersive discovery, and fan-facing editorial presentation.
+              A full-service music company for artists, labels and brand partners with a vision
+              for what comes next.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <Button
                 className="gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
                 size="lg"
               >
-                Join the roster
+                Work with us
               </Button>
               <Button variant="outline" size="lg" className="border-border/80 bg-background/40">
-                View artist profiles
+                Explore our artists
               </Button>
             </div>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -543,7 +544,9 @@ export function ArtistDiscovery() {
             </div>
     </section>
       
-      <section className="border-b border-border/60 bg-background py-16 sm:py-20">
+      <BrandOverview />
+
+      <section id="artists" className="border-b border-border/60 bg-background py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6">
           {/* Top bar: search + nav */}
           <div className="flex flex-col gap-6 border-b border-border/60 pb-6 lg:flex-row lg:items-start lg:justify-between">
@@ -797,13 +800,13 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <section className="border-b border-border/60 bg-background/80 py-20">
+      <section id="projects" className="border-b border-border/60 bg-background/80 py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-primary">Latest releases</p>
+              <p className="text-xs uppercase tracking-widest text-primary">Featured projects</p>
               <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-                Fresh drops from the CBM roster.
+                Projects built with the CBM roster.
               </h2>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -864,10 +867,8 @@ export function ArtistDiscovery() {
                           <p className="mt-1 font-semibold">{formatDate(release.releaseDate)}</p>
                         </div>
                         <div className="rounded-2xl bg-background/80 p-3">
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                            Duration
-                          </p>
-                          <p className="mt-1 font-semibold">{release.duration}</p>
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">CBM services</p>
+                          <p className="mt-1 font-semibold">Distribution · Marketing</p>
                         </div>
                         <div className="rounded-2xl bg-background/80 p-3">
                           <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
@@ -891,7 +892,7 @@ export function ArtistDiscovery() {
                           size="sm"
                           className="flex-1 gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
                         >
-                          Listen now
+                          View project
                         </Button>
                         <Button variant="outline" size="sm" className="flex-1">
                           View artist
