@@ -60,18 +60,8 @@ const GENRES = [
   "Congolese Rumba",
 ];
 const COUNTRIES = [
-  "Nigeria",
-  "Ghana",
-  "South Africa",
-  "Kenya",
-  "Senegal",
   "Uganda",
-  "Tanzania",
-  "Mali",
-  "Ethiopia",
-  "DR Congo",
-  "Egypt",
-  "United Kingdom",
+  
 ];
 const LABELS = [
   "CBM Records",
