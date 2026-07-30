@@ -4,9 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* CBM Records — Premium dark music-tech design system.
- * Signature palette: warm amber/gold primary against deep near-black,
- * with coral accents. All colors are oklch. Dark mode is the default;
+/* CBM Records — high-contrast monochrome design system.
+ * Signature palette: teal accent against black and white. Dark mode is the default;
  * :root already IS the dark theme.
  */
 
@@ -65,26 +64,26 @@
   --radius: 0.75rem;
 
   /* Surfaces */
-  --background: oklch(0.145 0.015 265);
-  --foreground: oklch(0.97 0.005 260);
-  --card: oklch(0.185 0.015 265);
-  --card-foreground: oklch(0.97 0.005 260);
-  --popover: oklch(0.19 0.015 265);
-  --popover-foreground: oklch(0.97 0.005 260);
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
 
-  /* Brand — warm amber/gold */
-  --primary: oklch(0.82 0.15 68);
-  --primary-foreground: oklch(0.16 0.02 60);
-  --primary-glow: oklch(0.88 0.14 78);
+  /* Brand — teal */
+  --primary: #01bda5;
+  --primary-foreground: #000000;
+  --primary-glow: #ffffff;
 
-  --secondary: oklch(0.26 0.015 265);
-  --secondary-foreground: oklch(0.97 0.005 260);
+  --secondary: color-mix(in srgb, #ffffff 10%, #000000);
+  --secondary-foreground: #ffffff;
 
-  --muted: oklch(0.22 0.012 265);
-  --muted-foreground: oklch(0.68 0.02 260);
+  --muted: color-mix(in srgb, #ffffff 8%, #000000);
+  --muted-foreground: color-mix(in srgb, #ffffff 68%, #000000);
 
-  --accent: oklch(0.72 0.18 22);
-  --accent-foreground: oklch(0.16 0.02 30);
+  --accent: #01bda5;
+  --accent-foreground: #000000;
 
   --destructive: oklch(0.66 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 260);
@@ -93,70 +92,70 @@
   --warning: oklch(0.82 0.15 85);
   --warning-foreground: oklch(0.18 0.02 85);
 
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.82 0.15 68 / 60%);
+  --border: color-mix(in srgb, #ffffff 14%, transparent);
+  --input: color-mix(in srgb, #ffffff 14%, transparent);
+  --ring: color-mix(in srgb, #01bda5 60%, transparent);
 
-  --chart-1: oklch(0.82 0.15 68);
-  --chart-2: oklch(0.72 0.18 22);
-  --chart-3: oklch(0.7 0.16 200);
-  --chart-4: oklch(0.75 0.16 155);
-  --chart-5: oklch(0.68 0.2 300);
+  --chart-1: #01bda5;
+  --chart-2: #ffffff;
+  --chart-3: #01bda5;
+  --chart-4: #ffffff;
+  --chart-5: #01bda5;
 
-  --sidebar: oklch(0.16 0.015 265);
-  --sidebar-foreground: oklch(0.92 0.005 260);
-  --sidebar-primary: oklch(0.82 0.15 68);
-  --sidebar-primary-foreground: oklch(0.16 0.02 60);
-  --sidebar-accent: oklch(0.22 0.012 265);
-  --sidebar-accent-foreground: oklch(0.97 0.005 260);
-  --sidebar-border: oklch(1 0 0 / 6%);
-  --sidebar-ring: oklch(0.82 0.15 68 / 60%);
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #01bda5;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: color-mix(in srgb, #ffffff 8%, #000000);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: color-mix(in srgb, #ffffff 10%, transparent);
+  --sidebar-ring: color-mix(in srgb, #01bda5 60%, transparent);
 
   /* Signature gradients & shadows */
-  --gradient-brand: linear-gradient(135deg, oklch(0.82 0.15 68), oklch(0.72 0.18 22));
-  --gradient-surface: linear-gradient(180deg, oklch(0.2 0.015 265), oklch(0.16 0.015 265));
+  --gradient-brand: linear-gradient(135deg, #01bda5, #ffffff);
+  --gradient-surface: linear-gradient(180deg, color-mix(in srgb, #ffffff 8%, #000000), #000000);
   --gradient-hero: radial-gradient(
       ellipse 80% 60% at 20% 10%,
-      oklch(0.82 0.15 68 / 0.25),
+      color-mix(in srgb, #01bda5 25%, transparent),
       transparent 60%
     ),
-    radial-gradient(ellipse 60% 60% at 90% 30%, oklch(0.72 0.18 22 / 0.22), transparent 60%),
-    linear-gradient(180deg, oklch(0.145 0.015 265), oklch(0.12 0.015 265));
-  --shadow-elegant: 0 20px 60px -20px oklch(0 0 0 / 0.6);
-  --shadow-glow: 0 0 60px -10px oklch(0.82 0.15 68 / 0.35);
+    radial-gradient(ellipse 60% 60% at 90% 30%, color-mix(in srgb, #ffffff 12%, transparent), transparent 60%),
+    linear-gradient(180deg, #000000, #000000);
+  --shadow-elegant: 0 20px 60px -20px color-mix(in srgb, #000000 60%, transparent);
+  --shadow-glow: 0 0 60px -10px color-mix(in srgb, #01bda5 35%, transparent);
 
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Explicit .dark class mirrors :root so the shadcn dark-variant styles apply. */
 .dark {
-  --background: oklch(0.145 0.015 265);
-  --foreground: oklch(0.97 0.005 260);
-  --card: oklch(0.185 0.015 265);
-  --card-foreground: oklch(0.97 0.005 260);
-  --popover: oklch(0.19 0.015 265);
-  --popover-foreground: oklch(0.97 0.005 260);
-  --primary: oklch(0.82 0.15 68);
-  --primary-foreground: oklch(0.16 0.02 60);
-  --secondary: oklch(0.26 0.015 265);
-  --secondary-foreground: oklch(0.97 0.005 260);
-  --muted: oklch(0.22 0.012 265);
-  --muted-foreground: oklch(0.68 0.02 260);
-  --accent: oklch(0.72 0.18 22);
-  --accent-foreground: oklch(0.16 0.02 30);
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
+  --primary: #01bda5;
+  --primary-foreground: #000000;
+  --secondary: color-mix(in srgb, #ffffff 10%, #000000);
+  --secondary-foreground: #ffffff;
+  --muted: color-mix(in srgb, #ffffff 8%, #000000);
+  --muted-foreground: color-mix(in srgb, #ffffff 68%, #000000);
+  --accent: #01bda5;
+  --accent-foreground: #000000;
   --destructive: oklch(0.66 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 260);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.82 0.15 68 / 60%);
-  --sidebar: oklch(0.16 0.015 265);
-  --sidebar-foreground: oklch(0.92 0.005 260);
-  --sidebar-primary: oklch(0.82 0.15 68);
-  --sidebar-primary-foreground: oklch(0.16 0.02 60);
-  --sidebar-accent: oklch(0.22 0.012 265);
-  --sidebar-accent-foreground: oklch(0.97 0.005 260);
-  --sidebar-border: oklch(1 0 0 / 6%);
-  --sidebar-ring: oklch(0.82 0.15 68 / 60%);
+  --border: color-mix(in srgb, #ffffff 14%, transparent);
+  --input: color-mix(in srgb, #ffffff 14%, transparent);
+  --ring: color-mix(in srgb, #01bda5 60%, transparent);
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #01bda5;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: color-mix(in srgb, #ffffff 8%, #000000);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: color-mix(in srgb, #ffffff 10%, transparent);
+  --sidebar-ring: color-mix(in srgb, #01bda5 60%, transparent);
 }
 
 @layer base {
@@ -182,7 +181,7 @@
     letter-spacing: -0.02em;
   }
   ::selection {
-    background: oklch(0.82 0.15 68 / 0.35);
+    background: color-mix(in srgb, #01bda5 35%, transparent);
     color: var(--foreground);
   }
 
