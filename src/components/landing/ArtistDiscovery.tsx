@@ -348,9 +348,6 @@ const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
   };
 });
 
-const RELEASE_CATEGORIES = ["All", "Latest", "Trending", "Upcoming"] as const;
-
-type ReleaseCategory = (typeof RELEASE_CATEGORIES)[number];
 
 export function ArtistDiscovery() {
   const [activeHero, setActiveHero] = useState(0);
@@ -359,7 +356,6 @@ export function ArtistDiscovery() {
   const [selectedCountry, setSelectedCountry] = useState("All");
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState("All");
-  const [releaseCategory, setReleaseCategory] = useState<ReleaseCategory>("All");
   const [artistCarouselApi, setArtistCarouselApi] = useState<CarouselApi | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const heroTimer = useRef<number | null>(null);
@@ -394,18 +390,6 @@ export function ArtistDiscovery() {
     return new Set(filteredArtists.map((artist) => artist.name.charAt(0).toUpperCase()));
   }, [filteredArtists]);
 
-  const activeReleases = useMemo(() => {
-    const list = RELEASES.filter(
-      (r) =>
-        releaseCategory === "All" ||
-        (releaseCategory === "Upcoming"
-          ? r.status !== "Live"
-          : releaseCategory === "Trending"
-            ? r.listeners > 200_000
-            : r.status === "Live"),
-    );
-    return list.slice(0, 10);
-  }, [releaseCategory]);
 
   const trendingArtists = useMemo(() => {
     return [...ARTISTS].sort((a, b) => b.trending - a.trending).slice(0, 8);
