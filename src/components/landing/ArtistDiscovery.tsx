@@ -73,37 +73,12 @@ const COUNTRIES = [
 const LABELS = [
   "CBM Records",
   "Savanna Music Group",
-  "Alté Society",
-  "Nile Sound Records",
-  "Highlife House",
-  "Serengeti Records",
-  "Kilimanjaro Sounds",
-  "Griot Records",
-  "Baobab Music",
-  "Motherland Music Co.",
+
 ];
 const TRACKS = [
   "Midnight in Lagos",
   "Golden Hour",
-  "Sunset Rituals",
-  "Palm Wine Dreams",
-  "Neon Sabbath",
-  "Harmattan",
-  "Owo & Ope",
-  "Kiss of Rain",
-  "River Songs",
-  "Nightbird",
-  "Jollof Nights",
-  "Lucid",
-  "Afterglow",
-  "Vibes After Dark",
-  "Moonlight Call",
-  "Electric Safari",
-  "Soul of the City",
-  "Dance on the Nile",
-  "Soft Rain",
-  "Gba Gbe",
-  "Echoes of Lagos",
+  
 ];
 
 function pick<T>(items: T[], index: number) {
@@ -165,58 +140,9 @@ interface ReleaseItem {
 }
 
 const ARTIST_SEEDS = [
-  "Amina K.",
+  "Epikano.",
   "Bisi Nova",
-  "Chidera Obi",
-  "Dapo Blaze",
-  "Efua Rose",
-  "Femi Luxe",
-  "Grace Nala",
-  "Hassan Muse",
-  "Imani Vale",
-  "Jade Afri",
-  "Kwame Boateng",
-  "Lola D",
-  "Miriam Njoku",
-  "Nia Sekoni",
-  "Olu Waves",
-  "Presh Gate",
-  "Qamar Soul",
-  "Rashid Juma",
-  "Sade Coker",
-  "Tunde Cole",
-  "Uche Harmony",
-  "Vera Kofi",
-  "Wumi Sky",
-  "Xena Raye",
-  "Yemi Sol",
-  "Zara Yara",
-  "Abena Jazz",
-  "Bongani Zulu",
-  "Celeste Ama",
-  "Dumebi Tone",
-  "Eden Keita",
-  "Fola Wave",
-  "Gbemi Neo",
-  "Habib Cloud",
-  "Ife Star",
-  "Jazzy Nkosi",
-  "Kola Sunshine",
-  "Lerato Mabaso",
-  "Musa Ayo",
-  "Nkechi Flame",
-  "Omar Breeze",
-  "Precious Moon",
-  "Queen Sade",
-  "Rita Pulse",
-  "Simi Lush",
-  "Tariq Fleet",
-  "Uduak Glow",
-  "Vince Koko",
-  "Wale Gold",
-  "Xolani Beat",
-  "Yara Muse",
-  "Zainab Bello",
+  
 ];
 
 const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
@@ -264,63 +190,7 @@ const RELEASE_TITLES = [
   "Sunset Rituals",
   "Palm Wine Dreams",
   "Neon Sabbath",
-  "Harmattan",
-  "Owo & Ope",
-  "Kiss of Rain",
-  "River Songs",
-  "Nightbird",
-  "Jollof Nights",
-  "Lucid",
-  "Afterglow",
-  "Electric Safari",
-  "Soul of the City",
-  "Dance on the Nile",
-  "Soft Rain",
-  "Rhythm & Roots",
-  "City Lights",
-  "Future Groove",
-  "Heartbeat Echo",
-  "Sunrise Drive",
-  "Ocean Motion",
-  "Wildflower",
-  "Moonstone",
-  "Velvet Summer",
-  "Dream Chaser",
-  "Silver Hour",
-  "Piano Skies",
-  "African Gold",
-  "Voyage",
-  "Skyline",
-  "Sound of Tomorrow",
-  "Midday Mirage",
-  "Echo Park",
-  "Urban Spirits",
-  "Starlight",
-  "Dawn Chorus",
-  "Rainforest Blues",
-  "Night Cruise",
-  "Mango Tree",
-  "Golden Dusk",
-  "City Serenade",
-  "Sunset Boulevard",
-  "Seaside Groove",
-  "Fever Dream",
-  "Rhythm Ritual",
-  "Crescent Moon",
-  "Aurora",
-  "Sahara Bloom",
-  "Kingdom Come",
-  "Legacy",
-  "Pulse",
-  "Velvet Whisper",
-  "Tidal Wave",
-  "Lullaby",
-  "Street Anthem",
-  "Cosmic Love",
-  "Wildfire",
-  "Tribal Heart",
-  "Stereo Soul",
-  "Mirage",
+  
 ];
 
 const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
@@ -448,8 +318,55 @@ export function ArtistDiscovery() {
   return (
     <main id="top" className="bg-background text-foreground">
       <BrandNavigation />
-      <div className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(255,120,90,0.12),_transparent_30%),var(--background)] py-24">
-        <section
+      {/* <div className="relative overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_top_left,_rgba(255,240,170,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(255,120,90,0.12),_transparent_30%),var(--background)] py-24">
+        
+      </div> */}
+      
+    <section className="mx-auto max-w-7xl px-6 lg:grid lg:items-center lg:gap-16">
+      <div className="mt-32 lg:mt-0">
+            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
+              <img
+                src={featuredArtists[activeHero].heroImage}
+                alt={featuredArtists[activeHero].name}
+                loading="lazy"
+                className="h-[560px] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 px-8 pb-8 pt-6 backdrop-blur-sm">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      Featured artist
+                    </p>
+                    <h2 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                      {featuredArtists[activeHero].name}
+                    </h2>
+                    <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
+                      {featuredArtists[activeHero].bio}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+                      <Star className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                        Monthly listeners
+                      </p>
+                      <p className="text-xl font-semibold">
+                        {formatListeners(featuredArtists[activeHero].monthlyListeners)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+              </div>
+            </div>
+    </section>
+
+
+
+    <section
           aria-labelledby="artist-discovery-heading"
           className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16"
         >
@@ -500,49 +417,6 @@ export function ArtistDiscovery() {
             </div>
           </div>
         </section>
-      </div>
-      
-    <section className="mx-auto max-w-7xl px-6 lg:grid lg:items-center lg:gap-16">
-      <div className="mt-32 lg:mt-0">
-            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
-              <img
-                src={featuredArtists[activeHero].heroImage}
-                alt={featuredArtists[activeHero].name}
-                loading="lazy"
-                className="h-[560px] w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 px-8 pb-8 pt-6 backdrop-blur-sm">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                      Featured artist
-                    </p>
-                    <h2 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-                      {featuredArtists[activeHero].name}
-                    </h2>
-                    <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
-                      {featuredArtists[activeHero].bio}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                      <Star className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                        Monthly listeners
-                      </p>
-                      <p className="text-xl font-semibold">
-                        {formatListeners(featuredArtists[activeHero].monthlyListeners)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div> 
-              </div>
-            </div>
-    </section>
       
       <BrandOverview />
 
