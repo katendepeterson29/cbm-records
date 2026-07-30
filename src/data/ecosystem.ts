@@ -26,7 +26,8 @@ const logo = (seed: string) => `https://picsum.photos/seed/${seed}/400/400`;
 // ---------- Artists (20) ----------
 const artistSeed: Array<Omit<EcosystemProfile, "id" | "category" | "verified" | "createdAt" | "popularity" | "stats" | "meta"> & { listeners: string; releases: number; verified: boolean; popularity: number; createdAt: string }> = [
   { name: " Epikano.", country: "Uganda", genre: "Afro Soul", imageUrl: avatar(47), bio: "Epikano, born Peter Claver Magala Nsereko, is a Ugandan singer, songwriter, and music producer who began his professional music journey in 2022. A versatile artist delivering fresh Afrobeat, dancehall, smooth vocals, and timeless melodies to a global.", listeners: "142K", releases: 6, verified: true, popularity: 92, createdAt: "2025-11-02" },
-  
+  { name: " Juice.", country: "Uganda", genre: "Afro Soul", imageUrl: avatar(49), bio: "Juice Jay is a Ugandan RnB and Band musician from East Africa", listeners: "142K", releases: 6, verified: true, popularity: 92, createdAt: "2025-11-02" },
+
 ];
 
 const artists: EcosystemProfile[] = artistSeed.map((a, i) => ({

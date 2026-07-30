@@ -134,7 +134,7 @@ interface ReleaseItem {
 
 const ARTIST_SEEDS = [
   "Epikano.",
-  "Bisi Nova",
+  "Juice Jay",
   
 ];
 
@@ -469,7 +469,7 @@ export function ArtistDiscovery() {
               type="button"
               className="bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-background transition hover:bg-foreground/90"
             >
-              Sign up &amp; join CBM distribution
+              Sign up &amp; join CBM Records distribution
             </button>
             <button
               type="button"
