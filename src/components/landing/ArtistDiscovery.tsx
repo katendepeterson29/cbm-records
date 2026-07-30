@@ -801,8 +801,8 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <section id="projects" className="border-b border-border/60 bg-background/80 py-20">
       <FeaturedProjects />
+
 
       <section className="border-b border-border/60 bg-background/80 py-20">
         <div className="mx-auto max-w-7xl px-6">
