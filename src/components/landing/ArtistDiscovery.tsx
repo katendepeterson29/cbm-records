@@ -37,6 +37,7 @@ import {
 import { cn } from "@/lib/utils";
 import { artistImages } from "@/data/artist-images";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
+import { FeaturedProjects } from "@/components/landing/FeaturedProjects";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const GENRES = [
@@ -217,9 +218,6 @@ const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
   };
 });
 
-const RELEASE_CATEGORIES = ["All", "Latest", "Trending", "Upcoming"] as const;
-
-type ReleaseCategory = (typeof RELEASE_CATEGORIES)[number];
 
 export function ArtistDiscovery() {
   const [activeHero, setActiveHero] = useState(0);
@@ -228,7 +226,6 @@ export function ArtistDiscovery() {
   const [selectedCountry, setSelectedCountry] = useState("All");
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState("All");
-  const [releaseCategory, setReleaseCategory] = useState<ReleaseCategory>("All");
   const [artistCarouselApi, setArtistCarouselApi] = useState<CarouselApi | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const heroTimer = useRef<number | null>(null);
@@ -263,18 +260,6 @@ export function ArtistDiscovery() {
     return new Set(filteredArtists.map((artist) => artist.name.charAt(0).toUpperCase()));
   }, [filteredArtists]);
 
-  const activeReleases = useMemo(() => {
-    const list = RELEASES.filter(
-      (r) =>
-        releaseCategory === "All" ||
-        (releaseCategory === "Upcoming"
-          ? r.status !== "Live"
-          : releaseCategory === "Trending"
-            ? r.listeners > 200_000
-            : r.status === "Live"),
-    );
-    return list.slice(0, 10);
-  }, [releaseCategory]);
 
   const trendingArtists = useMemo(() => {
     return [...ARTISTS].sort((a, b) => b.trending - a.trending).slice(0, 8);
@@ -674,112 +659,8 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <section id="projects" className="border-b border-border/60 bg-background/80 py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-primary">Featured projects</p>
-              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-                Projects built with the CBM roster.
-              </h2>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              {RELEASE_CATEGORIES.map((category) => (
-                <button
-                  key={category}
-                  type="button"
-                  onClick={() => setReleaseCategory(category)}
-                  className={cn(
-                    "rounded-full border px-4 py-2 text-sm transition",
-                    releaseCategory === category
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border/70 bg-background/80 text-muted-foreground hover:border-primary/40 hover:text-foreground",
-                  )}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
+      <FeaturedProjects />
 
-          <div className="mt-10 relative">
-            <Carousel
-              opts={{ align: "start", containScroll: "trimSnaps", loop: false, dragFree: true }}
-              className="relative"
-            >
-              <CarouselContent className="flex gap-5 pb-6">
-                {activeReleases.map((release) => (
-                  <CarouselItem
-                    key={release.id}
-                    className="min-w-[290px] flex-shrink-0 rounded-[2rem] border border-border/60 bg-card/70 shadow-sm transition hover:-translate-y-1"
-                  >
-                    <div className="relative overflow-hidden rounded-[1.75rem]">
-                      <img
-                        src={release.coverUrl}
-                        alt={release.title}
-                        className="h-64 w-full object-cover"
-                      />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/80 to-transparent p-4">
-                        <Badge className="bg-background/80 border-border/70 text-xs">
-                          {release.status}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-5">
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="font-display text-lg font-semibold">{release.title}</h3>
-                        <Badge className="border-border/60 bg-background/80 text-xs">
-                          {release.type}
-                        </Badge>
-                      </div>
-                      <p className="mt-2 text-sm text-muted-foreground">{release.artist}</p>
-                      <div className="mt-4 grid gap-3 text-sm">
-                        <div className="rounded-2xl bg-background/80 p-3">
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                            Release
-                          </p>
-                          <p className="mt-1 font-semibold">{formatDate(release.releaseDate)}</p>
-                        </div>
-                        <div className="rounded-2xl bg-background/80 p-3">
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">CBM services</p>
-                          <p className="mt-1 font-semibold">Distribution · Marketing</p>
-                        </div>
-                        <div className="rounded-2xl bg-background/80 p-3">
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                            Tracks
-                          </p>
-                          <p className="mt-1 font-semibold">{release.tracks}</p>
-                        </div>
-                      </div>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {release.platforms.map((platform) => (
-                          <span
-                            key={platform}
-                            className="rounded-full border border-border/70 bg-background/80 px-3 py-1 text-xs text-muted-foreground"
-                          >
-                            {platform}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="mt-5 flex gap-2">
-                        <Button
-                          size="sm"
-                          className="flex-1 gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
-                        >
-                          View project
-                        </Button>
-                        <Button variant="outline" size="sm" className="flex-1">
-                          View artist
-                        </Button>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </div>
-        </div>
-      </section>
 
       <section className="border-b border-border/60 bg-background/80 py-20">
         <div className="mx-auto max-w-7xl px-6">
