@@ -10,4 +10,4 @@ import img2 from "../../assets/img2.jpeg";
 // import img10 from "../../assets/img10.png";
 
 // Reuse the supplied artist photography cyclically so every artist has a local image.
-export const artistImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11];
+export const artistImages = [img1, img2];
