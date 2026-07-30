@@ -38,6 +38,8 @@ import { cn } from "@/lib/utils";
 import { artistImages } from "@/data/artist-images";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
 import { FeaturedProjects } from "@/components/landing/FeaturedProjects";
+import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
+import jjCarouselImage from "../../../assets/carousel/jj.jpg.jpeg";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const GENRES = [
@@ -145,6 +147,8 @@ const ARTIST_SEEDS = [
   "Bisi Nova",
   
 ];
+
+const FEATURED_ARTIST_BACKGROUNDS = [epikanoCarouselImage, jjCarouselImage];
 
 const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
   const genre = pick(GENRES, index * 3);
@@ -307,47 +311,56 @@ export function ArtistDiscovery() {
         
       </div> */}
       
-    <section className="mx-auto max-w-7xl px-6 lg:grid lg:items-center lg:gap-16">
-      <div className="mt-32 lg:mt-0">
-            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 shadow-elegant">
-              <img
-                src={featuredArtists[activeHero].heroImage}
-                alt={featuredArtists[activeHero].name}
-                loading="lazy"
-                className="h-[560px] w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 px-8 pb-8 pt-6 backdrop-blur-sm">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                      Featured artist
-                    </p>
-                    <h2 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-                      {featuredArtists[activeHero].name}
-                    </h2>
-                    <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
-                      {featuredArtists[activeHero].bio}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                      <Star className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                        Monthly listeners
-                      </p>
-                      <p className="text-xl font-semibold">
-                        {formatListeners(featuredArtists[activeHero].monthlyListeners)}
-                      </p>
-                    </div>
-                  </div>
+      <section className="mx-auto max-w-7xl px-6 lg:grid lg:items-center lg:gap-16">
+        <div className="mt-32 lg:mt-0">
+          <div
+            className="relative isolate min-h-[560px] overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 bg-cover bg-center shadow-elegant"
+            style={{
+              backgroundImage: `url(${FEATURED_ARTIST_BACKGROUNDS[activeHero % FEATURED_ARTIST_BACKGROUNDS.length]})`,
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/15" />
+            <div className="absolute inset-0 bg-background/15" />
+            <div className="relative z-10 flex min-h-[560px] flex-col items-center justify-end px-8 pb-10 pt-24 text-center sm:px-14">
+              <p className="text-xs uppercase tracking-[0.3em] text-primary">Featured artist</p>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                {featuredArtists[activeHero].name}
+              </h2>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-foreground/80">
+                {featuredArtists[activeHero].bio}
+              </p>
+              <a
+                href="#artists"
+                className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary transition hover:text-primary-glow"
+              >
+                View artist
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <div className="mt-7 flex items-center gap-3 text-center">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+                  <Star className="h-5 w-5" />
                 </div>
-              </div> 
+                <div>
+                  <p className="text-xs uppercase tracking-[0.22em] text-foreground/70">Monthly listeners</p>
+                  <p className="mt-1 text-xl font-semibold text-foreground">
+                    {formatListeners(featuredArtists[activeHero].monthlyListeners)}
+                  </p>
+                </div>
               </div>
             </div>
-    </section>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label={`Show next featured artist after ${featuredArtists[activeHero].name}`}
+              onClick={() => setActiveHero((current) => (current + 1) % featuredArtists.length)}
+              className="absolute bottom-8 right-8 z-10 rounded-full border-foreground/30 bg-background/40 text-foreground backdrop-blur-sm hover:bg-background/70"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </section>
 
 
 
@@ -380,26 +393,7 @@ export function ArtistDiscovery() {
                 Explore our artists
               </Button>
             </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-elegant">
-                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Roster depth
-                </p>
-                <p className="mt-3 font-display text-3xl font-semibold">50+ artists</p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Artists across 12 countries and 15 genres.
-                </p>
-              </div>
-              <div className="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-elegant">
-                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Monthly listeners
-                </p>
-                <p className="mt-3 font-display text-3xl font-semibold">9.8M</p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Collective streaming reach for the current roster.
-                </p>
-              </div>
-            </div>
+
           </div>
         </section>
       
