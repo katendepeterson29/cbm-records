@@ -7,6 +7,7 @@ import {
   Megaphone,
   Music2,
   ShieldCheck,
+  ShoppingBag,
   UsersRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -72,6 +73,7 @@ export function BrandNavigation() {
             </a>
           ))}
         </nav>
+
         <a
           href="#top"
           aria-label="CBM Records home"
@@ -79,6 +81,17 @@ export function BrandNavigation() {
         >
           <img src={mainLogo} alt="CBM Records" className="h-12 w-12 object-contain" />
         </a>
+
+        <div className="ml-auto flex items-center gap-4">
+          <a
+            href="/shop"
+            aria-label="Shop"
+            className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-3 py-2 text-sm font-semibold text-black transition hover:border-black hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <ShoppingBag className="mr-2 h-4 w-4" />
+            Shop
+          </a>
+        </div>
       </div>
     </header>
   );
