@@ -60,30 +60,38 @@
   --font-display: "Space Grotesk", "Inter", sans-serif;
 }
 
+:root,
+.theme-light {
+  /* CBM brand palette */
+  --cbm-teal: #04bba9;
+  --cbm-black: #000000;
+  --cbm-white: #ffffff;
+}
+
 :root {
   --radius: 0.75rem;
 
   /* Surfaces */
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #000000;
-  --card-foreground: #ffffff;
-  --popover: #000000;
-  --popover-foreground: #ffffff;
+  --background: var(--cbm-black);
+  --foreground: var(--cbm-white);
+  --card: var(--cbm-black);
+  --card-foreground: var(--cbm-white);
+  --popover: var(--cbm-black);
+  --popover-foreground: var(--cbm-white);
 
   /* Brand — teal */
-  --primary: #01bda5;
-  --primary-foreground: #000000;
-  --primary-glow: #ffffff;
+  --primary: var(--cbm-teal);
+  --primary-foreground: var(--cbm-black);
+  --primary-glow: var(--cbm-white);
 
-  --secondary: color-mix(in srgb, #ffffff 10%, #000000);
-  --secondary-foreground: #ffffff;
+  --secondary: color-mix(in srgb, var(--cbm-white) 10%, var(--cbm-black));
+  --secondary-foreground: var(--cbm-white);
 
-  --muted: color-mix(in srgb, #ffffff 8%, #000000);
-  --muted-foreground: color-mix(in srgb, #ffffff 68%, #000000);
+  --muted: color-mix(in srgb, var(--cbm-white) 8%, var(--cbm-black));
+  --muted-foreground: color-mix(in srgb, var(--cbm-white) 68%, var(--cbm-black));
 
-  --accent: #01bda5;
-  --accent-foreground: #000000;
+  --accent: var(--cbm-teal);
+  --accent-foreground: var(--cbm-black);
 
   --destructive: oklch(0.66 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 260);
@@ -92,70 +100,100 @@
   --warning: oklch(0.82 0.15 85);
   --warning-foreground: oklch(0.18 0.02 85);
 
-  --border: color-mix(in srgb, #ffffff 14%, transparent);
-  --input: color-mix(in srgb, #ffffff 14%, transparent);
-  --ring: color-mix(in srgb, #01bda5 60%, transparent);
+  --border: color-mix(in srgb, var(--cbm-white) 14%, transparent);
+  --input: color-mix(in srgb, var(--cbm-white) 14%, transparent);
+  --ring: color-mix(in srgb, var(--cbm-teal) 60%, transparent);
 
-  --chart-1: #01bda5;
-  --chart-2: #ffffff;
-  --chart-3: #01bda5;
-  --chart-4: #ffffff;
-  --chart-5: #01bda5;
+  --chart-1: var(--cbm-teal);
+  --chart-2: var(--cbm-white);
+  --chart-3: var(--cbm-teal);
+  --chart-4: var(--cbm-white);
+  --chart-5: var(--cbm-teal);
 
-  --sidebar: #000000;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #01bda5;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: color-mix(in srgb, #ffffff 8%, #000000);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: color-mix(in srgb, #ffffff 10%, transparent);
-  --sidebar-ring: color-mix(in srgb, #01bda5 60%, transparent);
+  --sidebar: var(--cbm-black);
+  --sidebar-foreground: var(--cbm-white);
+  --sidebar-primary: var(--cbm-teal);
+  --sidebar-primary-foreground: var(--cbm-black);
+  --sidebar-accent: color-mix(in srgb, var(--cbm-white) 8%, var(--cbm-black));
+  --sidebar-accent-foreground: var(--cbm-white);
+  --sidebar-border: color-mix(in srgb, var(--cbm-white) 10%, transparent);
+  --sidebar-ring: color-mix(in srgb, var(--cbm-teal) 60%, transparent);
 
   /* Signature gradients & shadows */
-  --gradient-brand: linear-gradient(135deg, #01bda5, #ffffff);
-  --gradient-surface: linear-gradient(180deg, color-mix(in srgb, #ffffff 8%, #000000), #000000);
+  --gradient-brand: linear-gradient(135deg, var(--cbm-teal), var(--cbm-white));
+  --gradient-surface: linear-gradient(180deg, color-mix(in srgb, var(--cbm-white) 8%, var(--cbm-black)), var(--cbm-black));
   --gradient-hero: radial-gradient(
       ellipse 80% 60% at 20% 10%,
-      color-mix(in srgb, #01bda5 25%, transparent),
+      color-mix(in srgb, var(--cbm-teal) 25%, transparent),
       transparent 60%
     ),
-    radial-gradient(ellipse 60% 60% at 90% 30%, color-mix(in srgb, #ffffff 12%, transparent), transparent 60%),
-    linear-gradient(180deg, #000000, #000000);
-  --shadow-elegant: 0 20px 60px -20px color-mix(in srgb, #000000 60%, transparent);
-  --shadow-glow: 0 0 60px -10px color-mix(in srgb, #01bda5 35%, transparent);
+    radial-gradient(ellipse 60% 60% at 90% 30%, color-mix(in srgb, var(--cbm-white) 12%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--cbm-black), var(--cbm-black));
+  --shadow-elegant: 0 20px 60px -20px color-mix(in srgb, var(--cbm-black) 60%, transparent);
+  --shadow-glow: 0 0 60px -10px color-mix(in srgb, var(--cbm-teal) 35%, transparent);
 
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Explicit .dark class mirrors :root so the shadcn dark-variant styles apply. */
 .dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #000000;
-  --card-foreground: #ffffff;
-  --popover: #000000;
-  --popover-foreground: #ffffff;
-  --primary: #01bda5;
-  --primary-foreground: #000000;
-  --secondary: color-mix(in srgb, #ffffff 10%, #000000);
-  --secondary-foreground: #ffffff;
-  --muted: color-mix(in srgb, #ffffff 8%, #000000);
-  --muted-foreground: color-mix(in srgb, #ffffff 68%, #000000);
-  --accent: #01bda5;
-  --accent-foreground: #000000;
+  --background: var(--cbm-black);
+  --foreground: var(--cbm-white);
+  --card: var(--cbm-black);
+  --card-foreground: var(--cbm-white);
+  --popover: var(--cbm-black);
+  --popover-foreground: var(--cbm-white);
+  --primary: var(--cbm-teal);
+  --primary-foreground: var(--cbm-black);
+  --secondary: color-mix(in srgb, var(--cbm-white) 10%, var(--cbm-black));
+  --secondary-foreground: var(--cbm-white);
+  --muted: color-mix(in srgb, var(--cbm-white) 8%, var(--cbm-black));
+  --muted-foreground: color-mix(in srgb, var(--cbm-white) 68%, var(--cbm-black));
+  --accent: var(--cbm-teal);
+  --accent-foreground: var(--cbm-black);
   --destructive: oklch(0.66 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 260);
-  --border: color-mix(in srgb, #ffffff 14%, transparent);
-  --input: color-mix(in srgb, #ffffff 14%, transparent);
-  --ring: color-mix(in srgb, #01bda5 60%, transparent);
-  --sidebar: #000000;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #01bda5;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: color-mix(in srgb, #ffffff 8%, #000000);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: color-mix(in srgb, #ffffff 10%, transparent);
-  --sidebar-ring: color-mix(in srgb, #01bda5 60%, transparent);
+  --border: color-mix(in srgb, var(--cbm-white) 14%, transparent);
+  --input: color-mix(in srgb, var(--cbm-white) 14%, transparent);
+  --ring: color-mix(in srgb, var(--cbm-teal) 60%, transparent);
+  --sidebar: var(--cbm-black);
+  --sidebar-foreground: var(--cbm-white);
+  --sidebar-primary: var(--cbm-teal);
+  --sidebar-primary-foreground: var(--cbm-black);
+  --sidebar-accent: color-mix(in srgb, var(--cbm-white) 8%, var(--cbm-black));
+  --sidebar-accent-foreground: var(--cbm-white);
+  --sidebar-border: color-mix(in srgb, var(--cbm-white) 10%, transparent);
+  --sidebar-ring: color-mix(in srgb, var(--cbm-teal) 60%, transparent);
+}
+
+/* Light editorial band — flips the surface tokens for white sections.
+ * Teal stays the accent so the brand reads the same on both grounds. */
+.theme-light {
+  color-scheme: light;
+  --background: var(--cbm-white);
+  --foreground: var(--cbm-black);
+  --card: var(--cbm-white);
+  --card-foreground: var(--cbm-black);
+  --popover: var(--cbm-white);
+  --popover-foreground: var(--cbm-black);
+  --primary: var(--cbm-teal);
+  --primary-foreground: var(--cbm-white);
+  --primary-glow: var(--cbm-black);
+  --secondary: color-mix(in srgb, var(--cbm-black) 6%, var(--cbm-white));
+  --secondary-foreground: var(--cbm-black);
+  --muted: color-mix(in srgb, var(--cbm-black) 5%, var(--cbm-white));
+  --muted-foreground: color-mix(in srgb, var(--cbm-black) 62%, var(--cbm-white));
+  --accent: var(--cbm-teal);
+  --accent-foreground: var(--cbm-white);
+  --border: color-mix(in srgb, var(--cbm-black) 14%, transparent);
+  --input: color-mix(in srgb, var(--cbm-black) 14%, transparent);
+  --ring: color-mix(in srgb, var(--cbm-teal) 60%, transparent);
+  --gradient-surface: linear-gradient(180deg, color-mix(in srgb, var(--cbm-black) 4%, var(--cbm-white)), var(--cbm-white));
+  --gradient-brand: linear-gradient(135deg, var(--cbm-teal), var(--cbm-black));
+  --shadow-elegant: 0 20px 60px -24px color-mix(in srgb, var(--cbm-black) 25%, transparent);
+  --shadow-glow: 0 0 40px -14px color-mix(in srgb, var(--cbm-teal) 45%, transparent);
+  background-color: var(--cbm-white);
+  color: var(--cbm-black);
 }
 
 @layer base {
@@ -181,7 +219,7 @@
     letter-spacing: -0.02em;
   }
   ::selection {
-    background: color-mix(in srgb, #01bda5 35%, transparent);
+    background: color-mix(in srgb, var(--cbm-teal) 35%, transparent);
     color: var(--foreground);
   }
 
