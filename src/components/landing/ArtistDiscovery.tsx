@@ -329,17 +329,7 @@ export function ArtistDiscovery() {
                 View artist
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <div className="mt-7 flex items-center gap-3 text-center">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                  <Star className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-foreground/70">Monthly listeners</p>
-                  <p className="mt-1 text-xl font-semibold text-foreground">
-                    {formatListeners(featuredArtists[activeHero].monthlyListeners)}
-                  </p>
-                </div>
-              </div>
+              
             </div>
             <Button
               type="button"
