@@ -46,22 +46,24 @@ const SERVICES = [
 ];
 
 const OUTCOMES = [
-  ["50+", "artists supported across Africa and its diaspora"],
-  ["320+", "projects developed, released and marketed"],
-  ["12", "countries represented in the CBM ecosystem"],
-  ["9.8M", "collective monthly listeners across the roster"],
+  ["10+", "artists supported across Africa and its diaspora"],
+  ["3", "projects developed, released and marketed"],
+  ["1", "countries represented in the CBM ecosystem"],
+  ["100K", "collective monthly listeners across the roster"],
 ];
 
 export function BrandNavigation() {
   const links = [
-    ["Home", "#top"],
-    ["Shop", "#artists"],
-    ["News", "#news"],
+    ["About", "#about"],
+    ["Services", "#services"],
+    ["Artists", "#artists"],
+    ["Projects", "#projects"],
+    ["Partners", "#partners"],
     ["Contact", "#contact"],
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-white text-black">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-background/90 backdrop-blur-xl text-black">
       <div className="relative mx-auto flex h-[72px] max-w-7xl items-center px-6">
         <nav aria-label="Primary navigation" className="flex items-center gap-7 text-sm font-normal">
           {links.map(([label, href]) => (
