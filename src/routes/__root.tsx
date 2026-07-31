@@ -12,7 +12,7 @@ import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { MockAuthProvider } from "@/lib/mock-auth";
+
 
 function NotFoundComponent() {
   return (
@@ -131,10 +131,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MockAuthProvider>
-        <Outlet />
-        <Toaster theme="dark" position="top-right" richColors />
-      </MockAuthProvider>
+      <Outlet />
+      <Toaster theme="dark" position="top-right" richColors />
+
     </QueryClientProvider>
   );
 }
