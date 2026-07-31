@@ -11,7 +11,6 @@ import {
   UsersRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
 import mainLogo from "../../../assets/logo/logo5.png";
 
 const SERVICES = [
@@ -84,14 +83,14 @@ export function BrandNavigation() {
         </a>
 
         <div className="ml-auto flex items-center gap-4">
-          <Link
-            to="/shop"
+          <a
+            href="/shop"
             aria-label="Shop"
             className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-3 py-2 text-sm font-semibold text-black transition hover:border-black hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             <ShoppingBag className="mr-2 h-4 w-4" />
             Shop
-          </Link>
+          </a>
         </div>
       </div>
     </header>
