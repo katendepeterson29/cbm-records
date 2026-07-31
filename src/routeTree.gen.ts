@@ -9,25 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
-import { Route as AppCopyrightRouteImport } from './routes/app.copyright'
-import { Route as AppDistributionRouteImport } from './routes/app.distribution'
-import { Route as AppMarketingRouteImport } from './routes/app.marketing'
-import { Route as AppMessagesRouteImport } from './routes/app.messages'
-import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
-import { Route as AppProfileRouteImport } from './routes/app.profile'
-import { Route as AppReleasesRouteImport } from './routes/app.releases'
-import { Route as AppResourcesRouteImport } from './routes/app.resources'
-import { Route as AppRoyaltiesRouteImport } from './routes/app.royalties'
-import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppSupportRouteImport } from './routes/app.support'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRoyaltiesRouteImport } from './routes/app.royalties'
+import { Route as AppResourcesRouteImport } from './routes/app.resources'
+import { Route as AppReleasesRouteImport } from './routes/app.releases'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
+import { Route as AppMessagesRouteImport } from './routes/app.messages'
+import { Route as AppMarketingRouteImport } from './routes/app.marketing'
+import { Route as AppDistributionRouteImport } from './routes/app.distribution'
+import { Route as AppCopyrightRouteImport } from './routes/app.copyright'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -35,9 +35,9 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -45,49 +45,9 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
-const AppCopyrightRoute = AppCopyrightRouteImport.update({
-  id: '/copyright',
-  path: '/copyright',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDistributionRoute = AppDistributionRouteImport.update({
-  id: '/distribution',
-  path: '/distribution',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppMarketingRoute = AppMarketingRouteImport.update({
-  id: '/marketing',
-  path: '/marketing',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppMessagesRoute = AppMessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppNotificationsRoute = AppNotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfileRoute = AppProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppReleasesRoute = AppReleasesRouteImport.update({
-  id: '/releases',
-  path: '/releases',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppResourcesRoute = AppResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppRoyaltiesRoute = AppRoyaltiesRouteImport.update({
-  id: '/royalties',
-  path: '/royalties',
+const AppSupportRoute = AppSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => AppRoute,
 } as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
@@ -95,9 +55,49 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
-const AppSupportRoute = AppSupportRouteImport.update({
-  id: '/support',
-  path: '/support',
+const AppRoyaltiesRoute = AppRoyaltiesRouteImport.update({
+  id: '/royalties',
+  path: '/royalties',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResourcesRoute = AppResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReleasesRoute = AppReleasesRouteImport.update({
+  id: '/releases',
+  path: '/releases',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMessagesRoute = AppMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMarketingRoute = AppMarketingRouteImport.update({
+  id: '/marketing',
+  path: '/marketing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDistributionRoute = AppDistributionRouteImport.update({
+  id: '/distribution',
+  path: '/distribution',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCopyrightRoute = AppCopyrightRouteImport.update({
+  id: '/copyright',
+  path: '/copyright',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -213,11 +213,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app': {
@@ -227,11 +227,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -241,67 +241,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/copyright': {
-      id: '/app/copyright'
-      path: '/copyright'
-      fullPath: '/app/copyright'
-      preLoaderRoute: typeof AppCopyrightRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/distribution': {
-      id: '/app/distribution'
-      path: '/distribution'
-      fullPath: '/app/distribution'
-      preLoaderRoute: typeof AppDistributionRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/marketing': {
-      id: '/app/marketing'
-      path: '/marketing'
-      fullPath: '/app/marketing'
-      preLoaderRoute: typeof AppMarketingRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/messages': {
-      id: '/app/messages'
-      path: '/messages'
-      fullPath: '/app/messages'
-      preLoaderRoute: typeof AppMessagesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/notifications': {
-      id: '/app/notifications'
-      path: '/notifications'
-      fullPath: '/app/notifications'
-      preLoaderRoute: typeof AppNotificationsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/profile': {
-      id: '/app/profile'
-      path: '/profile'
-      fullPath: '/app/profile'
-      preLoaderRoute: typeof AppProfileRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/releases': {
-      id: '/app/releases'
-      path: '/releases'
-      fullPath: '/app/releases'
-      preLoaderRoute: typeof AppReleasesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/resources': {
-      id: '/app/resources'
-      path: '/resources'
-      fullPath: '/app/resources'
-      preLoaderRoute: typeof AppResourcesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/royalties': {
-      id: '/app/royalties'
-      path: '/royalties'
-      fullPath: '/app/royalties'
-      preLoaderRoute: typeof AppRoyaltiesRouteImport
+    '/app/support': {
+      id: '/app/support'
+      path: '/support'
+      fullPath: '/app/support'
+      preLoaderRoute: typeof AppSupportRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/settings': {
@@ -311,11 +255,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/support': {
-      id: '/app/support'
-      path: '/support'
-      fullPath: '/app/support'
-      preLoaderRoute: typeof AppSupportRouteImport
+    '/app/royalties': {
+      id: '/app/royalties'
+      path: '/royalties'
+      fullPath: '/app/royalties'
+      preLoaderRoute: typeof AppRoyaltiesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/resources': {
+      id: '/app/resources'
+      path: '/resources'
+      fullPath: '/app/resources'
+      preLoaderRoute: typeof AppResourcesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/releases': {
+      id: '/app/releases'
+      path: '/releases'
+      fullPath: '/app/releases'
+      preLoaderRoute: typeof AppReleasesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notifications': {
+      id: '/app/notifications'
+      path: '/notifications'
+      fullPath: '/app/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/messages': {
+      id: '/app/messages'
+      path: '/messages'
+      fullPath: '/app/messages'
+      preLoaderRoute: typeof AppMessagesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/marketing': {
+      id: '/app/marketing'
+      path: '/marketing'
+      fullPath: '/app/marketing'
+      preLoaderRoute: typeof AppMarketingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/distribution': {
+      id: '/app/distribution'
+      path: '/distribution'
+      fullPath: '/app/distribution'
+      preLoaderRoute: typeof AppDistributionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/copyright': {
+      id: '/app/copyright'
+      path: '/copyright'
+      fullPath: '/app/copyright'
+      preLoaderRoute: typeof AppCopyrightRouteImport
       parentRoute: typeof AppRoute
     }
   }
