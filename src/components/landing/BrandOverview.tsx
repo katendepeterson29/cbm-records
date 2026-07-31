@@ -79,7 +79,7 @@ export function BrandNavigation() {
           aria-label="CBM Records home"
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          <img src={mainLogo} alt="CBM Records" className="h-12 w-12 object-contain" />
+          <img src={mainLogo} alt="CBM Records" className="h-20 w-20 object-contain" />
         </a>
 
         <div className="ml-auto flex items-center gap-4">
