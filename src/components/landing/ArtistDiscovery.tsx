@@ -292,6 +292,9 @@ export function ArtistDiscovery() {
     };
   }, [artistCarouselApi]);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const letterButtons = ["All", ...ALPHABET];
 
   return (
@@ -387,7 +390,9 @@ export function ArtistDiscovery() {
           </div>
         </section>
       
-      <BrandOverview />
+      <div className="theme-light">
+        <BrandOverview />
+      </div>
 
       <section id="artists" className="border-b border-border/60 bg-background py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6">
@@ -535,7 +540,7 @@ export function ArtistDiscovery() {
       <FeaturedProjects />
 
 
-      <section className="border-b border-border/60 bg-background/80 py-20">
+      <section className="theme-light border-b border-border/60 bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
             <div>
@@ -654,7 +659,7 @@ export function ArtistDiscovery() {
                     <h3 className="mt-2 font-semibold">{release.title}</h3>
                   </div>
                   <Badge className="border-border/60 bg-primary/10 text-primary">
-                    {daysUntil(release.releaseDate)}d
+                    {mounted ? `${daysUntil(release.releaseDate)}d` : "—"}
                   </Badge>
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">{release.artist}</p>
@@ -676,7 +681,7 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <section className="bg-background/80 py-20">
+      <section className="theme-light bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] xl:grid-cols-[1.4fr_0.6fr]">
             <div>
