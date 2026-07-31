@@ -567,7 +567,7 @@ export function ArtistDiscovery() {
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
                           <h3 className="font-semibold">{artist.name}</h3>
-                          <Badge className="border-border/60 bg-background/80 text-xs">
+                          <Badge className="border-border/60 bg-background/80 text-xs text-foreground">
                             Trending
                           </Badge>
                         </div>
@@ -718,7 +718,7 @@ export function ArtistDiscovery() {
                       {artist.bio}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                      <Badge className="border-border/60 bg-background/80">New</Badge>
+                      <Badge className="border-border/60 bg-background/80 text-foreground">New</Badge>
                       <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
                         {artist.latestRelease}
                       </span>
