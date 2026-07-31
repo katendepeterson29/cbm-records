@@ -76,8 +76,9 @@ export function BrandNavigation() {
           ))}
         </nav>
         <Button asChild size="sm" className="gradient-brand text-primary-foreground">
-          <a href="/auth">Artist Portal</a>
+          <a href="#contact">Get in touch</a>
         </Button>
+
       </div>
       <nav
         aria-label="Browse CBM Records"
