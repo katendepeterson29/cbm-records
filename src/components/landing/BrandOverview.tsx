@@ -65,7 +65,7 @@ export function BrandNavigation() {
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-background/90 backdrop-blur-xl text-black">
       <div className="relative mx-auto flex h-[72px] max-w-7xl items-center px-6">
-        <nav aria-label="Primary navigation" className="flex items-center gap-7 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:flex">
+        <nav aria-label="Primary navigation" className="flex items-center gap-7 text-sm tracking-[0.18em] text-muted-foreground">
           {links.map(([label, href]) => (
             <a key={href} href={href} className="transition-opacity hover:text-foreground">
               {label}
