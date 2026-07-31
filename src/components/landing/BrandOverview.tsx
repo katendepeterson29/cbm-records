@@ -10,6 +10,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import mainLogo from "../../../assets/logo/logo main.png";
 
 const SERVICES = [
   {
@@ -53,43 +54,30 @@ const OUTCOMES = [
 
 export function BrandNavigation() {
   const links = [
-    ["About", "#about"],
-    ["Services", "#services"],
-    ["Artists", "#artists"],
-    ["Projects", "#projects"],
+    ["Home", "#top"],
+    ["Shop", "#artists"],
     ["News", "#news"],
-    ["Partners", "#partners"],
     ["Contact", "#contact"],
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-5 px-6">
-        <a href="#top" className="font-display text-lg font-bold tracking-tight">
-          CBM <span className="text-primary">RECORDS</span>
-        </a>
-        <nav className="hidden items-center gap-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:flex">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-white text-black">
+      <div className="relative mx-auto flex h-[72px] max-w-7xl items-center px-6">
+        <nav aria-label="Primary navigation" className="flex items-center gap-7 text-sm font-normal">
           {links.map(([label, href]) => (
-            <a key={href} href={href} className="hover:text-foreground">
+            <a key={href} href={href} className="transition-opacity hover:opacity-55">
               {label}
             </a>
           ))}
         </nav>
-        <Button asChild size="sm" className="gradient-brand text-primary-foreground">
-          <a href="#contact">Get in touch</a>
-        </Button>
-
+        <a
+          href="#top"
+          aria-label="CBM Records home"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        >
+          <img src={mainLogo} alt="CBM Records" className="h-12 w-12 object-contain" />
+        </a>
       </div>
-      <nav
-        aria-label="Browse CBM Records"
-        className="flex gap-6 overflow-x-auto border-t border-border/40 px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:hidden"
-      >
-        {links.map(([label, href]) => (
-          <a key={href} href={href} className="shrink-0 hover:text-foreground">
-            {label}
-          </a>
-        ))}
-      </nav>
     </header>
   );
 }
