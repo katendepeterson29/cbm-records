@@ -250,7 +250,7 @@ export function ArtistDiscovery() {
 
     <section
           aria-labelledby="artist-discovery-heading"
-          className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16"
+          className="mx-auto max-w-7xl p-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16"
         >
           <div className="max-w-2xl">
             <Badge className="mb-6 border border-primary/30 bg-primary/10 text-primary">
@@ -266,18 +266,6 @@ export function ArtistDiscovery() {
               A full-service music company for artists, labels and brand partners with a vision
               for what comes next.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Button
-                className="gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
-                size="lg"
-              >
-                Work with us
-              </Button>
-              <Button variant="outline" size="lg" className="border-border/80 bg-background/40">
-                Explore our artists
-              </Button>
-            </div>
-
           </div>
         </section>
       
