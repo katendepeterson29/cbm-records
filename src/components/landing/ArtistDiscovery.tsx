@@ -451,7 +451,7 @@ export function ArtistDiscovery() {
                   >
                     <div className="flex items-center gap-4">
                       <img
-                        src={artist.portrait}
+                        src={artist.profileImage}
                         alt={artist.name}
                         className="h-16 w-16 rounded-3xl object-cover"
                       />
@@ -468,15 +468,15 @@ export function ArtistDiscovery() {
                     <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-4 w-4 text-primary" />
-                        <span>{artist.weeklyGrowth}% growth</span>
+                        <span>Rising this week</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Clock3 className="h-4 w-4 text-primary" />
-                        <span>{formatListeners(artist.monthlyListeners)} monthly listeners</span>
+                        <span>{artist.country}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Music2 className="h-4 w-4 text-primary" />
-                        <span>Top track: {artist.mostStreamed}</span>
+                        <span>Top track: {artist.releases[0]?.title ?? "—"}</span>
                       </div>
                     </div>
                   </div>
@@ -514,7 +514,7 @@ export function ArtistDiscovery() {
                   <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                     Most streamed song
                   </p>
-                  <p className="mt-3 text-lg font-semibold">{trendingArtists[0].mostStreamed}</p>
+                  <p className="mt-3 text-lg font-semibold">{trendingArtists[0].releases[0]?.title ?? "—"}</p>
                 </div>
               </div>
             </div>
@@ -594,14 +594,14 @@ export function ArtistDiscovery() {
                   >
                     <div className="flex items-center gap-4">
                       <img
-                        src={artist.portrait}
+                        src={artist.profileImage}
                         alt={artist.name}
                         className="h-16 w-16 rounded-3xl object-cover"
                       />
                       <div>
                         <h3 className="font-semibold">{artist.name}</h3>
                         <p className="text-sm text-muted-foreground">
-                          Joined {formatDate(artist.joinedAt)}
+                          {artist.genre}
                         </p>
                       </div>
                     </div>
@@ -611,7 +611,7 @@ export function ArtistDiscovery() {
                     <div className="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
                       <Badge className="border-border/60 bg-background/80 text-foreground">New</Badge>
                       <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
-                        {artist.latestRelease}
+                        {artist.releases[0]?.title ?? "New artist"}
                       </span>
                     </div>
                   </div>
