@@ -1,15 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram } from "lucide-react";
+import { SocialIcon } from "@/components/landing/SocialIcon";
 import mainLogo from "../../../assets/logo/logo5.png";
-
-function TikTokIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-      <path d="M16.5 5.5a6.22 6.22 0 0 1-1.75-.25v6.02a4.5 4.5 0 1 1-4.5-4.5V9A6 6 0 1 0 16.5 5.5Z" />
-      <path d="M13.75 8.3V18.5a4.5 4.5 0 1 1-4.5-4.5V12a8.5 8.5 0 0 0 4.5 1.3V8.3Z" />
-    </svg>
-  );
-}
 
 const FOOTER_LINKS = [
   { label: "Home", to: "/" },
@@ -31,13 +22,18 @@ const SERVICE_LINKS = [
 const SOCIAL_LINKS = [
   {
     label: "Instagram",
-    href: "https://instagram.com/epikano",
-    Icon: Instagram,
+    href: "https://www.instagram.com/cbmrecords_?igsh=MTZ3eWg0b3RleGkyYw==",
+    platform: "Instagram" as const,
   },
   {
     label: "TikTok",
-    href: "https://tiktok.com/@epikano",
-    Icon: TikTokIcon,
+    href: "https://vm.tiktok.com/ZS9hy53CQfFmr-fql1G/",
+    platform: "TikTok" as const,
+  },
+  {
+    label: "X",
+    href: "https://x.com/cbmrecords__",
+    platform: "Twitter" as const,
   },
 ];
 
@@ -99,7 +95,7 @@ export function Footer() {
             <div className="space-y-3">
               <p className="text-sm uppercase tracking-[0.35em] text-white/80">Connect</p>
               <div className="flex items-center gap-3">
-                {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                {SOCIAL_LINKS.map(({ label, href, platform }) => (
                   <a
                     key={label}
                     href={href}
@@ -108,7 +104,10 @@ export function Footer() {
                     aria-label={label}
                     className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white hover:text-black"
                   >
-                    <Icon className="h-5 w-5 transition-colors duration-200 group-hover:text-black" />
+                    <SocialIcon
+                      platform={platform}
+                      className="h-5 w-5 transition-colors duration-200 group-hover:text-black"
+                    />
                   </a>
                 ))}
               </div>
