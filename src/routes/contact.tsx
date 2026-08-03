@@ -93,11 +93,11 @@ function Contact() {
             <div className="mt-8 space-y-6 text-sm text-muted-foreground">
               <div>
                 <p className="text-xs uppercase tracking-[0.35em] text-primary">Email</p>
-                <p>hello@cbmrecords.africa</p>
+                <p>cbmrecords3@gmail.com</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.35em] text-primary">Phone</p>
-                <p>+234 802 000 4411</p>
+                <p>+256 776 789 133</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.35em] text-primary">Connect</p>
