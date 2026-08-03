@@ -41,6 +41,9 @@ import { ArtistProfileModal } from "@/components/landing/ArtistProfileModal";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
 import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
 import jjCarouselImage from "../../../assets/carousel/jj.jpg.jpeg";
+import bannerContact from "../../../assets/banners/banner3.jpeg"
+import bannerArtist from "../../../assets/banners/banner2.jpeg"
+
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const FEATURED_ARTIST_BACKGROUNDS = [epikanoCarouselImage, jjCarouselImage];
@@ -253,9 +256,6 @@ export function ArtistDiscovery() {
           className="mx-auto max-w-7xl p-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16"
         >
           <div className="max-w-2xl">
-            <Badge className="mb-6 border border-primary/30 bg-primary/10 text-primary">
-              CBM Records
-            </Badge>
             <h1
               id="artist-discovery-heading"
               className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl lg:text-7xl"

@@ -3,6 +3,8 @@ import { ArrowRight, BriefcaseBusiness, Handshake, Megaphone, Music2, ShieldChec
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
+import bannerServices from "/assets/banners/banner3.jpeg";
+
 
 const SERVICE_CARDS = [
   {
@@ -54,20 +56,19 @@ export const Route = createFileRoute("/services")({
   component: Services,
 });
 
+const FEATURED_BACKGROUND = bannerServices;
+
 function Services() {
   return (
     <main className="min-h-screen bg-black text-white">
       <BrandNavigation />
-      <section className="relative overflow-hidden bg-black/95 py-24 text-white">
+      <section
+        className="relative overflow-hidden bg-black/95 py-24 text-white"
+        style={{ backgroundImage: `url(${FEATURED_BACKGROUND})`, backgroundSize: "cover", backgroundPosition: "center" }}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(4,187,169,0.16),_transparent_36%)]" />
         <div className="relative mx-auto max-w-6xl px-6 text-center">
-          <p className="text-sm uppercase tracking-[0.35em] text-teal-400">OUR SERVICES</p>
-          <h1 className="mt-6 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
-            CBM Records supports artists, music professionals, labels, and creative businesses.
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            From artist development and distribution to publishing, marketing and partnerships, we build campaigns that help creators move with confidence.
-          </p>
+          <h2 className="mt-6 font-display text-5xl font-semibold tracking-tight sm:text-6xl">OUR SERVICES</h2>
           <div className="mt-10 flex justify-center">
             <Button asChild size="lg" className="bg-teal-500 text-black hover:bg-teal-400">
               <Link to="/contact">WORK WITH US</Link>

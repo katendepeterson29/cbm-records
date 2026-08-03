@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Link } from "@tanstack/react-router";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
+import bannerContact from "/assets/banners/banner4.jpeg";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -71,15 +72,14 @@ function Contact() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <BrandNavigation />
-      <section className="bg-black text-white">
-        <div className="mx-auto max-w-6xl px-6 py-24 text-center">
-          <p className="text-sm uppercase tracking-[0.35em] text-teal-400">LET'S WORK TOGETHER</p>
-          <h1 className="mt-6 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
-            CBM welcomes inquiries from artists, managers, labels, brands, and partners.
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Whether you need artist services, distribution support, publishing guidance, or marketing partnership development, our team is ready to connect.
-          </p>
+      <section className="relative overflow-hidden bg-black text-white">
+        <div
+          className="absolute inset-2 bg-cover bg-center"
+          style={{ backgroundImage: `url(${bannerContact})` }}
+        />
+        <div className="absolute inset-0 bg-black/70" />
+        <div className="relative mx-auto max-w-6xl px-6 py-24 text-center">
+          <p className="mt-6 font-display text-5xl font-semibold tracking-tight sm:text-6xl">LET'S WORK TOGETHER</p>
         </div>
       </section>
 

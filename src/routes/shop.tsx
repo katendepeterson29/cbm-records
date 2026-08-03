@@ -20,15 +20,11 @@ function Shop() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <BrandNavigation />
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-20 text-center">
         <div className="mb-10 max-w-3xl space-y-4 text-center">
-          <p className="text-sm uppercase tracking-[0.35em] text-primary">CBM Records Shop</p>
-          <h1 className="font-display text-5xl font-semibold tracking-tight sm:text-6xl">
-            The official CBM Records store
+          <h1 className="font-display text-5xl font-semibold tracking-tight sm:text-6xl text-center">
+            CBM Records store
           </h1>
-          <p className="mx-auto text-base leading-8 text-muted-foreground sm:text-lg">
-            Music, merchandise, and essentials from the CBM Records family — curated for artists, fans and culture.
-          </p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

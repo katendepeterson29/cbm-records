@@ -7,6 +7,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Globe2, ListMusic, Megaphone, Newspaper, Sparkles, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
+import bannerProjects from "/assets/banners/banner1.jpeg";
 
 const STATUS_STYLES: Record<string, string> = {
   Released: "border-border/60 bg-background/70 text-muted-foreground",
@@ -42,15 +43,14 @@ function Projects() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <BrandNavigation />
-      <section className="bg-black text-white">
-        <div className="mx-auto max-w-6xl px-6 py-24 text-center">
-          <p className="text-sm uppercase tracking-[0.35em] text-teal-400">FEATURED PROJECTS</p>
-          <h1 className="mt-6 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
-            The work that defines CBM.
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            A portfolio of artist development, distribution campaigns, publishing administration, and brand collaborations across Africa and beyond.
-          </p>
+      <section className="relative overflow-hidden bg-black text-white">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${bannerProjects})` }}
+        />
+        <div className="absolute inset-0 bg-black/70" />
+        <div className="relative mx-auto max-w-6xl px-6 py-24 text-center">
+          <p className="mt-6 font-display text-5xl font-semibold tracking-tight sm:text-6xl">FEATURED PROJECTS</p>
         </div>
       </section>
 
