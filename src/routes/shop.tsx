@@ -38,7 +38,7 @@ function Shop() {
                 <img
                   src={product.images[0]}
                   alt={product.name}
-                  className="h-72 w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-72 w-full h-full object-cover transition duration-500 group-hover:scale-105"
                 />
                 <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-black">
                   {product.category}
@@ -56,7 +56,6 @@ function Shop() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">{product.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{product.description}</p>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <div>
