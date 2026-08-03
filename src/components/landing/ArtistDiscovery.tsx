@@ -390,8 +390,9 @@ export function ArtistDiscovery() {
                 animate={{ opacity: 1, y: 0 }}
                 className="group flex flex-col"
               >
-                <Link
-                  to={`/artists/${artist.slug}`}
+                <button
+                  type="button"
+                  onClick={() => setActiveArtist(artist)}
                   className="relative aspect-[4/5] w-full overflow-hidden bg-muted"
                 >
                   <img
@@ -400,20 +401,21 @@ export function ArtistDiscovery() {
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                </Link>
+                </button>
                 <div className="mt-4">
                   <div className="h-px w-8 bg-foreground/80" />
                   <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.15em] text-foreground">
                     {artist.name}
                   </h3>
                   <p className="mt-1 text-xs text-muted-foreground">{artist.country}</p>
-                  <Link
-                    to={`/artists/${artist.slug}`}
+                  <button
+                    type="button"
+                    onClick={() => setActiveArtist(artist)}
                     className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:text-foreground"
                   >
                     Learn more
                     <ArrowRight className="h-3 w-3" />
-                  </Link>
+                  </button>
                 </div>
               </motion.article>
             ))}
