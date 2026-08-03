@@ -46,7 +46,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.7fr_1fr_1fr]">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <img src={mainLogo} alt="CBM Records" className="h-14 w-14 object-contain" />
+              <img src={mainLogo} alt="CBM Records" className="h-44 w-44 object-contain" />
               <div>
                 <p className="text-xs uppercase tracking-[0.35em] text-white/80">CBM RECORDS</p>
                 <p className="text-sm uppercase tracking-[0.35em] text-white/70">
@@ -115,12 +115,9 @@ export function Footer() {
           </div>
 
           <div className="flex items-center justify-between gap-4 sm:justify-end">
-            <p className="max-w-xl text-sm uppercase tracking-[0.25em] text-white/80">
-              READY TO BUILD WHAT'S NEXT?
-            </p>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-black px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition duration-200 hover:bg-white hover:text-black"
+              className="inline-flex items-center justify-center rounded-full bg-black px-6 py-3 my-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition duration-200 hover:bg-white hover:text-black"
             >
               CONTACT US →
             </Link>
