@@ -36,7 +36,8 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES } from "@/data/artists";
+import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES, type ArtistProfile } from "@/data/artists";
+import { ArtistProfileModal } from "@/components/landing/ArtistProfileModal";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
 import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
 import jjCarouselImage from "../../../assets/carousel/jj.jpg.jpeg";
@@ -114,6 +115,7 @@ const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
 
 export function ArtistDiscovery() {
   const [activeHero, setActiveHero] = useState(0);
+  const [activeArtist, setActiveArtist] = useState<ArtistProfile | null>(null);
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [selectedCountry, setSelectedCountry] = useState("All");
