@@ -49,10 +49,11 @@ function formatListeners(value: number) {
 }
 
 function formatDate(date: string) {
-  return new Date(date).toLocaleDateString(undefined, {
+  return new Date(date).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -68,6 +69,21 @@ const RELEASE_TITLES = [
   "Palm Wine Dreams",
   "Neon Sabbath",
 ];
+
+type ReleaseItem = {
+  id: string;
+  title: string;
+  artist: string;
+  genre: string;
+  coverUrl: string;
+  releaseDate: string;
+  type: string;
+  tracks: number;
+  duration: string;
+  platforms: string[];
+  status: string;
+  listeners: number;
+};
 
 function pick<T>(arr: T[], i: number) { return arr[i % arr.length]; }
 
@@ -125,7 +141,7 @@ export function ArtistDiscovery() {
       }
       if (search.trim()) {
         const q = search.trim().toLowerCase();
-        return [artist.name, artist.genre, artist.label, artist.bio].some((value) =>
+        return [artist.name, artist.genre, artist.country, artist.bio].some((value) =>
           value.toLowerCase().includes(q),
         );
       }
@@ -139,7 +155,7 @@ export function ArtistDiscovery() {
 
 
   const trendingArtists = useMemo(() => {
-    return [...ARTISTS].sort((a, b) => b.trending - a.trending).slice(0, 8);
+    return ARTISTS.slice(0, 8);
   }, []);
 
   const upcomingReleases = useMemo(() => {
@@ -147,7 +163,7 @@ export function ArtistDiscovery() {
   }, []);
 
   const recentAdds = useMemo(() => {
-    return [...ARTISTS].sort((a, b) => (a.joinedAt < b.joinedAt ? 1 : -1)).slice(0, 6);
+    return ARTISTS.slice(0, 6);
   }, []);
 
   useEffect(() => {
