@@ -41,15 +41,15 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#04bba9] text-white">
+    <footer className="bg-[#04bba9] text-black">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 lg:grid-cols-[1.7fr_1fr_1fr]">
-          <div className="space-y-6">
+          <div className="space-y-6 text-black">
             <div className="flex items-center gap-4">
               <img src={mainLogo} alt="CBM Records" className="h-44 w-44 object-contain" />
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-white/80">CBM RECORDS</p>
-                <p className="text-sm uppercase tracking-[0.35em] text-white/70">
+                <p className="text-md uppercase tracking-[0.35em] text-black">CBM RECORDS</p>
+                <p className="text-md uppercase tracking-[0.35em] text-black">
                   Artist management, distribution and culture.
                 </p>
               </div>
@@ -60,7 +60,7 @@ export function Footer() {
           </div>
 
           <div className="grid gap-4">
-            <p className="text-sm uppercase tracking-[0.35em] text-white/80">Explore</p>
+            <p className="text-bold uppercase tracking-[0.35em] text-black font-bold">Explore</p>
             <nav className="grid gap-3">
               {FOOTER_LINKS.map((link) => (
                 <Link
@@ -75,7 +75,7 @@ export function Footer() {
           </div>
 
           <div className="grid gap-4">
-            <p className="text-sm uppercase tracking-[0.35em] text-white/80">Services</p>
+            <p className="text-bold uppercase tracking-[0.35em] text-black font-bold">Services</p>
             <nav className="grid gap-3">
               {SERVICE_LINKS.map((link) => (
                 <Link
