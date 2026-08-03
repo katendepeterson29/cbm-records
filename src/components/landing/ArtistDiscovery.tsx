@@ -652,6 +652,7 @@ export function ArtistDiscovery() {
           </div>
         </div>
       </section>
+      <ArtistProfileModal artist={activeArtist} onClose={() => setActiveArtist(null)} />
     </main>
   );
 }
