@@ -160,7 +160,7 @@ function Artists() {
                   {artist.shortBio}
                 </p>
                 <Link
-                  to={`/artists/${artist.slug}`}
+                  to="/artists/$slug" params={{ slug: artist.slug }}
                   className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal-400 transition hover:text-white"
                 >
                   Learn more <ArrowRight className="h-3.5 w-3.5" />

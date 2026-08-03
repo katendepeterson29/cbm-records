@@ -241,7 +241,7 @@ function ArtistProfile() {
                 {related.map((relatedArtist) => (
                   <Link
                     key={relatedArtist.slug}
-                    to={`/artists/${relatedArtist.slug}`}
+                    to="/artists/$slug" params={{ slug: relatedArtist.slug }}
                     className="overflow-hidden rounded-[2rem] border border-border/60 bg-white text-black transition hover:-translate-y-1 hover:shadow-2xl"
                   >
                     <img src={relatedArtist.profileImage} alt={relatedArtist.name} className="h-56 w-full object-cover" />
