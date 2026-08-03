@@ -8,9 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/artists/$slug")({
-  getParams: (params) => ({ slug: params.slug }),
   validateSearch: () => ({}),
-  head: ({ params }) => {
+  head: ({ params }: { params: { slug: string } }) => {
     const artist = getArtistBySlug(params.slug);
     return {
       meta: [
@@ -27,7 +26,8 @@ export const Route = createFileRoute("/artists/$slug")({
   component: ArtistProfile,
 });
 
-function ArtistProfile({ params }: { params: { slug: string } }) {
+function ArtistProfile() {
+  const params = Route.useParams();
   const artist = useMemo(() => getArtistBySlug(params.slug), [params.slug]);
   const related = useMemo(() => getRelatedArtists(params.slug), [params.slug]);
 
@@ -241,7 +241,7 @@ function ArtistProfile({ params }: { params: { slug: string } }) {
                 {related.map((relatedArtist) => (
                   <Link
                     key={relatedArtist.slug}
-                    to={`/artists/${relatedArtist.slug}`}
+                    to="/artists/$slug" params={{ slug: relatedArtist.slug }}
                     className="overflow-hidden rounded-[2rem] border border-border/60 bg-white text-black transition hover:-translate-y-1 hover:shadow-2xl"
                   >
                     <img src={relatedArtist.profileImage} alt={relatedArtist.name} className="h-56 w-full object-cover" />

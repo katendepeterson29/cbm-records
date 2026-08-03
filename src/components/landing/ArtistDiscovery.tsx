@@ -36,7 +36,8 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES } from "@/data/artists";
+import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES, type ArtistProfile } from "@/data/artists";
+import { ArtistProfileModal } from "@/components/landing/ArtistProfileModal";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
 import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
 import jjCarouselImage from "../../../assets/carousel/jj.jpg.jpeg";
@@ -49,10 +50,11 @@ function formatListeners(value: number) {
 }
 
 function formatDate(date: string) {
-  return new Date(date).toLocaleDateString(undefined, {
+  return new Date(date).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -68,6 +70,21 @@ const RELEASE_TITLES = [
   "Palm Wine Dreams",
   "Neon Sabbath",
 ];
+
+type ReleaseItem = {
+  id: string;
+  title: string;
+  artist: string;
+  genre: string;
+  coverUrl: string;
+  releaseDate: string;
+  type: string;
+  tracks: number;
+  duration: string;
+  platforms: string[];
+  status: string;
+  listeners: number;
+};
 
 function pick<T>(arr: T[], i: number) { return arr[i % arr.length]; }
 
@@ -98,6 +115,7 @@ const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
 
 export function ArtistDiscovery() {
   const [activeHero, setActiveHero] = useState(0);
+  const [activeArtist, setActiveArtist] = useState<ArtistProfile | null>(null);
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [selectedCountry, setSelectedCountry] = useState("All");
@@ -125,7 +143,7 @@ export function ArtistDiscovery() {
       }
       if (search.trim()) {
         const q = search.trim().toLowerCase();
-        return [artist.name, artist.genre, artist.label, artist.bio].some((value) =>
+        return [artist.name, artist.genre, artist.country, artist.bio].some((value) =>
           value.toLowerCase().includes(q),
         );
       }
@@ -139,7 +157,7 @@ export function ArtistDiscovery() {
 
 
   const trendingArtists = useMemo(() => {
-    return [...ARTISTS].sort((a, b) => b.trending - a.trending).slice(0, 8);
+    return ARTISTS.slice(0, 8);
   }, []);
 
   const upcomingReleases = useMemo(() => {
@@ -147,7 +165,7 @@ export function ArtistDiscovery() {
   }, []);
 
   const recentAdds = useMemo(() => {
-    return [...ARTISTS].sort((a, b) => (a.joinedAt < b.joinedAt ? 1 : -1)).slice(0, 6);
+    return ARTISTS.slice(0, 6);
   }, []);
 
   useEffect(() => {
@@ -374,8 +392,9 @@ export function ArtistDiscovery() {
                 animate={{ opacity: 1, y: 0 }}
                 className="group flex flex-col"
               >
-                <Link
-                  to={`/artists/${artist.slug}`}
+                <button
+                  type="button"
+                  onClick={() => setActiveArtist(artist)}
                   className="relative aspect-[4/5] w-full overflow-hidden bg-muted"
                 >
                   <img
@@ -384,20 +403,21 @@ export function ArtistDiscovery() {
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                </Link>
+                </button>
                 <div className="mt-4">
                   <div className="h-px w-8 bg-foreground/80" />
                   <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.15em] text-foreground">
                     {artist.name}
                   </h3>
                   <p className="mt-1 text-xs text-muted-foreground">{artist.country}</p>
-                  <Link
-                    to={`/artists/${artist.slug}`}
+                  <button
+                    type="button"
+                    onClick={() => setActiveArtist(artist)}
                     className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:text-foreground"
                   >
                     Learn more
                     <ArrowRight className="h-3 w-3" />
-                  </Link>
+                  </button>
                 </div>
               </motion.article>
             ))}
@@ -435,7 +455,7 @@ export function ArtistDiscovery() {
                   >
                     <div className="flex items-center gap-4">
                       <img
-                        src={artist.portrait}
+                        src={artist.profileImage}
                         alt={artist.name}
                         className="h-16 w-16 rounded-3xl object-cover"
                       />
@@ -452,15 +472,15 @@ export function ArtistDiscovery() {
                     <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-4 w-4 text-primary" />
-                        <span>{artist.weeklyGrowth}% growth</span>
+                        <span>Rising this week</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Clock3 className="h-4 w-4 text-primary" />
-                        <span>{formatListeners(artist.monthlyListeners)} monthly listeners</span>
+                        <span>{artist.country}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Music2 className="h-4 w-4 text-primary" />
-                        <span>Top track: {artist.mostStreamed}</span>
+                        <span>Top track: {artist.releases[0]?.title ?? "—"}</span>
                       </div>
                     </div>
                   </div>
@@ -498,7 +518,7 @@ export function ArtistDiscovery() {
                   <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                     Most streamed song
                   </p>
-                  <p className="mt-3 text-lg font-semibold">{trendingArtists[0].mostStreamed}</p>
+                  <p className="mt-3 text-lg font-semibold">{trendingArtists[0].releases[0]?.title ?? "—"}</p>
                 </div>
               </div>
             </div>
@@ -578,14 +598,14 @@ export function ArtistDiscovery() {
                   >
                     <div className="flex items-center gap-4">
                       <img
-                        src={artist.portrait}
+                        src={artist.profileImage}
                         alt={artist.name}
                         className="h-16 w-16 rounded-3xl object-cover"
                       />
                       <div>
                         <h3 className="font-semibold">{artist.name}</h3>
                         <p className="text-sm text-muted-foreground">
-                          Joined {formatDate(artist.joinedAt)}
+                          {artist.genre}
                         </p>
                       </div>
                     </div>
@@ -595,7 +615,7 @@ export function ArtistDiscovery() {
                     <div className="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
                       <Badge className="border-border/60 bg-background/80 text-foreground">New</Badge>
                       <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1">
-                        {artist.latestRelease}
+                        {artist.releases[0]?.title ?? "New artist"}
                       </span>
                     </div>
                   </div>
@@ -632,6 +652,7 @@ export function ArtistDiscovery() {
           </div>
         </div>
       </section>
+      <ArtistProfileModal artist={activeArtist} onClose={() => setActiveArtist(null)} />
     </main>
   );
 }

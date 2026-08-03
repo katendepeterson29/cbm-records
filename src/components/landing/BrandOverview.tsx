@@ -54,7 +54,7 @@ export function BrandNavigation() {
                     : linkClass(to)
                 }
               >
-                {Icon ? <Icon className="h-4 w-4 text-muted-foreground" /> : null}
+                
                 {label}
               </Link>
             ))}
@@ -79,7 +79,7 @@ export function BrandNavigation() {
                 </Button>
               </div>
               <nav className="mt-6 flex flex-col gap-4">
-                {[...leftLinks, ...rightLinks].map(({ label, to, icon: Icon }) => (
+                {[...leftLinks, ...rightLinks].map(({ label, to }) => (
                   <Link
                     key={to}
                     to={to}
@@ -90,7 +90,7 @@ export function BrandNavigation() {
                         : linkClass(to) + " text-base font-medium"
                     }
                   >
-                    {Icon ? <Icon className="h-4 w-4 text-muted-foreground" /> : null}
+                    
                     {label}
                   </Link>
                 ))}
