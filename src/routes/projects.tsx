@@ -86,7 +86,7 @@ function Projects() {
                 <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-500 hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute left-6 bottom-6">
-                  <p className="text-sm uppercase tracking-[0.35em] text-slate-200">{project.category ?? project.categories[0]}</p>
+                  <p className="text-sm uppercase tracking-[0.35em] text-slate-200">{project.categories[0]}</p>
                   <h3 className="mt-3 text-3xl font-semibold text-white">{project.title}</h3>
                   <p className="mt-2 text-sm text-slate-200">
                     {project.artist} · {project.releaseDate}

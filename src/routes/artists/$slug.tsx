@@ -8,9 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/artists/$slug")({
-  getParams: (params) => ({ slug: params.slug }),
   validateSearch: () => ({}),
-  head: ({ params }) => {
+  head: ({ params }: { params: { slug: string } }) => {
     const artist = getArtistBySlug(params.slug);
     return {
       meta: [
@@ -27,7 +26,8 @@ export const Route = createFileRoute("/artists/$slug")({
   component: ArtistProfile,
 });
 
-function ArtistProfile({ params }: { params: { slug: string } }) {
+function ArtistProfile() {
+  const params = Route.useParams();
   const artist = useMemo(() => getArtistBySlug(params.slug), [params.slug]);
   const related = useMemo(() => getRelatedArtists(params.slug), [params.slug]);
 
