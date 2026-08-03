@@ -35,48 +35,14 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { artistImages } from "@/data/artist-images";
+import { Link } from "@tanstack/react-router";
+import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES } from "@/data/artists";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
-import { FeaturedProjects } from "@/components/landing/FeaturedProjects";
 import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
 import jjCarouselImage from "../../../assets/carousel/jj.jpg.jpeg";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const GENRES = [
-  "Afrobeats",
-  "Amapiano",
-  "Afro-Fusion",
-  "Highlife",
-  "Hip-Hop",
-  "R&B",
-  "Alté",
-  "Afro House",
-  "Neo-Soul",
-  "Bongo Flava",
-  "Ethio-Jazz",
-  "Gqom",
-  "Desert Blues",
-  "Afro Drill",
-  "Congolese Rumba",
-];
-const COUNTRIES = [
-  "Uganda",
-  
-];
-const LABELS = [
-  "CBM Records",
-  "Savanna Music Group",
-
-];
-const TRACKS = [
-  "Midnight in Lagos",
-  "Golden Hour",
-  
-];
-
-function pick<T>(items: T[], index: number) {
-  return items[index % items.length];
-}
+const FEATURED_ARTIST_BACKGROUNDS = [epikanoCarouselImage, jjCarouselImage];
 
 function formatListeners(value: number) {
   return value >= 1000 ? `${Math.round(value / 1000)}K` : String(value);
@@ -95,98 +61,15 @@ function daysUntil(date: string) {
   return diff > 0 ? diff : 0;
 }
 
-interface ArtistProfile {
-  id: string;
-  name: string;
-  country: string;
-  genre: string;
-  label: string;
-  bio: string;
-  verified: boolean;
-  monthlyListeners: number;
-  releases: number;
-  latestRelease: string;
-  heroImage: string;
-  portrait: string;
-  joinedAt: string;
-  trending: number;
-  weeklyGrowth: number;
-  mostStreamed: string;
-  awards: string[];
-  social: string[];
-  isNew: boolean;
-}
-
-interface ReleaseItem {
-  id: string;
-  title: string;
-  artist: string;
-  genre: string;
-  coverUrl: string;
-  releaseDate: string;
-  type: "Single" | "EP" | "Album";
-  tracks: number;
-  duration: string;
-  platforms: string[];
-  status: "Live" | "Pre-save" | "Coming Soon";
-  listeners: number;
-}
-
-const ARTIST_SEEDS = [
-  "Epikano.",
-  "Juice Jay",
-  
-];
-
-const FEATURED_ARTIST_BACKGROUNDS = [epikanoCarouselImage, jjCarouselImage];
-
-const ARTISTS: ArtistProfile[] = ARTIST_SEEDS.map((name, index) => {
-  const genre = pick(GENRES, index * 3);
-  const country = pick(COUNTRIES, index * 2);
-  const label = pick(LABELS, index + 4);
-  const status = index % 4 === 0;
-  const listeners = 42_000 + index * 7_300 + (index % 5) * 4_100;
-  const releaseCount = 3 + (index % 7);
-  const latestRelease = pick(TRACKS, index * 5);
-  const joinedAt = new Date(Date.now() - 1000 * 60 * 60 * 24 * (30 + index * 12))
-    .toISOString()
-    .slice(0, 10);
-  const artistImage = pick(artistImages, index);
-
-  return {
-    id: `artist-${index + 1}`,
-    name,
-    genre,
-    country,
-    label,
-    bio: `${name} is a ${genre} artist from ${country}, known for cinematic storytelling and playlist-ready production.`,
-    verified: status,
-    monthlyListeners: listeners,
-    releases: releaseCount,
-    latestRelease,
-    heroImage: artistImage,
-    portrait: artistImage,
-    joinedAt,
-    trending: 60 + (index % 25),
-    weeklyGrowth: 4 + (index % 12),
-    mostStreamed: pick(TRACKS, index * 2),
-    awards: [
-      index % 3 === 0 ? "Best New Artist" : "Editorial pick",
-      index % 5 === 0 ? "Listener's Choice" : "Top playlist feature",
-    ],
-    social: ["Instagram", "TikTok", "Spotify"],
-    isNew: index >= 40,
-  };
-});
-// additional releases for the artists
 const RELEASE_TITLES = [
   "Midnight in Lagos",
   "Golden Hour",
   "Sunset Rituals",
   "Palm Wine Dreams",
   "Neon Sabbath",
-  
 ];
+
+function pick<T>(arr: T[], i: number) { return arr[i % arr.length]; }
 
 const RELEASES: ReleaseItem[] = Array.from({ length: 72 }).map((_, index) => {
   const artist = pick(ARTISTS, index * 2);
@@ -491,27 +374,30 @@ export function ArtistDiscovery() {
                 animate={{ opacity: 1, y: 0 }}
                 className="group flex flex-col"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
+                <Link
+                  to={`/artists/${artist.slug}`}
+                  className="relative aspect-[4/5] w-full overflow-hidden bg-muted"
+                >
                   <img
                     src={artist.heroImage}
                     alt={artist.name}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                </div>
+                </Link>
                 <div className="mt-4">
                   <div className="h-px w-8 bg-foreground/80" />
                   <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.15em] text-foreground">
                     {artist.name}
                   </h3>
                   <p className="mt-1 text-xs text-muted-foreground">{artist.country}</p>
-                  <button
-                    type="button"
+                  <Link
+                    to={`/artists/${artist.slug}`}
                     className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:text-foreground"
                   >
                     Learn more
                     <ArrowRight className="h-3 w-3" />
-                  </button>
+                  </Link>
                 </div>
               </motion.article>
             ))}
@@ -525,10 +411,9 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      
-
-      <FeaturedProjects />
-
+      <div className="theme-light">
+        <BrandOverview />
+      </div>
 
       <section className="theme-light border-b border-border/60 bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">

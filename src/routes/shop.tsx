@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { shopProducts } from "@/data/shop-products";
 import { Home, ShoppingBag } from "lucide-react";
+import { BrandNavigation } from "@/components/landing/BrandOverview";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -18,26 +19,7 @@ export const Route = createFileRoute("/shop")({
 function Shop() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-background/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-black/10 bg-white text-black shadow-sm">
-              <ShoppingBag className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">CBM Records Shop</p>
-              <p className="text-sm font-semibold text-foreground">Premium merchandise, apparel, and culture.</p>
-            </div>
-          </div>
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-black transition hover:border-black hover:text-primary"
-          >
-            <Home className="h-4 w-4" />
-            Home
-          </a>
-        </div>
-      </header>
+      <BrandNavigation />
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="mb-10 max-w-3xl space-y-4 text-center">
           <p className="text-sm uppercase tracking-[0.35em] text-primary">CBM Records Shop</p>
