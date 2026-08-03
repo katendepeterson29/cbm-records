@@ -50,13 +50,14 @@ export function BrandNavigation() {
                 to={to}
                 className={
                   to === "/shop"
-                    ? "inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-slate-100"
+                    ? "inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold tracking-normal text-black shadow-sm transition hover:bg-white/85"
                     : linkClass(to)
                 }
               >
-                
+                {Icon ? <Icon className="h-4 w-4 shrink-0" strokeWidth={2} /> : null}
                 {label}
               </Link>
+
             ))}
           </div>
 
