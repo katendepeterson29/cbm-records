@@ -48,7 +48,7 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <img src={mainLogo} alt="CBM Records" className="h-44 w-44 object-contain" />
               <div>
-                <p className="text-md uppercase tracking-[0.35em] text-white">CBM RECORDS</p>
+                <p className="text-lg uppercase tracking-[0.5em] text-white">CBM RECORDS</p>
                 <p className="text-md my-2  tracking-[0.35em] text-black-400">
                   CBM Records supports artists, music professionals, labels, and creative businesses.
                 </p>

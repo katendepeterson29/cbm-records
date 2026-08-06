@@ -419,7 +419,7 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      
+      mo
 
       <section className="theme-light border-b border-border/60 bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">
