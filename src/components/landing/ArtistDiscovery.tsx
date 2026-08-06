@@ -267,7 +267,7 @@ export function ArtistDiscovery() {
               for what comes next.
             </p>
           </div>
-        </section>
+      </section>
       
       <div className="theme-light">
         <BrandOverview />
@@ -293,7 +293,7 @@ export function ArtistDiscovery() {
             </div>
 
             <nav className="flex flex-wrap items-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.25em]">
-              {["All", "Distribution", "Management", "Personalities", "Publishing"].map((item) => {
+              {["All", "Distribution", "Management",].map((item) => {
                 const active =
                   (item === "All" && selectedGenre === "All" && !verifiedOnly) ||
                   selectedGenre === item;
@@ -419,9 +419,7 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <div className="theme-light">
-        <BrandOverview />
-      </div>
+      
 
       <section className="theme-light border-b border-border/60 bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">

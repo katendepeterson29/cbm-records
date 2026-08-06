@@ -85,22 +85,22 @@ function Contact() {
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-[2rem] border border-black/10 bg-white p-10 shadow-sm">
+          <div className="rounded-[2rem] text-black border border-black/10 bg-white p-10 shadow-sm">
             <h2 className="text-3xl font-semibold">Contact details</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
               Reach out for artist services, distribution, marketing, publishing, and brand partnerships.
             </p>
-            <div className="mt-8 space-y-6 text-sm text-muted-foreground">
+            <div className="mt-8 space-y-6 text-sm text">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-primary">Email</p>
+                <p className="text-xs uppercase tracking-[0.35em] font-semibold">Email</p>
                 <p>cbmrecords3@gmail.com</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-primary">Phone</p>
+                <p className="text-xs uppercase tracking-[0.35em] font-semibold">Phone</p>
                 <p>+256 776 789 133</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-primary">Connect</p>
+                <p className="text-xs uppercase tracking-[0.35em] font-semibold">Connect</p>
                 <p>Find out how CBM can support your next release or campaign.</p>
               </div>
             </div>
