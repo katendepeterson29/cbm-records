@@ -94,6 +94,13 @@ function ArtistProfile() {
                   {social.platform}
                 </a>
               ))}
+              {artist.streamingLinks?.length ? (
+                <Button asChild size="sm" className="bg-teal-500 text-black hover:bg-teal-400">
+                  <Link to="/artists/$slug/stream" params={{ slug: artist.slug }}>
+                    Stream music
+                  </Link>
+                </Button>
+              ) : null}
             </div>
           </div>
         </div>

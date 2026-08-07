@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { BadgeCheck, X } from "lucide-react";
@@ -122,6 +122,51 @@ export function ArtistProfileModal({ artist, onClose }: ArtistProfileModalProps)
               <div className="h-px w-16 bg-[#04bba9]" />
 
               <p className="max-w-xl text-base leading-8 text-white/75">{artist.bio}</p>
+              {artist.releases?.length ? (
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#04bba9]">
+                    Releases
+                  </p>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    {artist.releases.map((release) => (
+                      <div key={release.id} className="rounded-lg border border-white/10 p-3 bg-black/30">
+                        <div className="flex gap-3">
+                          <img src={release.coverUrl} alt={release.title} className="h-16 w-16 rounded-md object-cover" />
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-white">{release.title}</p>
+                            <p className="text-xs text-white/70">{release.type} • {release.year}</p>
+                            <div className="mt-2 flex items-center gap-2">
+                              {release.streamingLinks?.slice(0,3).map((link) => (
+                                <a
+                                  key={link.platform}
+                                  href={link.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="text-[11px] text-[#04bba9] hover:underline"
+                                >
+                                  {link.platform}
+                                </a>
+                              ))}
+                              {release.musicVideo ? (
+                                <a
+                                  href={release.musicVideo.youtubeUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="ml-auto text-[11px] text-white/80 underline"
+                                >
+                                  Watch video
+                                </a>
+                              ) : null}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              <SubscriptionForm />
 
               {metadata.length ? (
                 <div className="mt-auto grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-8">
@@ -141,5 +186,35 @@ export function ArtistProfileModal({ artist, onClose }: ArtistProfileModalProps)
       ) : null}
     </AnimatePresence>,
     document.body,
+  );
+}
+
+function SubscriptionForm() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email || !email.includes("@")) return;
+    setSubmitted(true);
+    // placeholder: wire to real endpoint later
+    console.log("subscribe", email);
+  }
+
+  if (submitted) {
+    return <div className="rounded-md bg-[#072a27] p-3 text-sm text-[#9ff0e8]">Thanks — check your inbox for confirmation.</div>;
+  }
+
+  return (
+    <form onSubmit={submit} className="mt-6 flex gap-2">
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Your email"
+        className="flex-1 rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/50"
+      />
+      <button className="rounded-md bg-[#04bba9] px-4 py-2 text-sm font-semibold text-black">Subscribe</button>
+    </form>
   );
 }

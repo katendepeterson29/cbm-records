@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES, type ArtistProfile } from "@/data/artists";
+import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES, getAllArtistReleases, type ArtistProfile, type ArtistRelease } from "@/data/artists";
 import { ArtistProfileModal } from "@/components/landing/ArtistProfileModal";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
 import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
@@ -163,8 +163,8 @@ export function ArtistDiscovery() {
     return ARTISTS.slice(0, 8);
   }, []);
 
-  const upcomingReleases = useMemo(() => {
-    return RELEASES.filter((release) => release.status !== "Live").slice(0, 8);
+  const allReleases = useMemo(() => {
+    return getAllArtistReleases();
   }, []);
 
   const recentAdds = useMemo(() => {
@@ -398,14 +398,25 @@ export function ArtistDiscovery() {
                     {artist.name}
                   </h3>
                   <p className="mt-1 text-xs text-muted-foreground">{artist.country}</p>
-                  <button
-                    type="button"
-                    onClick={() => setActiveArtist(artist)}
-                    className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:text-foreground"
-                  >
-                    Learn more
-                    <ArrowRight className="h-3 w-3" />
-                  </button>
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setActiveArtist(artist)}
+                      className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:text-foreground"
+                    >
+                      Learn more
+                      <ArrowRight className="h-3 w-3" />
+                    </button>
+                    {artist.streamingLinks?.length ? (
+                      <Link
+                        to="/artists/$slug/stream"
+                        params={{ slug: artist.slug }}
+                        className="rounded-full bg-primary px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-primary/90"
+                      >
+                        Stream now
+                      </Link>
+                    ) : null}
+                  </div>
                 </div>
               </motion.article>
             ))}
@@ -418,8 +429,6 @@ export function ArtistDiscovery() {
           )}
         </div>
       </section>
-
-      mo
 
       <section className="theme-light border-b border-border/60 bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">
@@ -512,50 +521,55 @@ export function ArtistDiscovery() {
         </div>
       </section>
 
-      <section className="border-b border-border/60 bg-background/80 py-20">
+      <section className="border-b border-border/60 bg-background py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-primary">Upcoming releases</p>
+              <p className="text-xs uppercase tracking-widest text-primary">Release catalog</p>
               <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-                What’s next on the roster.
+                Browse releases across the roster.
               </h2>
             </div>
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <CalendarDays className="h-4 w-4" /> Countdown, pre-save and arrival dates.
+              <CalendarDays className="h-4 w-4" /> Sort and discover new music.
             </div>
           </div>
 
-          <div className="mt-10 grid gap-5 xl:grid-cols-4">
-            {upcomingReleases.map((release) => (
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {allReleases.slice(0, 20).map((release: ArtistRelease & { artist: string; artistSlug: string }) => (
               <div
-                key={release.id}
-                className="rounded-[2rem] border border-border/60 bg-card/70 p-6 shadow-sm"
+                key={`${release.artistSlug}-${release.id}`}
+                className="rounded-[1rem] border border-border/60 bg-card/70 p-4 shadow-sm"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                      {release.type}
-                    </p>
-                    <h3 className="mt-2 font-semibold">{release.title}</h3>
+                <div className="flex items-start gap-4">
+                  <img src={release.coverUrl} alt={release.title} className="h-20 w-20 rounded-md object-cover" />
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{release.type}</p>
+                    <h3 className="mt-1 font-semibold text-foreground">{release.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{release.artist}</p>
+                    <div className="mt-3 flex items-center gap-2">
+                      {release.streamingLinks?.[0] ? (
+                        <a
+                          href={release.streamingLinks[0].url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+                        >
+                          Stream
+                        </a>
+                      ) : (
+                        <span className="rounded-md bg-muted px-3 py-1 text-xs">No link</span>
+                      )}
+                      <a
+                        href={`#artists`}
+                        onClick={() => setActiveArtist(ARTISTS.find((a) => a.slug === release.artistSlug) ?? null)}
+                        className="text-xs text-muted-foreground hover:text-foreground"
+                      >
+                        View artist
+                      </a>
+                    </div>
                   </div>
-                  <Badge className="border-border/60 bg-primary/10 text-primary">
-                    {mounted ? `${daysUntil(release.releaseDate)}d` : "—"}
-                  </Badge>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">{release.artist}</p>
-                <div className="mt-4 grid gap-3 text-sm text-muted-foreground">
-                  <div className="rounded-3xl bg-background/80 p-3">
-                    {formatDate(release.releaseDate)}
-                  </div>
-                  <div className="rounded-3xl bg-background/80 p-3">{release.genre}</div>
-                </div>
-                <Button
-                  size="sm"
-                  className="mt-5 w-full gradient-brand text-primary-foreground shadow-glow hover:opacity-95"
-                >
-                  Pre-save
-                </Button>
               </div>
             ))}
           </div>

@@ -11,6 +11,8 @@ export type ArtistRelease = {
   description: string;
   format: string;
   year: string;
+  streamingLinks?: { platform: string; url: string }[];
+  musicVideo?: { id: string; title: string; youtubeUrl: string; thumbnail?: string };
 };
 
 export type ArtistProject = {
@@ -44,6 +46,7 @@ export type ArtistProfile = {
   shortBio: string;
   verified: boolean;
   socialLinks: ArtistSocialLink[];
+  streamingLinks?: ArtistSocialLink[];
   releases: ArtistRelease[];
   albums: ArtistRelease[];
   eps: ArtistRelease[];
@@ -72,13 +75,18 @@ export const ARTISTS: ArtistProfile[] = [
       { platform: "TikTok", url: "https://tiktok.com/@epikano" },
       { platform: "Spotify", url: "https://spotify.com/artist/epikano" },
     ],
+    streamingLinks: [
+      { platform: "Spotify", url: "https://open.spotify.com/artist/epikano" },
+      { platform: "Apple Music", url: "https://music.apple.com/artist/epikano" },
+      { platform: "Tidal", url: "https://tidal.com/browse/artist/epikano" },
+    ],
     releases: [
       {
         id: "r-epikano-1",
         title: "Midnight in Lagos",
         coverUrl:
           "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2025",
+        releaseDate: "2025-01-15",
         type: "Single",
         description:
           "A single built around rich storytelling and warm vocal textures, supported with marketing from CBM Records.",
@@ -90,7 +98,7 @@ export const ARTISTS: ArtistProfile[] = [
         title: "Sunset Rituals",
         coverUrl:
           "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2024",
+        releaseDate: "2024-09-20",
         type: "EP",
         description:
           "A short-form project that blends soulful vocals with cinematic arrangements for regional audiences.",
@@ -105,7 +113,7 @@ export const ARTISTS: ArtistProfile[] = [
         title: "Sunset Rituals",
         coverUrl:
           "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2024",
+        releaseDate: "2024-09-20",
         type: "EP",
         description:
           "A short-form project that blends soulful vocals with cinematic arrangements for regional audiences.",
@@ -119,7 +127,7 @@ export const ARTISTS: ArtistProfile[] = [
         title: "Midnight in Lagos",
         coverUrl:
           "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2025",
+        releaseDate: "2025-01-15",
         type: "Single",
         description:
           "A single built around rich storytelling and warm vocal textures, supported with marketing from CBM Records.",
@@ -140,7 +148,7 @@ export const ARTISTS: ArtistProfile[] = [
         alt: "Creative campaign photography",
       },
     ],
-    relatedArtists: ["juice-jay", "nana-adjoa"],
+    relatedArtists: ["juice-jay"],
   },
   {
     id: "artist-juice-jay",
@@ -159,30 +167,23 @@ export const ARTISTS: ArtistProfile[] = [
       { platform: "TikTok", url: "https://tiktok.com/@juicejay" },
       { platform: "Spotify", url: "https://spotify.com/artist/juicejay" },
     ],
+    streamingLinks: [
+      { platform: "Spotify", url: "https://open.spotify.com/artist/juicejay" },
+      { platform: "Apple Music", url: "https://music.apple.com/artist/juicejay" },
+      { platform: "Tidal", url: "https://tidal.com/browse/artist/juicejay" },
+    ],
     releases: [
       {
         id: "r-juice-jay-1",
         title: "Golden Hour",
         coverUrl:
           "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2025",
+        releaseDate: "2025-02-18",
         type: "Single",
         description:
           "A polished R&B single built for artist discovery, with supporting distribution and editorial placement work.",
         format: "Digital Single",
         year: "2025",
-      },
-      {
-        id: "r-juice-jay-2",
-        title: "Night Thread",
-        coverUrl:
-          "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2024",
-        type: "Single",
-        description:
-          "A lush, late-night R&B track that introduces Juice Jay's signature blend of warmth and mood.",
-        format: "Digital Single",
-        year: "2024",
       },
     ],
     albums: [],
@@ -193,24 +194,12 @@ export const ARTISTS: ArtistProfile[] = [
         title: "Golden Hour",
         coverUrl:
           "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2025",
+        releaseDate: "2025-02-18",
         type: "Single",
         description:
           "A polished R&B single built for artist discovery, with supporting distribution and editorial placement work.",
         format: "Digital Single",
         year: "2025",
-      },
-      {
-        id: "r-juice-jay-2",
-        title: "Night Thread",
-        coverUrl:
-          "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=900&q=80",
-        releaseDate: "2024",
-        type: "Single",
-        description:
-          "A lush, late-night R&B track that introduces Juice Jay's signature blend of warmth and mood.",
-        format: "Digital Single",
-        year: "2024",
       },
     ],
     projects: [],
@@ -219,16 +208,15 @@ export const ARTISTS: ArtistProfile[] = [
       { src: juiceJayPhoto, alt: "Juice Jay portrait" },
       {
         src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80",
-        alt: "Studio portrait" },
+        alt: "Studio portrait",
+      },
       {
         src: galleryPhoto,
         alt: "Behind the scenes creative imagery",
       },
     ],
-    relatedArtists: ["epikano", "nana-adjoa"],
+    relatedArtists: ["epikano"],
   },
-  
-  
 ];
 
 export const ARTIST_GENRES = ["All", ...new Set(ARTISTS.map((artist) => artist.genre))];

@@ -113,14 +113,6 @@ function Artists() {
               </div>
             </div>
           </div>
-
-          <div className="rounded-[2rem] border border-border/60 bg-card/80 p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Artist highlights</p>
-            <h2 className="mt-4 text-3xl font-semibold">A premium roster of emerging and established artists.</h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Each artist profile is built to showcase their identity, music direction, and the services CBM provides behind the scenes.
-            </p>
-          </div>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -135,7 +127,7 @@ function Artists() {
                 <img
                   src={artist.profileImage}
                   alt={artist.name}
-                  className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 {artist.verified ? (
