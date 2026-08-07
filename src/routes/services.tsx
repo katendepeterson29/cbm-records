@@ -11,34 +11,34 @@ const SERVICE_CARDS = [
     icon: Users,
     title: "Artist Management",
     description:
-      "Career strategy, team coordination and day-to-day support built around the artist.",
+      "We provide comprehensive career support to artists, helping them navigate the music industry and make informed professional decisions. Our services include career planning, opportunity management, project coordination, performance support, brand development, and connecting artists with relevant industry partners. Our goal is to help artists build sustainable careers and maximize their creative and commercial potential.",
   },
   {
     icon: Music2,
     title: "Music Distribution",
     description:
-      "Global delivery, release planning and metadata management for every stage of a project.",
+      "We help artists and music creators take their music to audiences around the world by distributing their releases across major digital streaming platforms and online music stores. We support the release process, metadata management, delivery, and monitoring of music performance, ensuring that artists' work is professionally presented and accessible to listeners across different markets.",
   },
   {
     icon: ShieldCheck,
     title: "Rights & Publishing",
     description:
-      "Copyright registration, publishing administration and transparent royalty management.",
+      "We help creators protect, manage, and monetize their intellectual property. Our services cover copyright administration, music publishing, licensing, royalty tracking and collection, and rights management. We work to ensure that artists, songwriters, and other rights holders receive the income and recognition they are entitled to from the use of their creative works.",
   },
   {
     icon: Megaphone,
     title: "Marketing & Promotion",
-    description: "Campaigns that connect releases with audiences, media and culture.",
+    description: "We create strategic marketing and promotional campaigns designed to increase an artist's visibility, grow their audience, and strengthen their presence in the music market. This includes digital marketing, social media campaigns, media promotion, playlist pitching, content promotion, publicity, release campaigns, and other targeted promotional activities tailored to each project.",
   },
   {
     icon: Handshake,
     title: "Brand Partnerships",
-    description: "Meaningful collaborations that create new opportunities beyond the music.",
+    description: "We create opportunities for artists to collaborate with brands, businesses, organizations, and other commercial partners. These partnerships may include endorsements, sponsorships, branded content, events, campaigns, product collaborations, and ambassador opportunities. We focus on creating authentic partnerships that align with the artist's identity while delivering meaningful value to both the artist and the brand.",
   },
   {
     icon: BriefcaseBusiness,
     title: "Creative Consulting",
-    description: "Practical guidance for artists, labels and teams navigating the industry.",
+    description: "We provide creative strategy and professional guidance to help artists develop their artistic identity and stand out in a competitive industry. This can include music and project direction, visual identity, content concepts, music video ideas, branding, storytelling, creative campaigns, and overall project development. We help turn creative ideas into strong, marketable projects that connect with audiences.",
   },
 ];
 

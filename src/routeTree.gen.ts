@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ArtistsIndexRouteImport } from './routes/artists/index'
 import { Route as ArtistsSlugRouteImport } from './routes/artists/$slug'
 import { Route as ArtistsSlugStreamRouteImport } from './routes/artists/$slug/stream'
 
@@ -48,6 +49,11 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArtistsIndexRoute = ArtistsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ArtistsRoute,
+} as any)
 const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -67,16 +73,17 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/artists/$slug': typeof ArtistsSlugRouteWithChildren
+  '/artists/': typeof ArtistsIndexRoute
   '/artists/$slug/stream': typeof ArtistsSlugStreamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/artists': typeof ArtistsRouteWithChildren
   '/contact': typeof ContactRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/artists/$slug': typeof ArtistsSlugRouteWithChildren
+  '/artists': typeof ArtistsIndexRoute
   '/artists/$slug/stream': typeof ArtistsSlugStreamRoute
 }
 export interface FileRoutesById {
@@ -88,6 +95,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/artists/$slug': typeof ArtistsSlugRouteWithChildren
+  '/artists/': typeof ArtistsIndexRoute
   '/artists/$slug/stream': typeof ArtistsSlugStreamRoute
 }
 export interface FileRouteTypes {
@@ -100,16 +108,17 @@ export interface FileRouteTypes {
     | '/services'
     | '/shop'
     | '/artists/$slug'
+    | '/artists/'
     | '/artists/$slug/stream'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/artists'
     | '/contact'
     | '/projects'
     | '/services'
     | '/shop'
     | '/artists/$slug'
+    | '/artists'
     | '/artists/$slug/stream'
   id:
     | '__root__'
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/shop'
     | '/artists/$slug'
+    | '/artists/'
     | '/artists/$slug/stream'
   fileRoutesById: FileRoutesById
 }
@@ -176,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/artists/': {
+      id: '/artists/'
+      path: '/'
+      fullPath: '/artists/'
+      preLoaderRoute: typeof ArtistsIndexRouteImport
+      parentRoute: typeof ArtistsRoute
+    }
     '/artists/$slug': {
       id: '/artists/$slug'
       path: '/$slug'
@@ -207,10 +224,12 @@ const ArtistsSlugRouteWithChildren = ArtistsSlugRoute._addFileChildren(
 
 interface ArtistsRouteChildren {
   ArtistsSlugRoute: typeof ArtistsSlugRouteWithChildren
+  ArtistsIndexRoute: typeof ArtistsIndexRoute
 }
 
 const ArtistsRouteChildren: ArtistsRouteChildren = {
   ArtistsSlugRoute: ArtistsSlugRouteWithChildren,
+  ArtistsIndexRoute: ArtistsIndexRoute,
 }
 
 const ArtistsRouteWithChildren =

@@ -1,11 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Globe2, MapPin, Play, Sparkles, Users } from "lucide-react";
-import { useMemo } from "react";
-import { BrandNavigation } from "@/components/landing/BrandOverview";
-import { getArtistBySlug, getRelatedArtists } from "@/data/artists";
+import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
+import { getArtistBySlug } from "@/data/artists";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Instagram, Youtube, Music2, Headphones, PlaySquare } from "lucide-react";
 
 export const Route = createFileRoute("/artists/$slug")({
   validateSearch: () => ({}),
@@ -13,306 +11,169 @@ export const Route = createFileRoute("/artists/$slug")({
     const artist = getArtistBySlug(params.slug);
     return {
       meta: [
-        { title: artist ? `${artist.name} | CBM Records` : "Artist | CBM Records" },
+        { title: artist ? `${artist.name} | Links` : "Artist Links" },
         {
           name: "description",
-          content: artist
-            ? `Learn more about ${artist.name}, their releases, and how CBM Records supports their work.`
-            : "Artist profile for CBM Records.",
+          content: artist ? `Links and releases from ${artist.name}` : "Artist profile links.",
         },
       ],
     };
   },
-  component: ArtistProfile,
+  component: ArtistLinks,
 });
 
-function ArtistProfile() {
+function ArtistLinks() {
   const params = Route.useParams();
   const artist = useMemo(() => getArtistBySlug(params.slug), [params.slug]);
-  const related = useMemo(() => getRelatedArtists(params.slug), [params.slug]);
+  const [email, setEmail] = useState("");
 
   if (!artist) {
     return (
-      <main className="min-h-screen bg-background text-foreground">
-        <BrandNavigation />
-        <div className="mx-auto max-w-3xl px-6 py-40 text-center">
-          <h1 className="text-4xl font-semibold">Artist not found</h1>
-          <p className="mt-4 text-sm text-muted-foreground">
-            We couldn’t find that artist. Please return to the artist directory.
-          </p>
-          <Link to="/artists" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-teal-400">
-            <ArrowRight className="h-4 w-4 rotate-180" />
-            Back to artists
-          </Link>
-        </div>
-      </main>
+      <div className="flex min-h-screen items-center justify-center bg-zinc-900 text-white">
+        Artist not found.
+      </div>
     );
   }
 
+  // Find some icons for social/streaming
+  const getPlatformIcon = (platform: string) => {
+    const p = platform.toLowerCase();
+    if (p.includes("spotify")) return <Headphones className="h-5 w-5" />;
+    if (p.includes("apple")) return <Music2 className="h-5 w-5" />;
+    if (p.includes("instagram")) return <Instagram className="h-5 w-5" />;
+    if (p.includes("youtube")) return <Youtube className="h-5 w-5" />;
+    return <PlaySquare className="h-5 w-5" />;
+  };
+
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <BrandNavigation />
+    <main className="min-h-screen bg-[#1c1c1c] text-white py-12 px-4 sm:px-6">
+      <div className="mx-auto max-w-md w-full space-y-8">
+        
+        {/* Header Section */}
+        <div className="text-center space-y-4">
+          <div className="mx-auto h-24 w-24 overflow-hidden rounded-full ring-2 ring-white/20">
+            <img 
+              src={artist.profileImage} 
+              alt={artist.name} 
+              className="h-full w-full object-cover" 
+            />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold tracking-tight">{artist.name}</h1>
+            <p className="text-sm text-zinc-400 mt-1">Welcome</p>
+          </div>
+        </div>
 
-      <section className="relative overflow-hidden bg-black text-white">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-80"
-          style={{ backgroundImage: `url(${artist.heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32">
-          <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-teal-300">Artist profile</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-tight sm:text-6xl">
-              {artist.name}
-            </h1>
-            <p className="mt-4 text-sm uppercase tracking-[0.35em] text-muted-foreground">
-              {artist.genre} · {artist.country}
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              {artist.verified ? (
-                <Badge className="rounded-full bg-teal-500 px-3 py-1 text-black">Verified</Badge>
-              ) : null}
-              <Link
-                to="/artists"
-                className="text-xs font-semibold uppercase tracking-[0.35em] text-teal-400 transition hover:text-white"
+        {/* Links Section */}
+        <div className="space-y-4">
+          {artist.releases.map((release) => (
+            <a 
+              key={release.id}
+              href="#"
+              className="flex items-center gap-4 rounded-xl bg-white p-2 text-black transition hover:scale-[1.02] hover:bg-zinc-100"
+            >
+              <img 
+                src={release.coverUrl} 
+                alt={release.title}
+                className="h-12 w-12 rounded-lg object-cover"
+              />
+              <span className="font-semibold text-sm">
+                {artist.name} - {release.title} {release.type === "EP" ? "EP" : ""}
+              </span>
+            </a>
+          ))}
+
+          {/* Dummy Video Embeds (to match screenshot style) */}
+          <div className="relative aspect-video overflow-hidden rounded-xl bg-black">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+            <img 
+              src={artist.heroImage} 
+              alt="Video Thumbnail" 
+              className="h-full w-full object-cover opacity-70"
+            />
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4">
+              <div className="text-center w-full absolute top-4 left-4 flex items-center gap-2">
+                <img src={artist.profileImage} className="w-8 h-8 rounded-full" />
+                <div className="text-left">
+                  <p className="text-sm font-bold text-white leading-tight">{artist.name} - Official Music Video</p>
+                </div>
+              </div>
+              <div className="h-12 w-16 bg-red-600 rounded-xl flex items-center justify-center text-white cursor-pointer hover:bg-red-700 transition">
+                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[12px] border-l-white border-b-8 border-b-transparent ml-1"></div>
+              </div>
+            </div>
+            <div className="absolute bottom-2 right-4 z-20">
+              <span className="text-xs font-semibold">Watch on YouTube</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Email Subscription */}
+        <form 
+          onSubmit={(e) => { e.preventDefault(); setEmail(""); alert("Subscribed!"); }} 
+          className="flex flex-col sm:flex-row gap-2"
+        >
+          <Input 
+            type="email" 
+            placeholder="Enter your email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="bg-white text-black placeholder:text-zinc-500 rounded-xl border-0 h-12 px-4 focus-visible:ring-2 focus-visible:ring-teal-500 flex-1"
+            required
+          />
+          <Button 
+            type="submit" 
+            className="h-12 rounded-xl bg-[#2ea4d8] text-white hover:bg-[#2890bd] px-6 font-semibold shrink-0"
+          >
+            Subscribe
+          </Button>
+        </form>
+
+        {/* Streaming Platforms */}
+        <div className="space-y-3">
+          {artist.streamingLinks?.map((link) => {
+            const isSpotify = link.platform.toLowerCase().includes("spotify");
+            
+            return (
+              <a
+                key={link.platform}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className={`flex items-center gap-3 rounded-xl p-4 transition hover:scale-[1.02] ${
+                  isSpotify ? "bg-[#1db954] text-white hover:bg-[#1ed760]" : "bg-white text-black hover:bg-zinc-100"
+                }`}
               >
-                Back to artists
-              </Link>
-            </div>
-            <p className="mt-10 max-w-3xl text-lg leading-8 text-slate-200">
-              {artist.bio}
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              {artist.socialLinks.map((social) => (
-                <a
-                  key={social.platform}
-                  href={social.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-teal-500 hover:text-black"
-                >
-                  {social.platform}
-                </a>
-              ))}
-              {artist.streamingLinks?.length ? (
-                <Button asChild size="sm" className="bg-teal-500 text-black hover:bg-teal-400">
-                  <Link to="/artists/$slug/stream" params={{ slug: artist.slug }}>
-                    Stream music
-                  </Link>
-                </Button>
-              ) : null}
-            </div>
-          </div>
+                {getPlatformIcon(link.platform)}
+                <span className="font-semibold">{isSpotify ? "Follow me on Spotify" : link.platform}</span>
+              </a>
+            );
+          })}
         </div>
-      </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-12 xl:grid-cols-[1.1fr_0.9fr] xl:items-start">
-          <div className="space-y-16">
-            <section>
-              <p className="text-xs uppercase tracking-[0.35em] text-primary">ABOUT THE ARTIST</p>
-              <h2 className="mt-4 text-3xl font-semibold">Artist story</h2>
-              <p className="mt-6 text-base leading-8 text-muted-foreground">{artist.bio}</p>
-            </section>
-
-            <section>
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.35em] text-primary">NEW RELEASES</p>
-                  <h2 className="mt-4 text-3xl font-semibold">Latest releases</h2>
-                </div>
-              </div>
-              <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                {artist.releases.map((release) => (
-                  <article key={release.id} className="overflow-hidden rounded-[2rem] border border-border/60 bg-black text-white">
-                    <img src={release.coverUrl} alt={release.title} className="h-72 w-full object-cover" />
-                    <div className="space-y-4 p-6">
-                      <div className="flex items-center justify-between gap-4">
-                        <p className="text-xs uppercase tracking-[0.35em] text-teal-300">{release.type}</p>
-                        <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{release.year}</p>
-                      </div>
-                      <h3 className="text-2xl font-semibold">{release.title}</h3>
-                      <p className="text-sm text-muted-foreground">{artist.name}</p>
-                      <p className="text-sm leading-7 text-slate-300">{release.description}</p>
-                      <div className="flex flex-wrap items-center gap-3">
-                        <Button asChild size="sm" className="bg-teal-500 text-black hover:bg-teal-400">
-                          <Link to="/projects">View project</Link>
-                        </Button>
-                        <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{release.format}</span>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.35em] text-primary">DISCOGRAPHY</p>
-                  <h2 className="mt-4 text-3xl font-semibold">Body of work</h2>
-                </div>
-                <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  <span>Albums</span>
-                  <span>·</span>
-                  <span>EPs</span>
-                  <span>·</span>
-                  <span>Singles</span>
-                </div>
-              </div>
-              <div className="mt-8 grid gap-6 sm:grid-cols-2">
-                {[...artist.albums, ...artist.eps, ...artist.singles].map((item) => (
-                  <div key={item.id} className="rounded-[2rem] border border-border/60 bg-white p-6">
-                    <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
-                      <img src={item.coverUrl} alt={item.title} className="h-28 w-28 rounded-3xl object-cover" />
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.25em] text-primary">{item.type}</p>
-                        <h3 className="mt-2 text-xl font-semibold">{item.title}</h3>
-                        <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-                        <p className="mt-3 text-xs uppercase tracking-[0.25em] text-muted-foreground">{item.year}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {artist.projects.length > 0 ? (
-              <section>
-                <p className="text-xs uppercase tracking-[0.35em] text-primary">FEATURED PROJECT</p>
-                <h2 className="mt-4 text-3xl font-semibold">Campaign work with CBM</h2>
-                <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                  {artist.projects.map((project) => (
-                    <article key={project.id} className="rounded-[2rem] border border-border/60 bg-card p-6">
-                      <img src={project.image} alt={project.title} className="h-56 w-full rounded-3xl object-cover" />
-                      <div className="mt-6 space-y-4">
-                        <h3 className="text-2xl font-semibold">{project.title}</h3>
-                        <p className="text-sm text-muted-foreground">{project.summary}</p>
-                        <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                          {project.services.map((service) => (
-                            <span key={service} className="rounded-full border border-border/60 bg-background px-3 py-2">
-                              {service}
-                            </span>
-                          ))}
-                        </div>
-                        <Button asChild size="sm" className="bg-black text-white hover:bg-slate-900">
-                          <Link to={`/projects`}>View Project</Link>
-                        </Button>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {artist.services.length > 0 ? (
-              <section>
-                <p className="text-xs uppercase tracking-[0.35em] text-primary">SUPPORTED BY CBM</p>
-                <h2 className="mt-4 text-3xl font-semibold">Services for the artist</h2>
-                <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {artist.services.map((service) => (
-                    <div key={service} className="rounded-3xl border border-border/60 bg-card/80 p-5">
-                      <p className="text-sm font-semibold">{service}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {artist.gallery.length > 0 ? (
-              <section>
-                <p className="text-xs uppercase tracking-[0.35em] text-primary">ARTIST GALLERY</p>
-                <h2 className="mt-4 text-3xl font-semibold">From the artist</h2>
-                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {artist.gallery.map((item) => (
-                    <button
-                      key={item.alt}
-                      type="button"
-                      className="group overflow-hidden rounded-[2rem] bg-black"
-                    >
-                      <img
-                        src={item.src}
-                        alt={item.alt}
-                        className="h-60 w-full object-cover transition duration-500 group-hover:scale-105"
-                      />
-                    </button>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            <section>
-              <p className="text-xs uppercase tracking-[0.35em] text-primary">MEET MORE OF OUR ARTISTS</p>
-              <h2 className="mt-4 text-3xl font-semibold">Related roster artists</h2>
-              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {related.map((relatedArtist) => (
-                  <Link
-                    key={relatedArtist.slug}
-                    to="/artists/$slug" params={{ slug: relatedArtist.slug }}
-                    className="overflow-hidden rounded-[2rem] border border-border/60 bg-white text-black transition hover:-translate-y-1 hover:shadow-2xl"
-                  >
-                    <img src={relatedArtist.profileImage} alt={relatedArtist.name} className="h-56 w-full object-cover" />
-                    <div className="space-y-3 p-6">
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="text-xl font-semibold">{relatedArtist.name}</h3>
-                        {relatedArtist.verified ? (
-                          <Badge className="rounded-full bg-teal-500 px-3 py-1 text-black">Verified</Badge>
-                        ) : null}
-                      </div>
-                      <p className="text-sm uppercase tracking-[0.2em] text-teal-400">
-                        {relatedArtist.genre}
-                      </p>
-                      <p className="text-sm text-muted-foreground">{relatedArtist.country}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            <section className="rounded-[2rem] border border-border/60 bg-black p-10 text-white">
-              <p className="text-xs uppercase tracking-[0.35em] text-teal-300">DISCOVER WHAT'S NEXT</p>
-              <h2 className="mt-4 text-3xl font-semibold">Explore more artists and CBM opportunities.</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Learn more about the roster, the campaigns behind each artist, and how CBM helps creative careers grow.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="bg-teal-500 text-black hover:bg-teal-400">
-                  <Link to="/artists">Explore Artists</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-white/20 text-white hover:border-teal-400 hover:text-teal-400">
-                  <Link to="/contact">Work with CBM</Link>
-                </Button>
-              </div>
-            </section>
-          </div>
-
-          <aside className="space-y-8 rounded-[2rem] border border-border/60 bg-card/80 p-6">
-            <div className="rounded-[2rem] bg-white p-6">
-              <p className="text-xs uppercase tracking-[0.35em] text-primary">Profile overview</p>
-              <div className="mt-6 space-y-4">
-                <div className="rounded-3xl border border-border/60 bg-background/80 p-4">
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">Genre</p>
-                  <p className="mt-2 text-base font-semibold">{artist.genre}</p>
-                </div>
-                <div className="rounded-3xl border border-border/60 bg-background/80 p-4">
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">Country</p>
-                  <p className="mt-2 text-base font-semibold">{artist.country}</p>
-                </div>
-                <div className="rounded-3xl border border-border/60 bg-background/80 p-4">
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">Releases</p>
-                  <p className="mt-2 text-base font-semibold">{artist.releases.length}</p>
-                </div>
-              </div>
-            </div>
-            <div className="rounded-[2rem] border border-border/60 bg-black p-6 text-white">
-              <p className="text-xs uppercase tracking-[0.35em] text-teal-300">Artist note</p>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Artist profiles are editorial and designed to showcase identity, releases, projects and the support provided by CBM Records.
-              </p>
-            </div>
-          </aside>
+        {/* Social Icons Bottom */}
+        <div className="flex items-center justify-center gap-4 pt-6">
+          {artist.socialLinks.map((social) => (
+            <a
+              key={social.platform}
+              href={social.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition hover:bg-white hover:text-black"
+            >
+              {getPlatformIcon(social.platform)}
+              <span className="sr-only">{social.platform}</span>
+            </a>
+          ))}
         </div>
-      </section>
+
+        {/* Footer */}
+        <div className="text-center text-[10px] text-zinc-500 pt-8 pb-4">
+          <p>By using this service you agree to our <a href="#" className="font-bold text-zinc-300">Privacy Policy</a> and <a href="#" className="font-bold text-zinc-300">Terms Of Use</a>.</p>
+          <p className="mt-1"><a href="#" className="font-bold text-zinc-300">Manage</a> your permissions.</p>
+          <p className="mt-1">Report a Problem</p>
+        </div>
+      </div>
     </main>
   );
 }
