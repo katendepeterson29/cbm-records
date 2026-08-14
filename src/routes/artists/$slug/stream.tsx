@@ -56,7 +56,7 @@ const AmazonMusicIcon = (props: IconProps) => (
   </svg>
 );
 
-const PLATFORM_ICONS: Record<string, ComponentType<IconProps>> = {
+export const PLATFORM_ICONS: Record<string, ComponentType<IconProps>> = {
   Spotify: SpotifyIcon,
   "Apple Music": AppleMusicIcon,
   Tidal: TidalIcon,
@@ -68,7 +68,7 @@ const PLATFORM_ICONS: Record<string, ComponentType<IconProps>> = {
   "Amazon Music": AmazonMusicIcon,
 };
 
-const PLATFORM_COLORS: Record<string, string> = {
+export const PLATFORM_COLORS: Record<string, string> = {
   Spotify: "#1DB954",
   "Apple Music": "#FC3C44",
   Tidal: "#00FFFF",

@@ -132,9 +132,9 @@ function Services() {
           <section className="mt-16 rounded-[2rem] border border-black/10 bg-white p-10 shadow-sm">
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center text-dark">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em]">Details</p>
-                <h2 className="mt-4 text-3xl font-semibold">Artist Management & distribution with cultural precision.</h2>
-                <p className="mt-5 text-sm leading-7 text-muted-foreground">
+                <p className="text-xs uppercase tracking-[0.35em] text-black">Details</p>
+                <h2 className="mt-4 text-3xl text-black font-semibold">Artist Management & distribution with cultural precision.</h2>
+                <p className="mt-5 text-sm leading-7 text-black">
                   We help artists navigate the music ecosystem with clarity, from planning release campaigns to managing rights and delivering content to global platforms.
                 </p>
               </div>

@@ -138,13 +138,9 @@ export const ARTISTS: ArtistProfile[] = [
       },
     ],
     projects: [],
-    services: ["Music Distribution", "Marketing Campaign"],
+    services: ["Artist Development", "Marketing Campaign"],
     gallery: [
       { src: epikanoPhoto, alt: "Epikano portrait" },
-      {
-        src: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=900&q=80",
-        alt: "Artist performance imagery",
-      },
       {
         src: galleryPhoto,
         alt: "Creative campaign photography",

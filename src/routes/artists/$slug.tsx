@@ -1,9 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { getArtistBySlug } from "@/data/artists";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Instagram, Youtube, Music2, Headphones, PlaySquare } from "lucide-react";
+import { Instagram, Youtube, Music2, Headphones, PlaySquare, Facebook, Link2, ArrowLeft } from "lucide-react";
+import { PLATFORM_ICONS, PLATFORM_COLORS } from "./$slug/stream";
 
 export const Route = createFileRoute("/artists/$slug")({
   validateSearch: () => ({}),
@@ -25,7 +24,6 @@ export const Route = createFileRoute("/artists/$slug")({
 function ArtistLinks() {
   const params = Route.useParams();
   const artist = useMemo(() => getArtistBySlug(params.slug), [params.slug]);
-  const [email, setEmail] = useState("");
 
   if (!artist) {
     return (
@@ -37,18 +35,40 @@ function ArtistLinks() {
 
   // Find some icons for social/streaming
   const getPlatformIcon = (platform: string) => {
+    const key = Object.keys(PLATFORM_ICONS).find(
+      (k) => k.toLowerCase() === platform.toLowerCase()
+    );
+    if (key) {
+      const Icon = PLATFORM_ICONS[key];
+      return <Icon className="h-5 w-5 shrink-0" />;
+    }
+
     const p = platform.toLowerCase();
-    if (p.includes("spotify")) return <Headphones className="h-5 w-5" />;
-    if (p.includes("apple")) return <Music2 className="h-5 w-5" />;
-    if (p.includes("instagram")) return <Instagram className="h-5 w-5" />;
-    if (p.includes("youtube")) return <Youtube className="h-5 w-5" />;
-    return <PlaySquare className="h-5 w-5" />;
+    if (p.includes("instagram")) return <Instagram className="h-5 w-5 shrink-0" />;
+    if (p.includes("facebook")) return <Facebook className="h-5 w-5 shrink-0" />;
+    return <Link2 className="h-5 w-5 shrink-0" />;
   };
+
+  const youtubeLink = useMemo(() => {
+    return artist.streamingLinks?.find(l => l.platform.toLowerCase() === "youtube" || l.platform.toLowerCase() === "youtube music")?.url 
+      || artist.socialLinks?.find(l => l.platform.toLowerCase() === "youtube")?.url;
+  }, [artist]);
 
   return (
     <main className="min-h-screen bg-[#1c1c1c] text-white py-12 px-4 sm:px-6">
       <div className="mx-auto max-w-md w-full space-y-8">
         
+        {/* Back Button */}
+        <div className="flex justify-start">
+          <Link
+            to="/artists"
+            className="inline-flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white hover:bg-white/10 transition-all duration-200"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Roster
+          </Link>
+        </div>
+
         {/* Header Section */}
         <div className="text-center space-y-4">
           <div className="mx-auto h-24 w-24 overflow-hidden rounded-full ring-2 ring-white/20">
@@ -65,69 +85,37 @@ function ArtistLinks() {
         </div>
 
         {/* Links Section */}
-        <div className="space-y-4">
-          {artist.releases.map((release) => (
+        {youtubeLink && (
+          <div className="space-y-4">
             <a 
-              key={release.id}
-              href="#"
-              className="flex items-center gap-4 rounded-xl bg-white p-2 text-black transition hover:scale-[1.02] hover:bg-zinc-100"
+              href={youtubeLink}
+              target="_blank"
+              rel="noreferrer"
+              className="relative block aspect-video overflow-hidden rounded-xl bg-black transition hover:scale-[1.02] group"
             >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
               <img 
-                src={release.coverUrl} 
-                alt={release.title}
-                className="h-12 w-12 rounded-lg object-cover"
+                src={artist.heroImage} 
+                alt="Video Thumbnail" 
+                className="h-full w-full object-cover opacity-70"
               />
-              <span className="font-semibold text-sm">
-                {artist.name} - {release.title} {release.type === "EP" ? "EP" : ""}
-              </span>
-            </a>
-          ))}
-
-          {/* Dummy Video Embeds (to match screenshot style) */}
-          <div className="relative aspect-video overflow-hidden rounded-xl bg-black">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
-            <img 
-              src={artist.heroImage} 
-              alt="Video Thumbnail" 
-              className="h-full w-full object-cover opacity-70"
-            />
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4">
-              <div className="text-center w-full absolute top-4 left-4 flex items-center gap-2">
-                <img src={artist.profileImage} className="w-8 h-8 rounded-full" />
-                <div className="text-left">
-                  <p className="text-sm font-bold text-white leading-tight">{artist.name} - Official Music Video</p>
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4">
+                <div className="text-center w-full absolute top-4 left-4 flex items-center gap-2">
+                  <img src={artist.profileImage} className="w-8 h-8 rounded-full" />
+                  <div className="text-left">
+                    <p className="text-sm font-bold text-white leading-tight">{artist.name} - Official Music Video</p>
+                  </div>
+                </div>
+                <div className="h-12 w-16 bg-red-600 rounded-xl flex items-center justify-center text-white cursor-pointer group-hover:bg-red-700 transition">
+                  <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[12px] border-l-white border-b-8 border-b-transparent ml-1"></div>
                 </div>
               </div>
-              <div className="h-12 w-16 bg-red-600 rounded-xl flex items-center justify-center text-white cursor-pointer hover:bg-red-700 transition">
-                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[12px] border-l-white border-b-8 border-b-transparent ml-1"></div>
+              <div className="absolute bottom-2 right-4 z-20">
+                <span className="text-xs font-semibold">Watch on YouTube</span>
               </div>
-            </div>
-            <div className="absolute bottom-2 right-4 z-20">
-              <span className="text-xs font-semibold">Watch on YouTube</span>
-            </div>
+            </a>
           </div>
-        </div>
-
-        {/* Email Subscription */}
-        <form 
-          onSubmit={(e) => { e.preventDefault(); setEmail(""); alert("Subscribed!"); }} 
-          className="flex flex-col sm:flex-row gap-2"
-        >
-          <Input 
-            type="email" 
-            placeholder="Enter your email" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-white text-black placeholder:text-zinc-500 rounded-xl border-0 h-12 px-4 focus-visible:ring-2 focus-visible:ring-teal-500 flex-1"
-            required
-          />
-          <Button 
-            type="submit" 
-            className="h-12 rounded-xl bg-[#2ea4d8] text-white hover:bg-[#2890bd] px-6 font-semibold shrink-0"
-          >
-            Subscribe
-          </Button>
-        </form>
+        )}
 
         {/* Streaming Platforms */}
         <div className="space-y-3">
