@@ -67,18 +67,20 @@ export const ARTISTS: ArtistProfile[] = [
     genre: "Afro Soul",
     country: "Uganda",
     bio:
-      "Epikano is a cinematic Afro Soul artist from Uganda, building premium music through textured production and evocative storytelling.",
+      "Epikano is an Afro Soul artist from Uganda, building premium music through textured production and evocative storytelling.",
     shortBio: "Cinematic Afro Soul artist from Uganda.",
     verified: true,
     socialLinks: [
-      { platform: "Instagram", url: "https://instagram.com/epikano" },
-      { platform: "TikTok", url: "https://tiktok.com/@epikano" },
-      { platform: "Spotify", url: "https://spotify.com/artist/epikano" },
+      { platform: "Instagram", url: "https://www.instagram.com/epikano_?igsh=YWYzdXNmeTZibDF4&utm_source=qr" },
+      { platform: "TikTok", url: "https://www.tiktok.com/@epikano_?_r=1&_t=ZS-98iUsBN4dX7" },
+      { platform: "Facebook", url: "https://www.facebook.com/share/19TTNkFkKh/?mibextid=wwXIfr" },
+      { platform: "Spotify", url: "https://open.spotify.com/artist/7hV10ncFphmSxY43k7kQUC?si=K_VkGIlTTBupUtrNdoPGiQ&utm_source=whatsapp" },
     ],
     streamingLinks: [
-      { platform: "Spotify", url: "https://open.spotify.com/artist/epikano" },
-      { platform: "Apple Music", url: "https://music.apple.com/artist/epikano" },
-      { platform: "Tidal", url: "https://tidal.com/browse/artist/epikano" },
+      { platform: "Spotify", url: "https://open.spotify.com/artist/7hV10ncFphmSxY43k7kQUC?si=K_VkGIlTTBupUtrNdoPGiQ&utm_source=whatsapp" },
+      { platform: "Apple Music", url: "https://music.apple.com/ug/artist/epikano/1788758706" },
+      { platform: "YouTube", url: "https://youtube.com/@itsepikano?si=GU2Fumg8-ylF6NHH" },
+      { platform: "Boomplay", url: "https://www.boomplay.com/artists/EQLP32mULJYxlSuakJfzNTt4?srModel=COPYLINK&srList=WEB&share_content=artist&share_channel=copylink&share_platform=web" },
     ],
     releases: [
       {
