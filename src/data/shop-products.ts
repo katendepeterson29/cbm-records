@@ -1,9 +1,9 @@
-import bottleImage from "../../assets/shop/bottle.jpeg";
-import cupImage from "../../assets/shop/cup.jpeg";
-import hatImage from "../../assets/shop/hat.jpeg";
-import hoodieImage from "../../assets/shop/hoodie.jpeg";
-import leatherJacketImage from "../../assets/shop/leather jacket.jpeg";
-import shirtImage from "../../assets/shop/shirt.jpeg";
+const bottleImage = "/assets/shop/bottle.jpeg";
+const cupImage = "/assets/shop/cup.jpeg";
+const hatImage = "/assets/shop/hat.jpeg";
+const hoodieImage = "/assets/shop/hoodie.jpeg";
+const leatherJacketImage = "/assets/shop/leather jacket.jpeg";
+const shirtImage = "/assets/shop/shirt.jpeg";
 
 export type ShopCategory =
   | "All"

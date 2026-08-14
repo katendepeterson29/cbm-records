@@ -7,7 +7,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Globe2, ListMusic, Megaphone, Newspaper, Sparkles, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
-import bannerProjects from "/assets/banners/banner1.jpeg";
+const bannerProjects = "/assets/banners/banner1.jpeg";
 
 const STATUS_STYLES: Record<string, string> = {
   Released: "border-border/60 bg-background/70 text-muted-foreground",

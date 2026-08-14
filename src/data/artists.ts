@@ -1,6 +1,6 @@
-import epikanoPhoto from "../../assets/artist/IMG_1004.JPG.jpeg";
-import juiceJayPhoto from "../../assets/artist/logo1.jpeg";
-import galleryPhoto from "../../assets/artist/IMG_1011.JPG.jpeg";
+const epikanoPhoto = "/assets/artist/IMG_1004.JPG.jpeg";
+const juiceJayPhoto = "/assets/artist/logo1.jpeg";
+const galleryPhoto = "/assets/artist/IMG_1011.JPG.jpeg";
 
 export type ArtistRelease = {
   id: string;

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SocialIcon } from "@/components/landing/SocialIcon";
-import mainLogo from "../../../assets/logo/logo5.png";
+const mainLogo = "/assets/logo/logo5.png";
 
 const FOOTER_LINKS = [
   { label: "Home", to: "/" },

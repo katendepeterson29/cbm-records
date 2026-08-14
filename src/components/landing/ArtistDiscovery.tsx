@@ -39,10 +39,10 @@ import { Link } from "@tanstack/react-router";
 import { ARTISTS, ARTIST_COUNTRIES, ARTIST_GENRES, getAllArtistReleases, type ArtistProfile, type ArtistRelease } from "@/data/artists";
 import { ArtistProfileModal } from "@/components/landing/ArtistProfileModal";
 import { BrandNavigation, BrandOverview } from "@/components/landing/BrandOverview";
-import epikanoCarouselImage from "../../../assets/carousel/epikano.jpg.jpeg";
-import jjCarouselImage from "../../../assets/carousel/jj.jpg.jpeg";
-import bannerContact from "../../../assets/banners/banner3.jpeg"
-import bannerArtist from "../../../assets/banners/banner2.jpeg"
+const epikanoCarouselImage = "/assets/carousel/epikano.jpg.jpeg";
+const jjCarouselImage = "/assets/carousel/jj.jpg.jpeg";
+const bannerContact = "/assets/banners/banner3.jpeg";
+const bannerArtist = "/assets/banners/banner2.jpeg";
 
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

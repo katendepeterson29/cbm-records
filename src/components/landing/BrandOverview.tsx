@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useRouter } from "@tanstack/react-router";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import mainLogo from "../../../assets/logo/logo5.png";
+const mainLogo = "/assets/logo/logo5.png";
 
 export function BrandNavigation() {
   const [mobileOpen, setMobileOpen] = useState(false);

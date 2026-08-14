@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Link } from "@tanstack/react-router";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
-import bannerContact from "/assets/banners/banner4.jpeg";
+const bannerContact = "/assets/banners/banner4.jpeg";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
-import bannerArtists from "/assets/banners/banner2.jpeg";
+const bannerArtists = "/assets/banners/banner2.jpeg";
 import { ARTISTS, ARTIST_GENRES, ARTIST_COUNTRIES } from "@/data/artists";
 import { Input } from "@/components/ui/input";
 import { useMemo, useState } from "react";

@@ -3,7 +3,7 @@ import { ArrowRight, BriefcaseBusiness, Handshake, Megaphone, Music2, ShieldChec
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
-import bannerServices from "/assets/banners/banner3.jpeg";
+const bannerServices = "/assets/banners/banner3.jpeg";
 
 
 const SERVICE_CARDS = [
