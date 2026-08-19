@@ -118,7 +118,7 @@ function Contact() {
               </div>
             ) : null}
 
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 text-black sm:grid-cols-2">
               <div>
                 <Label htmlFor="name">Full Name</Label>
                 <Input
@@ -142,7 +142,7 @@ function Contact() {
               </div>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 text-black sm:grid-cols-2">
               <div>
                 <Label htmlFor="phone">Phone</Label>
                 <Input
@@ -177,7 +177,7 @@ function Contact() {
               </select>
             </div>
 
-            <div>
+            <div className="text-black">
               <Label htmlFor="message">Message</Label>
               <Textarea
                 id="message"
