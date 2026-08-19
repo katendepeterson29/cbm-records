@@ -1,7 +1,7 @@
 import type { ImgHTMLAttributes } from "react";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
-const TIKTOK_IMAGE = "/public/assets/logo/tiktok.png";
-const X_ICON = "/public/assets/logo/twitter.png";
+const TIKTOK_IMAGE = "/assets/logo/tiktok.png";
+const X_ICON = "/assets/logo/twitter.png";
 
 
 function TikTokIcon(props: ImgHTMLAttributes<HTMLImageElement>) {
