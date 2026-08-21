@@ -51,15 +51,10 @@ function Shop() {
                   <span>{product.availability}</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">{product.name}</h3>
+                  <h3 className="text-xl text-black font-semibold">{product.name}</h3>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    {product.salePrice ? (
-                      <p className="text-base font-semibold  line-through text-black">
-                        ${product.price}
-                      </p>
-                    ) : null}
                     <p className="text-2xl font-semibold text-black">
                       ${product.salePrice ?? product.price}
                     </p>
