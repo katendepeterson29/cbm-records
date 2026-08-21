@@ -46,7 +46,6 @@ export const shopProducts: ShopProduct[] = [
     name: "CBM Records Logo T-Shirt",
     category: "Shirts",
     price: 42,
-    salePrice: 34,
     description:
       "A premium black cotton tee with a crisp white CBM Records logo. Clean, minimal, wearable every day.",
     images: [shirtImage],
@@ -67,7 +66,7 @@ export const shopProducts: ShopProduct[] = [
     id: "shop_hoodie_001",
     name: "CBM Records Classic Hoodie",
     category: "Hoodies",
-    price: 88,
+    price: 60,
     description:
       "Soft brushed fleece hoodie with a tonal CBM insignia. Designed for layering on stage, in studio, or on the road.",
     images: [hoodieImage],
@@ -88,7 +87,7 @@ export const shopProducts: ShopProduct[] = [
     id: "shop_leather_jacket_001",
     name: "CBM Records Leather Rider Jacket",
     category: "Leather Jackets",
-    price: 320,
+    price: 100,
     description:
       "Premium black leather jacket with subtle CBM branding on the chest and sleeve. Built for a refined street-music wardrobe.",
     images: [leatherJacketImage],
@@ -109,7 +108,7 @@ export const shopProducts: ShopProduct[] = [
     id: "shop_cup_001",
     name: "CBM Records Coffee Cup",
     category: "Cups",
-    price: 22,
+    price: 15,
     description:
       "Glossy black ceramic cup with a white CBM signature logo. The perfect studio companion for morning and late-night sessions.",
     images: [cupImage],
@@ -129,7 +128,7 @@ export const shopProducts: ShopProduct[] = [
     id: "shop_bottle_001",
     name: "CBM Records Performance Water Bottle",
     category: "Water Bottles",
-    price: 28,
+    price: 13,
     description:
       "Matte black performance bottle with teal CBM branding, designed for travel, studio sessions, and festival days.",
     images: [bottleImage],
@@ -150,7 +149,7 @@ export const shopProducts: ShopProduct[] = [
     id: "shop_hat_001",
     name: "CBM Records Signature Cap",
     category: "Headwear",
-    price: 36,
+    price: 25,
     description:
       "Structured black cap with tonal CBM embroidery and a clean silhouette. A refined finishing piece for everyday artist style.",
     images: [hatImage],
