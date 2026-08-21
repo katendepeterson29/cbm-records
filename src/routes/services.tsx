@@ -3,6 +3,7 @@ import { ArrowRight, BriefcaseBusiness, Handshake, Megaphone, Music2, ShieldChec
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { BrandNavigation } from "@/components/landing/BrandOverview";
+import { Card } from "@/components/ui/card";
 const bannerServices = "/assets/banners/banner3.jpeg";
 
 
@@ -13,9 +14,9 @@ const SERVICE_CARDS = [
     description:
       "We provide comprehensive career support to artists, helping them navigate the music industry and make informed professional decisions. Our services include career planning, opportunity management, project coordination, performance support, brand development, and connecting artists with relevant industry partners. Our goal is to help artists build sustainable careers and maximize their creative and commercial potential.",
     palette: {
-      card: "border-teal-200/80 bg-gradient-to-br from-teal-50 via-white to-cyan-50",
-      icon: "bg-teal-500/10 text-teal-700",
-      link: "text-teal-700",
+      card: "bg-blue-500 text-white border-teal-200",
+      icon: "bg-teal-600 text-white",
+      link: "text-black-700",
     },
   },
   {
@@ -24,9 +25,9 @@ const SERVICE_CARDS = [
     description:
       "We help artists and music creators take their music to audiences around the world by distributing their releases across major digital streaming platforms and online music stores. We support the release process, metadata management, delivery, and monitoring of music performance, ensuring that artists' work is professionally presented and accessible to listeners across different markets.",
     palette: {
-      card: "border-violet-200/80 bg-gradient-to-br from-violet-50 via-white to-indigo-50",
-      icon: "bg-violet-500/10 text-violet-700",
-      link: "text-violet-700",
+      icon: "bg-zinc-800 text-white",
+      card: "bg-violet-800 border-violet-200",
+      link: "text-black-700",
     },
   },
   {
@@ -35,9 +36,9 @@ const SERVICE_CARDS = [
     description:
       "We help creators protect, manage, and monetize their intellectual property. Our services cover copyright administration, music publishing, licensing, royalty tracking and collection, and rights management. We work to ensure that artists, songwriters, and other rights holders receive the income and recognition they are entitled to from the use of their creative works.",
     palette: {
-      card: "border-amber-200/80 bg-gradient-to-br from-amber-50 via-white to-yellow-50",
-      icon: "bg-amber-500/10 text-amber-700",
-      link: "text-amber-700",
+      card: "bg-lime-800 border-amber-200",
+      icon: "bg-amber-600 text-white",
+      link: "text-black-700",
     },
   },
   {
@@ -45,9 +46,9 @@ const SERVICE_CARDS = [
     title: "Marketing & Promotion",
     description: "We create strategic marketing and promotional campaigns designed to increase an artist's visibility, grow their audience, and strengthen their presence in the music market. This includes digital marketing, social media campaigns, media promotion, playlist pitching, content promotion, publicity, release campaigns, and other targeted promotional activities tailored to each project.",
     palette: {
-      card: "border-rose-200/80 bg-gradient-to-br from-rose-50 via-white to-pink-50",
-      icon: "bg-rose-500/10 text-rose-700",
-      link: "text-rose-700",
+      card: "bg-fuchsia-800 border-rose-200",
+      icon: "bg-rose-600 text-white",
+      link: "text-black-700",
     },
   },
   {
@@ -55,9 +56,9 @@ const SERVICE_CARDS = [
     title: "Brand Partnerships",
     description: "We create opportunities for artists to collaborate with brands, businesses, organizations, and other commercial partners. These partnerships may include endorsements, sponsorships, branded content, events, campaigns, product collaborations, and ambassador opportunities. We focus on creating authentic partnerships that align with the artist's identity while delivering meaningful value to both the artist and the brand.",
     palette: {
-      card: "border-emerald-200/80 bg-gradient-to-br from-emerald-50 via-white to-lime-50",
-      icon: "bg-emerald-500/10 text-emerald-700",
-      link: "text-emerald-700",
+      card: "bg-emerald-800 border-emerald-200",
+      icon: "bg-emerald-600 text-white",
+      link: "text-black-700",
     },
   },
   {
@@ -65,9 +66,9 @@ const SERVICE_CARDS = [
     title: "Creative Consulting",
     description: "We provide creative strategy and professional guidance to help artists develop their artistic identity and stand out in a competitive industry. This can include music and project direction, visual identity, content concepts, music video ideas, branding, storytelling, creative campaigns, and overall project development. We help turn creative ideas into strong, marketable projects that connect with audiences.",
     palette: {
-      card: "border-slate-200/80 bg-gradient-to-br from-slate-50 via-white to-zinc-100",
-      icon: "bg-slate-500/10 text-slate-700",
-      link: "text-slate-700",
+      card: "bg-slate-800 border-slate-300",
+      icon: "bg-slate-700 text-white",
+      link: "text-black-700",
     },
   },
 ];
@@ -115,8 +116,8 @@ function Services() {
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${palette.icon}`}>
                   <Icon className="h-5 w-5" />
                 </div>
-                <h2 className="mt-6 text-2xl font-semibold text-slate-900">{title}</h2>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{description}</p>
+                <h2 className="mt-6 text-2xl font-semibold text-white-900">{title}</h2>
+                <p className="mt-4 text-sm leading-7 text-white-600">{description}</p>
                 <Link
                   to="/contact"
                   className={`mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] ${palette.link}`}
