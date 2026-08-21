@@ -43,7 +43,7 @@ export interface ShopProduct {
 export const shopProducts: ShopProduct[] = [
   {
     id: "shop_shirt_001",
-    name: "CBM Records Logo T-Shirt",
+    name: "T-Shirt",
     category: "Shirts",
     price: 42,
     description:
@@ -64,7 +64,7 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     id: "shop_hoodie_001",
-    name: "CBM Records Classic Hoodie",
+    name: "Classic Hoodie",
     category: "Hoodies",
     price: 60,
     description:
@@ -85,7 +85,7 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     id: "shop_leather_jacket_001",
-    name: "CBM Records Leather Rider Jacket",
+    name: "Leather Rider Jacket",
     category: "Leather Jackets",
     price: 100,
     description:
@@ -106,7 +106,7 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     id: "shop_cup_001",
-    name: "CBM Records Coffee Cup",
+    name: "Coffee Cup",
     category: "Cups",
     price: 15,
     description:
@@ -126,7 +126,7 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     id: "shop_bottle_001",
-    name: "CBM Records Performance Water Bottle",
+    name: "Performance Water Bottle",
     category: "Water Bottles",
     price: 13,
     description:
@@ -147,7 +147,7 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     id: "shop_hat_001",
-    name: "CBM Records Signature Cap",
+    name: "Signature Cap",
     category: "Headwear",
     price: 25,
     description:
